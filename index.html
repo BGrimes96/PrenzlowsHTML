@@ -26,15 +26,11 @@
 
     /* Slogan ribbon */
     .slogan-wrap{display:flex;align-items:center;justify-content:center;gap:12px;margin:10px 18px 0}
-    .slogan-wrap .rule{
-      height:2px;
-      background: var(--pm-red); /* red lines (was gray) */
-      flex:1; max-width:260px
-    }
+    .slogan-wrap .rule{height:2px;background:var(--pm-red);flex:1;max-width:260px}
     .slogan{
       font-weight:900; letter-spacing:.06em; text-transform:uppercase;
       font-size:clamp(12px,1.5vw,14px); color:var(--pm-red);
-      padding:6px 12px; border:2px solid var(--pm-red); border-radius:999px; white-space:nowrap
+      padding:6px 12px; border:2px solid var(--pm-red); border-radius:999px; white-space:nowrap;
     }
 
     /* Primary nav (for the included navigation.html) */
@@ -58,8 +54,8 @@
     .card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:20px}
     .card h2{margin:0 0 12px;color:var(--pm-red);font-size:clamp(24px,4.4vw,36px);font-weight:1000}
     .muted{color:#6b7280}
-    .section[aria-label="What We Do"] .card{ text-align:center; } /* center text */
-    .actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px; justify-content:center; } /* center buttons */
+    .section[aria-label="What We Do"] .card{ text-align:center; }
+    .actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;justify-content:center;}
 
     /* Bigger buttons */
     .btn-red, .btn-ghost{
@@ -73,19 +69,27 @@
 
     /* CTA split with invisible content blocks (contain text) */
     .cta{background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%)}
-    .cta .inner{ display:grid; gap:20px; grid-template-columns:1fr; }
-    @media(min-width:960px){ .cta .inner{grid-template-columns:1.2fr .8fr} }
+    .cta .inner{display:grid;gap:20px;grid-template-columns:1fr;}
+    @media(min-width:960px){.cta .inner{grid-template-columns:1.2fr .8fr}}
     .cta-left{color:#fff}
-    .cta-left .block{
-      max-width:720px; margin-left:0; /* invisible container on the red side */
-    }
-    .cta-left h2{margin:0 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000}
-    .cta-right{ color:var(--ink); }
-    .cta-right .block{
-      max-width:520px; margin-left:auto; /* invisible container on the white side */
-    }
+    .cta-right{color:var(--ink)}
 
-    /* Footer (kept simple) */
+    /* TRUE invisible, centered content boxes on both sides */
+    .cta-left .block, .cta-right .block{
+      max-width:720px;
+      margin:0 auto;        /* centers the box */
+      text-align:center;    /* centers text + buttons */
+    }
+    .cta-right .block{max-width:520px}
+
+    /* ensure button rows center */
+    .cta .actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+
+    /* right-side button red on white */
+    .cta .btn-red{background:var(--pm-red);color:#fff;border:2px solid var(--pm-red-dark)}
+    .cta .btn-red:hover{background:var(--pm-red-dark)}
+
+    /* Footer */
     footer{background:#111827;color:#e5e7eb}
     .footer-inner{max-width:var(--max);margin:0 auto;padding:28px 18px;display:grid;gap:24px;grid-template-columns:1fr}
     @media(min-width:900px){.footer-inner{grid-template-columns: 1.2fr 1fr 1fr}}
@@ -96,39 +100,29 @@
 
     /* Bottom-right slide-out (USDA) */
     .usda-pop{
-      position: fixed; right:16px; bottom:16px; z-index: 9999;
-      width: min(92vw, 360px);
-      background:#fff; border:2px solid var(--pm-red); border-radius:14px;
-      box-shadow: 0 10px 30px rgba(16,24,40,.18);
-      transform: translateY(20px); opacity:0; pointer-events:none;
-      transition: transform .25s ease, opacity .25s ease;
+      position:fixed;right:16px;bottom:16px;z-index:9999;
+      width:min(92vw,360px);
+      background:#fff;border:2px solid var(--pm-red);border-radius:14px;
+      box-shadow:0 10px 30px rgba(16,24,40,.18);
+      transform:translateY(20px);opacity:0;pointer-events:none;
+      transition:transform .25s ease,opacity .25s ease;
       overflow:hidden;
     }
-    .usda-pop.show{ transform: translateY(0); opacity:1; pointer-events:auto; }
-    .usda-head{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:10px 12px; background:#fff; border-bottom:1px solid #f1f5f9;
-    }
-    .usda-title{
-      margin:0; font-weight:1000; font-size:14px; letter-spacing:.02em; color:var(--pm-red);
-    }
-    .usda-close{
-      background:transparent; border:0; cursor:pointer; font-size:18px; line-height:1; padding:4px 6px; color:#475569;
-    }
-    .usda-body{ padding:12px; }
-    .usda-images{ display:flex; gap:8px; align-items:center; justify-content:flex-start; margin-bottom:8px; }
-    .usda-images img{ width:calc(50% - 4px); border:1px solid #f1f5f9; border-radius:8px; }
-    .usda-text{ font-size:14px; color:#334155; }
-    .usda-text strong{ color:#0f172a; }
-    .usda-actions{ display:flex; justify-content:flex-end; padding:0 12px 12px; }
-    .usda-ok{
-      background:#fff; color:var(--pm-red); border:2px solid var(--pm-red); font-weight:1000;
-      padding:8px 12px; border-radius:10px; cursor:pointer;
-    }
-    .usda-ok:hover{ background:var(--pm-red); color:#fff; }
+    .usda-pop.show{transform:translateY(0);opacity:1;pointer-events:auto}
+    .usda-head{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#fff;border-bottom:1px solid #f1f5f9}
+    .usda-title{margin:0;font-weight:1000;font-size:14px;letter-spacing:.02em;color:var(--pm-red)}
+    .usda-close{background:transparent;border:0;cursor:pointer;font-size:18px;line-height:1;padding:4px 6px;color:#475569}
+    .usda-body{padding:12px}
+    .usda-images{display:flex;gap:8px;align-items:center;justify-content:flex-start;margin-bottom:8px}
+    .usda-images img{width:calc(50% - 4px);border:1px solid #f1f5f9;border-radius:8px}
+    .usda-text{font-size:14px;color:#334155}
+    .usda-text strong{color:#0f172a}
+    .usda-actions{display:flex;justify-content:flex-end;padding:0 12px 12px}
+    .usda-ok{background:#fff;color:var(--pm-red);border:2px solid var(--pm-red);font-weight:1000;padding:8px 12px;border-radius:10px;cursor:pointer}
+    .usda-ok:hover{background:var(--pm-red);color:#fff}
     @media (max-width:420px){
-      .usda-images img{ width:100%; }
-      .usda-images{ flex-direction:column; }
+      .usda-images img{width:100%}
+      .usda-images{flex-direction:column}
     }
   </style>
 </head>
@@ -138,7 +132,6 @@
   <header class="site-header" role="banner">
     <div class="header-inner">
       <div class="brand">
-        <!-- change to /assets/prenzlowmeats.png if your file lives there -->
         <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920">
       </div>
       <div class="slogan-wrap" aria-label="Brand slogan">
@@ -174,7 +167,7 @@
     </div>
   </section>
 
-  <!-- CTA split with invisible blocks + adjusted buttons -->
+  <!-- CTA split with centered invisible blocks + right red button -->
   <section class="section cta" role="region" aria-label="Order CTA">
     <div class="inner">
       <div class="cta-left">
@@ -182,23 +175,24 @@
           <h2>Ready to Start an Order?</h2>
           <p>Locker packs and custom cuts—tell us what you’re cooking and we’ll help with portions.</p>
           <div class="actions">
-            <!-- Removed Order Here per request -->
             <a class="btn-ghost" href="/faq/">Read the FAQ</a>
-            <a class="btn-ghost" href="/contact-us/">Contact Us</a> <!-- leads to contact page -->
+            <a class="btn-ghost" href="/contact-us/">Contact Us</a>
           </div>
         </div>
       </div>
       <div class="cta-right">
         <div class="block">
           <h2 style="color:var(--pm-red);margin-top:0">Questions?</h2>
-          <p>We’re happy to help with cuts, quantities, pickup details, and timing.</p>
-          <p><a class="btn-outline" href="/contact-us/">Get in touch</a></p>
+        <p>We’re happy to help with cuts, quantities, pickup details, and timing.</p>
+          <div class="actions">
+            <a class="btn-red" href="/contact-us/">Get in touch</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer (you can swap this block for data-include="/sitemap-footer.html" if you prefer the component) -->
+  <!-- Footer (keep or swap for data-include="/sitemap-footer.html") -->
   <footer role="contentinfo">
     <div class="footer-inner">
       <section>
@@ -254,7 +248,7 @@
   </aside>
 
   <script>
-    // Inline include loader: replaces any [data-include] with fetched HTML
+    // Include loader for [data-include]
     (function () {
       async function inject(selector) {
         const nodes = document.querySelectorAll(selector);
@@ -277,24 +271,15 @@
     // Year
     (function(){ const y=document.getElementById('y'); if(y) y.textContent=new Date().getFullYear(); })();
 
-    // USDA slide-out: show after a short delay; close with X or "Good To Know"
+    // USDA slide-out
     (function(){
       const pop = document.getElementById('usdaPop');
       const closeX = document.getElementById('usdaCloseX');
       const good = document.getElementById('usdaGood');
-
-      // Only show once per session (optional). Comment out if you want it every load.
       const KEY = 'usda_pop_hidden';
       if (sessionStorage.getItem(KEY) === '1') return;
-
-      // show after small delay to avoid jank
       setTimeout(()=> pop && pop.classList.add('show'), 600);
-
-      function hide(){
-        if (!pop) return;
-        pop.classList.remove('show');
-        sessionStorage.setItem(KEY, '1');
-      }
+      function hide(){ if (!pop) return; pop.classList.remove('show'); sessionStorage.setItem(KEY,'1'); }
       closeX && closeX.addEventListener('click', hide);
       good && good.addEventListener('click', hide);
     })();
