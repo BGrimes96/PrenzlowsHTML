@@ -3,7 +3,7 @@
   --ink:#0f172a; --ink-on-red:#ffffff; --muted:#6b7280; --surface:#ffffff; --max:1200px;
 }
 
-/* base */
+/* ===== Base ===== */
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
@@ -15,13 +15,57 @@ body{
 a{color:inherit;text-decoration:none}
 img{max-width:100%;height:auto;display:block}
 
-/* shared sections */
+/* ===== Shared section scaffold ===== */
 .section{width:100%}
-.section .inner{max-width:var(--max);margin:0 auto;padding:clamp(18px,4vw,48px) 18px}
-.section.red{background:var(--pm-red);color:var(--ink-on-red)}
-.section.white{background:#fff;color:var(--ink)}
+.section .inner{max-width:var(--max);margin:0 auto;padding:clamp(20px,4vw,48px) 18px}
 
-/* (optional) nav look you’ll reuse later */
+/* ===== Top Header (white, bigger) ===== */
+.section.header{
+  background:#fff; color:var(--ink);
+  border-bottom:1px solid #e5e7eb;
+}
+.section.header .inner{
+  padding-block: clamp(48px,10vw,120px); /* make this feel taller */
+}
+
+/* ===== Body sections ===== */
+.section.body-red{
+  background:var(--pm-red);
+  color:var(--ink-on-red);
+}
+.section.body-white{
+  background:#fff;
+  color:var(--ink);
+}
+
+/* ===== Final 50/50 split (red | white) ===== */
+.section.split-50{
+  /* paint the background: left red, right white */
+  background: linear-gradient(to right, var(--pm-red) 0 50%, #ffffff 50% 100%);
+}
+.section.split-50 .inner{
+  display:grid; gap:20px;
+  grid-template-columns:1fr;
+}
+@media (min-width:960px){
+  .section.split-50 .inner{ grid-template-columns:1fr 1fr }
+}
+
+/* Optional helpers for contrasting text inside the split cols */
+.split-col{
+  padding: clamp(16px,3.5vw,28px);
+  border-radius:12px; /* softens on small screens */
+}
+.split-col.red{
+  background:transparent; /* background is already red on left side */
+  color:#fff;
+}
+.split-col.white{
+  background:transparent; /* background is white on right side */
+  color:var(--ink);
+}
+
+/* ===== Nav (kept from before) ===== */
 nav.primary{border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;background:#fff}
 nav.primary .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
 .nav-link{font-weight:900;padding:10px 4px;position:relative;min-height:44px;display:flex;align-items:center}
@@ -29,7 +73,7 @@ nav.primary .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:f
 .btn-outline{color:var(--pm-red);border:2px solid var(--pm-red);padding:10px 16px;border-radius:10px;font-weight:1000;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
 .btn-outline:hover{background:var(--pm-red);color:#fff}
 
-/* (optional) sitemap footer basics */
+/* ===== Footer (sitemap-only basics) ===== */
 footer{background:#111827;color:#e5e7eb}
 .footer-inner{max-width:var(--max);margin:0 auto;padding:28px 18px}
 .footer-inner ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
