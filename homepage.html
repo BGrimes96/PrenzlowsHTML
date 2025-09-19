@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Prenzlow Meats — Red/White Theme (GrandpaToms-style nav)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- AdSense (once per page) -->
+  <meta name="google-adsense-account" content="ca-pub-3285877386502869" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3285877386502869" crossorigin="anonymous"></script>
+
+  <!-- Snipcart -->
+  <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.7.1/default/snipcart.css" />
+  <script async src="https://cdn.snipcart.com/themes/v3.7.1/default/snipcart.js"></script>
+
+  <style>
+    :root{
+      /* keep your colors */
+      --pm-red:#c41a1a; --pm-red-dark:#9e1414;
+      --ink:#0f172a; --ink-on-red:#ffffff; --muted:#6b7280; --surface:#ffffff;
+      --max:1200px;
+    }
+    *{box-sizing:border-box}
+    html{ -webkit-text-size-adjust:100% }
+    html,body{margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#fff;color:var(--ink);line-height:1.6}
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
+
+    /* ===== Utility bar (Search · Sign in/Register · Cart) ===== */
+    .utility{
+      background:#fff;border-bottom:1px solid #e5e7eb;color:var(--ink);
+    }
+    .utility .inner{
+      max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+    }
+    .util-left{display:flex;align-items:center;gap:10px}
+    .search{
+      display:flex;align-items:center;gap:8px;border:1px solid #e5e7eb;border-radius:999px;padding:6px 10px;min-height:36px;background:#fff;
+    }
+    .search input{
+      border:0;outline:0;min-width:220px;font:inherit;color:inherit;background:transparent;
+    }
+    .util-right{display:flex;align-items:center;gap:14px;font-weight:700}
+    .util-link{padding:6px 4px;min-height:36px;display:flex;align-items:center}
+
+    /* ===== Header / Brand ===== */
+    header.site-header{ background:#fff }
+    .header-inner{ max-width:var(--max); margin:0 auto; padding:16px 18px 10px }
+    .brand{ display:flex; align-items:center; justify-content:center; }
+    .brand img{ width:min(520px,92%) }
+
+    /* ===== Primary nav (GrandpaToms order) ===== */
+    nav.primary{
+      border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;
+      background:#fff;
+    }
+    .primary .inner{
+      max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:18px;justify-content:center;
+    }
+    .nav-link{ font-weight:900; padding:10px 4px; position:relative; min-height:44px; display:flex; align-items:center }
+    .nav-link:hover::after{ content:""; position:absolute; left:0; right:0; bottom:-4px; height:2px; background:currentColor }
+    .btn-outline{
+      color:var(--pm-red); border:2px solid var(--pm-red);
+      padding:10px 16px; border-radius:10px; font-weight:1000; min-height:44px; display:inline-flex; align-items:center; justify-content:center;
+    }
+    .btn-outline:hover{ background:var(--pm-red); color:#fff }
+
+    /* ===== Sections ===== */
+    .section{ width:100% }
+    .section .inner{ max-width:var(--max); margin:0 auto; padding:clamp(18px,4vw,48px) 18px }
+
+    /* ===== Hero (unchanged colors) ===== */
+    .hero{ background:var(--pm-red); color:var(--ink-on-red); text-align:center; padding:clamp(26px,6vw,70px) 0 }
+    .hero h1{ margin:0 0 10px; font-size:clamp(28px,5vw,56px); letter-spacing:.3px; font-weight:1000 }
+    .hero p{ margin:8px auto 26px; font-size:clamp(16px,2.1vw,19px); max-width:900px; opacity:.98 }
+
+    .hero-ad{ max-width:1000px; margin:0 auto 10px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.35); border-radius:12px; padding:0 8px }
+    .ad-reserve{ min-height:280px; display:flex; align-items:center; justify-content:center }
+    @media (max-width:720px){ .ad-reserve{ min-height:250px } }
+
+    /* ===== Product grid (unchanged) ===== */
+    .product-grid{ display:grid; gap:18px; grid-template-columns:repeat(2,minmax(0,1fr)); justify-items:center; margin-top:6px }
+    @media (min-width:920px){ .product-grid{ grid-template-columns:repeat(4,minmax(0,1fr)) } }
+    .product-card{ width:100%; max-width:260px }
+    .product-image{ width:100%; aspect-ratio:4/3; background:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:12px }
+    .product-image img{ width:100%; height:100%; object-fit:cover }
+    .buy-btn{
+      display:flex; align-items:center; justify-content:center; width:100%; height:46px; margin-top:10px;
+      background:#fff; color:#000; font-weight:1000; font-size:clamp(16px,1.9vw,18px); letter-spacing:.4px;
+      border-radius:8px; border:2px solid var(--pm-red); transition:transform .1s ease, background .1s ease;
+    }
+    .buy-btn:hover{ transform:translateY(-2px) }
+
+    /* ===== About ===== */
+    .about h2{ margin:0 0 10px; font-size:clamp(22px,4vw,36px); font-weight:1000; color:var(--pm-red) }
+    .about p{ margin:10px 0; color:var(--muted); font-size:clamp(16px,2vw,18px) }
+    .badges{ display:flex; flex-wrap:wrap; gap:10px 14px; margin-top:8px }
+    .badge{ display:inline-block; padding:8px 12px; border-radius:999px; border:2px solid var(--pm-red); color:var(--pm-red); font-weight:900; font-size:13px }
+
+    /* ===== Services split ===== */
+    .services-split{ background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%) }
+    .services-split .inner{ display:grid; gap:20px; grid-template-columns:1fr }
+    @media (min-width:960px){ .services-split .inner{ grid-template-columns:1.2fr .8fr } }
+    .left-col{ color:#fff }
+    .left-col h2{ margin:0 0 12px; color:#fff; font-size:clamp(20px,3.6vw,32px); font-weight:1000 }
+    .rows-list{ display:grid; gap:16px }
+    .row h3{ margin:0 0 6px; font-size:clamp(18px,3vw,24px); font-weight:900; color:#fff }
+    .row p{ margin:0; color:#fff; opacity:.95; font-size:clamp(15px,1.9vw,17px) }
+    .right-col{ background:#fff; color:var(--ink); border-radius:12px; padding:16px 18px }
+
+    /* ===== Bottom split CTA ===== */
+    .cta-split{ background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%) }
+    .cta-split .inner{ display:grid; gap:20px; grid-template-columns:1fr }
+    @media (min-width:960px){ .cta-split .inner{ grid-template-columns:1.2fr .8fr } }
+    .cta-left{ color:#fff }
+    .cta-left h2{ margin:0 0 10px; font-size:clamp(22px,4vw,36px); font-weight:1000; color:#fff }
+    .cta-left p{ margin:6px 0 0 0; max-width:900px; font-size:clamp(15px,2vw,18px); opacity:.96; color:#fff }
+    .cta-right h3{ margin:0 0 10px; font-size:clamp(18px,3vw,24px); font-weight:1000; color:var(--pm-red) }
+    .cta-row{ display:flex; gap:12px; flex-wrap:wrap }
+
+    .btn-red{ background:var(--pm-red); color:#fff; font-weight:1000; padding:12px 16px; border-radius:12px; border:2px solid var(--pm-red-dark); min-height:44px; display:inline-flex; align-items:center }
+    .btn-red:hover{ background:var(--pm-red-dark) }
+    .btn-ghost{ background:#fff; color:var(--pm-red); font-weight:1000; padding:12px 16px; border-radius:12px; border:2px solid var(--pm-red); min-height:44px; display:inline-flex; align-items:center }
+    .btn-ghost:hover{ background:var(--pm-red); color:#fff }
+
+    /* ===== Footer (GrandpaToms-style columns) ===== */
+    footer{ background:#111827; color:#e5e7eb }
+    .footer-inner{ max-width:var(--max); margin:0 auto; padding:28px 18px; display:grid; gap:24px; grid-template-columns:1fr }
+    @media (min-width:900px){ .footer-inner{ grid-template-columns: 1.2fr 1fr 1fr } }
+    .foot-title{font-weight:1000;margin:0 0 10px;color:#fff;letter-spacing:.2px}
+    .foot-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+    .foot-list a{color:#e5e7eb}
+    .foot-meta{border-top:1px solid #374151;margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap;font-size:14px;color:#9ca3af}
+  </style>
+</head>
+<body>
+
+  <!-- Utility bar -->
+  <div class="utility" role="region" aria-label="Utility bar">
+    <div class="inner">
+      <div class="util-left">
+        <form class="search" role="search" aria-label="Site search" onsubmit="event.preventDefault()">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.3 6.3 0 1 0-.71.71l.27.28v.79L20 21.5 21.5 20l-6-6zM6.5 11a4.5 4.5 0 1 1 9 0a4.5 4.5 0 0 1-9 0"/></svg>
+          <input type="search" placeholder="Search" aria-label="Search site" />
+        </form>
+      </div>
+      <div class="util-right">
+        <a class="util-link" href="/account/signin/">Sign in</a>
+        <span aria-hidden="true">or</span>
+        <a class="util-link" href="/account/register/">Register</a>
+        <a class="util-link snipcart-checkout" href="javascript:void(0)">Cart</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header" role="banner" aria-label="Prenzlow header">
+    <div class="header-inner">
+      <div class="brand">
+        <img src="prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920">
+      </div>
+    </div>
+
+    <!-- Primary navigation (GrandpaToms order/labels) -->
+    <nav class="primary" aria-label="Primary">
+      <div class="inner">
+        <a class="btn-outline" href="/order-here/">ORDER HERE</a>
+        <a class="nav-link" href="/about-us/">About Us</a>
+        <a class="nav-link" href="/our-mission/">Our Mission</a>
+        <a class="nav-link" href="/health-and-nutrition/">Your Health &amp; Nutrition</a>
+        <a class="nav-link" href="/faq/">FAQ</a>
+        <a class="nav-link" href="/contact-us/">Contact Us</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="section hero" role="region" aria-label="Hero">
+    <div class="inner">
+      <h1>Prenzlow Meats</h1>
+      <p>Since 1920, our family has delivered honest, hand-crafted meats with old-world care and modern food-safety standards. From small-batch sausages to custom cutting and packaging, we’re proud to serve the communities that built us.</p>
+
+      <!-- AdSense block under hero copy -->
+      <div class="hero-ad">
+        <div class="ad-reserve">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-3285877386502869"
+               data-ad-slot="YOUR_SLOT_ID"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+        </div>
+      </div>
+
+      <!-- Product preview grid -->
+      <div class="product-grid" aria-label="Featured products (preview)">
+        <!-- Product 1 -->
+        <div class="product-card">
+          <div class="product-image"><img src="image1.png" alt="Locker Pack A"></div>
+          <a class="buy-btn snipcart-add-item"
+             href="#"
+             data-item-id="locker_pack_a"
+             data-item-name="Locker Pack A"
+             data-item-price="199.00"
+             data-item-url=""
+             data-item-image="image1.png"
+             data-item-description="Curated locker pack with family-friendly cuts."
+             aria-label="View or buy Locker Pack A">VIEW / BUY</a>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+          <div class="product-image"><img src="image2.png" alt="Sausage Sampler"></div>
+          <a class="buy-btn snipcart-add-item"
+             href="#"
+             data-item-id="sausage_sampler"
+             data-item-name="Sausage Sampler"
+             data-item-price="29.00"
+             data-item-url=""
+             data-item-image="image2.png"
+             data-item-description="Small-batch classics made in-house."
+             aria-label="View or buy Sausage Sampler">VIEW / BUY</a>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+          <div class="product-image"><img src="image3.png" alt="Smoked Bacon Slab"></div>
+          <a class="buy-btn snipcart-add-item"
+             href="#"
+             data-item-id="smoked_bacon_slab"
+             data-item-name="Smoked Bacon Slab"
+             data-item-price="24.00"
+             data-item-url=""
+             data-item-image="image3.png"
+             data-item-description="Thick-cut, slow-smoked for deep flavor."
+             aria-label="View or buy Smoked Bacon Slab">VIEW / BUY</a>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card">
+          <div class="product-image"><img src="image4.png" alt="Jerky Bundle"></div>
+          <a class="buy-btn snipcart-add-item"
+             href="#"
+             data-item-id="jerky_bundle"
+             data-item-name="Jerky Bundle"
+             data-item-price="34.00"
+             data-item-url=""
+             data-item-image="image4.png"
+             data-item-description="Lean, seasoned, ready to go."
+             aria-label="View or buy Jerky Bundle">VIEW / BUY</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section about" role="region" aria-label="About Prenzlow Meats">
+    <div class="inner">
+      <h2>Craft Butchery. Trusted Since 1920.</h2>
+      <p><strong>Prenzlow Meats</strong> is a heritage meat locker known for straight-forward quality and neighborly service. We source responsibly, prepare carefully, and stand behind every cut. Whether you’re stocking the freezer or planning a weekend cookout, our team brings a century of know-how to your table.</p>
+      <p>Our facility operates under rigorous inspection, and our processes reflect a commitment to freshness, cleanliness, and traceability. You get consistent product, fair pricing, and friendly help every step of the way.</p>
+
+      <div class="badges" aria-label="Quality highlights">
+        <span class="badge">Est. 1920</span>
+        <span class="badge">Small-Batch Sausage</span>
+        <span class="badge">Custom Cutting &amp; Wrapping</span>
+        <span class="badge">Inspected Facility</span>
+        <span class="badge">Family-Owned</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services split -->
+  <section class="section services-split" role="region" aria-label="Products and Services">
+    <div class="inner">
+      <div class="left-col">
+        <h2>What We Do</h2>
+        <div class="rows-list">
+          <div class="row"><h3>Retail Meats &amp; Locker Packs</h3><p>Beef, pork, and specialty cuts prepared the right way—trimmed for flavor, packed for freshness, and ready for weeknight meals or weekend grills.</p></div>
+          <div class="row"><h3>Custom Processing</h3><p>From quarter/half beef to whole hogs, we offer clear cut-lists, careful labeling, and freezer-ready packages tailored to your family.</p></div>
+          <div class="row"><h3>House-Made Sausages</h3><p>Traditional recipes refined over generations—small batches, balanced seasoning, and consistent snap and texture.</p></div>
+          <div class="row"><h3>Smokehouse &amp; Specialty</h3><p>Smoked favorites and seasonal specialties crafted with time and temperature—not shortcuts—so the flavor speaks for itself.</p></div>
+        </div>
+      </div>
+
+      <div class="right-col">
+        <h3>Ready to Order?</h3>
+        <p>Browse current offerings or learn how our ordering &amp; pickup works.</p>
+        <div class="cta-row">
+          <a class="btn-red" href="/order-here/">See Current Offerings</a>
+          <a class="btn-ghost" href="/faq/">How Ordering Works</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom split CTA -->
+  <section class="section cta-split" role="region" aria-label="Get started">
+    <div class="inner">
+      <div class="cta-left">
+        <h2>Questions? We’re Here to Help.</h2>
+        <p>Call, message, or stop by. Our team’s happy to help with cuts, quantities, and pickup details.</p>
+      </div>
+      <div class="cta-right">
+        <h3>Start Your Order</h3>
+        <div class="cta-row">
+          <a class="btn-red" href="/order-here/">Order Here</a>
+          <a class="btn-ghost" href="/contact-us/">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (GrandpaToms-style) -->
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <section>
+        <h4 class="foot-title">Navigate</h4>
+        <ul class="foot-list" aria-label="Navigate">
+          <li><a href="/about-us/">About Us</a></li>
+          <li><a href="/our-mission/">Our Mission</a></li>
+          <li><a href="/health-and-nutrition/">Your Health &amp; Nutrition</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/contact-us/">Contact Us</a></li>
+          <li><a href="/sitemap/">Sitemap</a></li>
+        </ul>
+      </section>
+      <section>
+        <h4 class="foot-title">Categories</h4>
+        <ul class="foot-list" aria-label="Categories">
+          <li><a href="/order-here/">ORDER HERE</a></li>
+        </ul>
+      </section>
+      <section>
+        <h4 class="foot-title">Info</h4>
+        <ul class="foot-list" aria-label="Info">
+          <li>Prenzlow Meats</li>
+          <li>Since 1920</li>
+          <li><a href="/contact-us/">Contact &amp; Hours</a></li>
+        </ul>
+      </section>
+      <div class="foot-meta">
+        <span>© <span id="y"></span> Prenzlow Meats</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Snipcart root (replace YOUR_PUBLIC_API_KEY) -->
+  <div hidden id="snipcart" data-api-key="YOUR_PUBLIC_API_KEY"></div>
+
+  <script>
+    // Fix product URLs for Snipcart when previewing locally
+    document.addEventListener('DOMContentLoaded', () => {
+      const url = window.location.href.split('#')[0];
+      document.querySelectorAll('.snipcart-add-item').forEach(btn => {
+        if (!btn.getAttribute('data-item-url')) btn.setAttribute('data-item-url', url);
+      });
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      document.getElementById('y').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
