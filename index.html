@@ -31,7 +31,7 @@
     .brand{display:flex;justify-content:center}
     .brand img{width:min(520px,92%)}
 
-    /* Primary nav (styles for your included navigation.html) */
+    /* Primary nav (styles for included navigation.html) */
     nav.primary{border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;background:#fff}
     .primary .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
     .nav-link{font-weight:900;padding:10px 4px;position:relative;min-height:44px;display:flex;align-items:center}
@@ -103,7 +103,8 @@
   <header class="site-header" role="banner">
     <div class="header-inner">
       <div class="brand">
-        <img src="/assets/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920" />
+        <!-- If your logo is actually in /assets/, change to /assets/prenzlowmeats.png -->
+        <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920" />
       </div>
     </div>
 
@@ -158,7 +159,7 @@
     </div>
   </section>
 
-  <!-- Footer (keeping your outline’s footer; if you prefer the sitemap component, swap this block for data-include="/sitemap-footer.html") -->
+  <!-- Footer (you can swap this for data-include="/sitemap-footer.html" if preferred) -->
   <footer role="contentinfo">
     <div class="footer-inner">
       <section>
@@ -193,10 +194,31 @@
     </div>
   </footer>
 
-  <!-- Year -->
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
-
-  <!-- Include loader for the navbar include -->
-  <script src="/include.js"></script>
+  <script>
+    // Inline include loader: replaces any [data-include] with fetched HTML
+    (function () {
+      async function inject(selector) {
+        const nodes = document.querySelectorAll(selector);
+        for (const el of nodes) {
+          const url = el.getAttribute('data-include');
+          if (!url) continue;
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            el.outerHTML = await res.text();
+          } catch (err) {
+            console.error('[include] failed', url, err);
+            el.textContent = 'Navigation failed to load.';
+          }
+        }
+      }
+      document.addEventListener('DOMContentLoaded', () => inject('[data-include]'));
+      // set year
+      document.addEventListener('DOMContentLoaded', () => {
+        const y = document.getElementById('y');
+        if (y) y.textContent = new Date().getFullYear();
+      });
+    })();
+  </script>
 </body>
 </html>
