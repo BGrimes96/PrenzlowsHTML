@@ -15,16 +15,18 @@
 </head>
 <body>
 
-  <!-- Home-only logo -->
-  <header role="banner" aria-label="Prenzlow header">
-    <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920" />
-  </header>
+  <!-- Top white header (bigger) with centered logo -->
+  <section class="section header" role="region" aria-label="Header">
+    <div class="inner" style="text-align:center">
+      <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920" style="max-width:520px;width:92%">
+    </div>
+  </section>
 
   <!-- Shared NAV component -->
   <div data-include="/navigation.html"></div>
 
-  <!-- Red -->
-  <section class="section red" role="region" aria-label="Intro">
+  <!-- Red body -->
+  <section class="section body-red" role="region" aria-label="Intro">
     <div class="inner">
       <h1>Prenzlow Meats</h1>
       <p>Since 1920, our family has delivered honest, hand-crafted meats with old-world care and modern food-safety standards.</p>
@@ -82,8 +84,8 @@
     </div>
   </section>
 
-  <!-- White -->
-  <section class="section white" role="region" aria-label="About Prenzlow Meats">
+  <!-- White body -->
+  <section class="section body-white" role="region" aria-label="About Prenzlow Meats">
     <div class="inner">
       <h2>Craft Butchery. Trusted Since 1920.</h2>
       <p><strong>Prenzlow Meats</strong> is a heritage meat locker known for straight-forward quality and neighborly service.</p>
@@ -97,18 +99,21 @@
     </div>
   </section>
 
-  <!-- Red -->
-  <section class="section red" role="region" aria-label="Get started">
+  <!-- Final 50/50 split (red | white) -->
+  <section class="section split-50" role="region" aria-label="Get started">
     <div class="inner">
-      <h2>Start Your Order</h2>
-      <p>
-        <a class="btn-outline" href="/order-here/">ORDER HERE</a>
-        <a class="btn-outline" href="/contact-us/">Contact Us</a>
-      </p>
+      <div class="split-col red">
+        <h2>Start Your Order</h2>
+        <p><a class="btn-outline" href="/order-here/">ORDER HERE</a></p>
+      </div>
+      <div class="split-col white">
+        <h2>Contact Us</h2>
+        <p><a class="btn-outline" href="/contact-us/">Get in touch</a></p>
+      </div>
     </div>
   </section>
 
-  <!-- Shared SITEMAP footer component -->
+  <!-- Shared sitemap/footer component -->
   <div data-include="/sitemap-footer.html"></div>
 
   <!-- Include loader (after the last data-include) -->
