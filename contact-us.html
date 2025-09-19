@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Contact Us — Prenzlow Meats</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root{
+      --pm-red:#c41a1a; --pm-red-dark:#9e1414;
+      --ink:#0f172a; --ink-on-red:#ffffff; --muted:#6b7280; --surface:#ffffff;
+      --max:1200px;
+    }
+    *{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%}
+    html,body{margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#fff;color:var(--ink);line-height:1.65}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
+
+    /* Utility bar */
+    .utility{background:#fff;border-bottom:1px solid #e5e7eb}
+    .utility .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .util-left,.util-right{display:flex;align-items:center;gap:14px}
+    .search{display:flex;align-items:center;gap:8px;border:1px solid #e5e7eb;border-radius:999px;padding:6px 10px;min-height:36px;background:#fff}
+    .search input{border:0;outline:0;min-width:220px;font:inherit;background:transparent}
+
+    /* Header / brand */
+    header.site-header{background:#fff}
+    .header-inner{max-width:var(--max);margin:0 auto;padding:16px 18px 10px}
+    .brand{display:flex;justify-content:center}
+    .brand img{width:min(520px,92%)}
+
+    /* Primary nav */
+    nav.primary{border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;background:#fff}
+    .primary .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
+    .nav-link{font-weight:900;padding:10px 4px;position:relative;min-height:44px;display:flex;align-items:center}
+    .nav-link[aria-current="page"]{text-decoration:underline;text-underline-offset:6px}
+    .nav-link:hover::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:currentColor}
+    .btn-outline{color:var(--pm-red);border:2px solid var(--pm-red);padding:10px 16px;border-radius:10px;font-weight:1000;min-height:44px;display:inline-flex;align-items:center}
+    .btn-outline:hover{background:var(--pm-red);color:#fff}
+
+    /* Sections */
+    .section .inner{max-width:var(--max);margin:0 auto;padding:clamp(20px,4vw,56px) 18px}
+
+    /* Lede */
+    .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
+    .lede h1{margin:0 0 10px;font-size:clamp(28px,5vw,54px);font-weight:1000;letter-spacing:.3px}
+    .lede p{margin:8px auto 0;max-width:900px;font-size:clamp(16px,2.1vw,19px);opacity:.98}
+
+    /* Contact grid */
+    .grid-2{display:grid;gap:22px;grid-template-columns:1fr}
+    @media(min-width:960px){.grid-2{grid-template-columns:1.1fr .9fr}}
+
+    /* Card + form */
+    .card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:16px}
+    .card h2{margin:0 0 10px;color:var(--pm-red);font-size:clamp(22px,4vw,32px);font-weight:1000}
+    .muted{color:#6b7280}
+
+    form .row{display:grid;gap:12px;grid-template-columns:1fr}
+    @media(min-width:760px){form .row.two{grid-template-columns:1fr 1fr}}
+    label{font-weight:800;font-size:14px}
+    input,textarea,select{width:100%;padding:12px;border:2px solid #e5e7eb;border-radius:10px;font:inherit}
+    textarea{min-height:120px;resize:vertical}
+    .btn-red{background:var(--pm-red);color:#fff;font-weight:1000;padding:12px 16px;border-radius:12px;border:2px solid var(--pm-red-dark);min-height:44px;display:inline-flex;align-items:center}
+    .btn-red:hover{background:var(--pm-red-dark)}
+    .help{font-size:13px;color:#6b7280}
+
+    /* Map */
+    .map{border-radius:14px;overflow:hidden;border:2px solid #f3f4f6;min-height:320px;background:#fff}
+
+    /* Hours / contact list */
+    .list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+    .list strong{display:inline-block;width:110px}
+
+    /* CTA strip */
+    .cta{background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%)}
+    .cta .inner{display:grid;gap:20px;grid-template-columns:1fr}
+    @media(min-width:960px){.cta .inner{grid-template-columns:1.2fr .8fr}}
+    .cta-left{color:#fff}
+    .cta-left h2{margin:0 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000}
+    .cta-right{background:#fff;border-radius:14px;padding:16px;border:2px solid #f3f4f6}
+    .btn-ghost{background:#fff;color:var(--pm-red);font-weight:1000;padding:12px 16px;border-radius:12px;border:2px solid var(--pm-red);min-height:44px;display:inline-flex;align-items:center}
+    .btn-ghost:hover{background:var(--pm-red);color:#fff}
+
+    /* Footer */
+    footer{background:#111827;color:#e5e7eb}
+    .footer-inner{max-width:var(--max);margin:0 auto;padding:28px 18px;display:grid;gap:24px;grid-template-columns:1fr}
+    @media(min-width:900px){.footer-inner{grid-template-columns: 1.2fr 1fr 1fr}}
+    .foot-title{font-weight:1000;margin:0 0 10px;color:#fff}
+    .foot-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+    .foot-list a{color:#e5e7eb}
+    .foot-meta{border-top:1px solid #374151;margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap;font-size:14px;color:#9ca3af}
+  </style>
+</head>
+<body>
+
+  <!-- Utility bar -->
+  <div class="utility" role="region" aria-label="Utility bar">
+    <div class="inner">
+      <div class="util-left">
+        <form class="search" role="search" onsubmit="event.preventDefault()">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.3 6.3 0 1 0-.71.71l.27.28v.79L20 21.5 21.5 20l-6-6zM6.5 11a4.5 4.5 0 1 1 9 0a4.5 4.5 0 0 1-9 0"/></svg>
+          <input type="search" placeholder="Search" aria-label="Search site" />
+        </form>
+      </div>
+      <div class="util-right">
+        <a class="nav-link" href="/account/signin/">Sign in</a>
+        <span aria-hidden="true">or</span>
+        <a class="nav-link" href="/account/register/">Register</a>
+        <a class="nav-link" href="/cart/">Cart</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand">
+        <img src="/assets/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920" />
+      </div>
+    </div>
+    <nav class="primary" aria-label="Primary">
+      <div class="inner">
+        <a class="btn-outline" href="/order-here/">ORDER HERE</a>
+        <a class="nav-link" href="/about-us/">About Us</a>
+        <a class="nav-link" href="/our-mission/">Our Mission</a>
+        <a class="nav-link" href="/health-and-nutrition/">Your Health &amp; Nutrition</a>
+        <a class="nav-link" href="/faq/">FAQ</a>
+        <a class="nav-link" aria-current="page" href="/contact-us/">Contact Us</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Lede -->
+  <section class="section lede" role="region" aria-label="Contact lede">
+    <div class="inner">
+      <h1>Contact Us</h1>
+      <p>Questions about cuts, portions, or pickup times? We’re happy to help—send a message or give us a call.</p>
+    </div>
+  </section>
+
+  <!-- Contact + Map -->
+  <section class="section" role="region" aria-label="Contact form and map">
+    <div class="inner grid-2">
+      <!-- Form card -->
+      <article class="card" aria-labelledby="contact-title">
+        <h2 id="contact-title">Send a Message</h2>
+        <!--
+          For static hosting:
+          - Use action="https://formspree.io/f/yourid" or Netlify: add netlify attribute.
+          For mailto fallback, swap action to "mailto:info@yourdomain".
+        -->
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="help">Fields marked * are required.</p>
+
+          <div class="row two">
+            <div>
+              <label for="name">Full Name *</label>
+              <input id="name" name="name" required />
+            </div>
+            <div>
+              <label for="email">Email *</label>
+              <input id="email" name="email" type="email" required />
+            </div>
+          </div>
+
+          <div class="row two" style="margin-top:8px">
+            <div>
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" />
+            </div>
+            <div>
+              <label for="topic">Topic</label>
+              <select id="topic" name="topic">
+                <option value="general">General Question</option>
+                <option value="order">Order/Pickup</option>
+                <option value="custom">Custom Processing</option>
+                <option value="allergens">Allergens/Ingredients</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:8px">
+            <div>
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+          </div>
+
+          <!-- Honeypot -->
+          <div style="position:absolute;left:-9999px" aria-hidden="true">
+            <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <button type="submit" class="btn-red">Send</button>
+          </div>
+
+          <p class="help" style="margin-top:8px">Prefer email? <a href="mailto:hello@prenzlowmeats.com">hello@prenzlowmeats.com</a></p>
+        </form>
+      </article>
+
+      <!-- Map / hours card -->
+      <aside class="card">
+        <h2 style="margin:0 0 10px;color:var(--pm-red)">Visit or Call</h2>
+
+        <div class="map" role="img" aria-label="Map placeholder">
+          <!-- Replace with your map iframe when ready -->
+          <!-- Example:
+          <iframe src="https://www.google.com/maps/embed?..."></iframe>
+          -->
+          <img src="/assets/map-placeholder.jpg" alt="Map showing our location" />
+        </div>
+
+        <ul class="list" style="margin-top:12px">
+          <li><strong>Address</strong> 123 Main St, Hometown, USA 00000</li>
+          <li><strong>Phone</strong> (555) 123-4567</li>
+          <li><strong>Email</strong> <a href="mailto:hello@prenzlowmeats.com">hello@prenzlowmeats.com</a></li>
+        </ul>
+
+        <h3 style="margin-top:14px;color:var(--pm-red)">Hours</h3>
+        <ul class="list">
+          <li><strong>Mon–Fri</strong> 9:00a – 6:00p</li>
+          <li><strong>Saturday</strong> 9:00a – 2:00p</li>
+          <li><strong>Sunday</strong> Closed</li>
+        </ul>
+
+        <p class="muted" style="margin-top:10px">Holiday hours may vary; check our homepage for updates.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta" role="region" aria-label="Order CTA">
+    <div class="inner">
+      <div class="cta-left">
+        <h2>Ready to Start an Order?</h2>
+        <p>Locker packs and custom cuts—tell us what you’re cooking and we’ll help with portions.</p>
+      </div>
+      <div class="cta-right">
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn-red" href="/order-here/">Order Here</a>
+          <a class="btn-ghost" href="/faq/">Read the FAQ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <section>
+        <h4 class="foot-title">Navigate</h4>
+        <ul class="foot-list" aria-label="Navigate">
+          <li><a href="/about-us/">About Us</a></li>
+          <li><a href="/our-mission/">Our Mission</a></li>
+          <li><a href="/health-and-nutrition/">Your Health &amp; Nutrition</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/contact-us/">Contact Us</a></li>
+          <li><a href="/sitemap/">Sitemap</a></li>
+        </ul>
+      </section>
+      <section>
+        <h4 class="foot-title">Categories</h4>
+        <ul class="foot-list" aria-label="Categories">
+          <li><a href="/order-here/">ORDER HERE</a></li>
+        </ul>
+      </section>
+      <section>
+        <h4 class="foot-title">Info</h4>
+        <ul class="foot-list" aria-label="Info">
+          <li>Prenzlow Meats</li>
+          <li>Since 1920</li>
+          <li><a href="/contact-us/">Contact &amp; Hours</a></li>
+        </ul>
+      </section>
+      <div class="foot-meta">
+        <span>© <span id="y"></span> Prenzlow Meats</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LocalBusiness schema (fill real name/address/phone) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Butcher",
+    "name":"Prenzlow Meats",
+    "image":"/assets/prenzlowmeats.png",
+    "address":{"@type":"PostalAddress","streetAddress":"123 Main St","addressLocality":"Hometown","addressRegion":"NE","postalCode":"00000","addressCountry":"US"},
+    "telephone":"+1-555-123-4567",
+    "openingHoursSpecification":[
+      {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"18:00"},
+      {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"14:00"}
+    ],
+    "url":"https://prenzlowmeats.com/contact-us"
+  }
+  </script>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
