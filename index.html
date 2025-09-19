@@ -18,29 +18,31 @@
     a{color:inherit;text-decoration:none}
     img{max-width:100%;height:auto;display:block}
 
-    /* Utility bar */
-    .utility{background:#fff;border-bottom:1px solid #e5e7eb}
-    .utility .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    .util-left,.util-right{display:flex;align-items:center;gap:14px}
-    .search{display:flex;align-items:center;gap:8px;border:1px solid #e5e7eb;border-radius:999px;padding:6px 10px;min-height:36px;background:#fff}
-    .search input{border:0;outline:0;min-width:220px;font:inherit;background:transparent}
-
     /* Header / brand */
     header.site-header{background:#fff}
-    .header-inner{max-width:var(--max);margin:0 auto;padding:16px 18px 10px}
+    .header-inner{max-width:var(--max);margin:0 auto;padding:20px 18px 12px}
     .brand{display:flex;justify-content:center}
-    .brand img{width:min(960px,92%)}
+    .brand img{width:clamp(360px, 55vw, 1000px)}
 
-    /* Primary nav (styles for included navigation.html) */
+    /* Slogan ribbon */
+    .slogan-wrap{display:flex;align-items:center;justify-content:center;gap:12px;margin:10px 18px 0}
+    .slogan-wrap .rule{height:2px;background:#e5e7eb;flex:1;max-width:260px}
+    .slogan{
+      font-weight:900; letter-spacing:.06em; text-transform:uppercase;
+      font-size:clamp(12px,1.5vw,14px); color:var(--pm-red);
+      padding:6px 12px; border:2px solid var(--pm-red); border-radius:999px; white-space:nowrap
+    }
+
+    /* Primary nav (for the included navigation.html) */
     nav.primary{border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;background:#fff}
     .primary .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
     .nav-link{font-weight:900;padding:10px 4px;position:relative;min-height:44px;display:flex;align-items:center}
     .nav-link[aria-current="page"]{text-decoration:underline;text-underline-offset:6px}
     .nav-link:hover::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:currentColor}
-    .btn-outline{color:var(--pm-red);border:2px solid var(--pm-red);padding:10px 16px;border-radius:10px;font-weight:1000;min-height:44px;display:inline-flex;align-items:center}
+    .btn-outline{color:var(--pm-red);border:2px solid var(--pm-red);padding:10px 18px;border-radius:10px;font-weight:1000;min-height:44px;display:inline-flex;align-items:center}
     .btn-outline:hover{background:var(--pm-red);color:#fff}
 
-    /* Sections */
+    /* Sections scaffold */
     .section .inner{max-width:var(--max);margin:0 auto;padding:clamp(20px,4vw,56px) 18px}
 
     /* Lede (red hero) */
@@ -48,28 +50,45 @@
     .lede h1{margin:0 0 10px;font-size:clamp(28px,5vw,54px);font-weight:1000;letter-spacing:.3px}
     .lede p{margin:8px auto 0;max-width:900px;font-size:clamp(16px,2.1vw,19px);opacity:.98}
 
-    /* Two-column grid */
-    .grid-2{display:grid;gap:22px;grid-template-columns:1fr}
-    @media(min-width:960px){.grid-2{grid-template-columns:1.1fr .9fr}}
-
-    /* Cards / buttons */
-    .card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:16px}
-    .card h2{margin:0 0 10px;color:var(--pm-red);font-size:clamp(22px,4vw,32px);font-weight:1000}
+    /* What We Do (single wide card) */
+    .card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:20px}
+    .card h2{margin:0 0 12px;color:var(--pm-red);font-size:clamp(24px,4.4vw,36px);font-weight:1000}
     .muted{color:#6b7280}
-    .btn-red{background:var(--pm-red);color:#fff;font-weight:1000;padding:12px 16px;border-radius:12px;border:2px solid var(--pm-red-dark);min-height:44px;display:inline-flex;align-items:center}
+    .actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px}
+
+    /* Bigger buttons */
+    .btn-red, .btn-ghost{
+      font-weight:1000; padding:14px 20px; border-radius:14px; min-height:48px; display:inline-flex; align-items:center; justify-content:center;
+      font-size:clamp(15px,1.9vw,18px);
+    }
+    .btn-red{background:var(--pm-red);color:#fff;border:2px solid var(--pm-red-dark)}
     .btn-red:hover{background:var(--pm-red-dark)}
-    .btn-ghost{background:#fff;color:var(--pm-red);font-weight:1000;padding:12px 16px;border-radius:12px;border:2px solid var(--pm-red);min-height:44px;display:inline-flex;align-items:center}
+    .btn-ghost{background:#fff;color:var(--pm-red);border:2px solid var(--pm-red)}
     .btn-ghost:hover{background:var(--pm-red);color:#fff}
 
-    /* CTA split */
+    /* CTA split with invisible content blocks */
     .cta{background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%)}
-    .cta .inner{display:grid;gap:20px;grid-template-columns:1fr}
-    @media(min-width:960px){.cta .inner{grid-template-columns:1.2fr .8fr}}
+    .cta .inner{
+      display:grid; gap:20px; grid-template-columns:1fr;
+    }
+    @media(min-width:960px){
+      .cta .inner{grid-template-columns:1.2fr .8fr}
+    }
     .cta-left{color:#fff}
+    .cta-left .block{
+      /* invisible container to keep white text away from the seam */
+      max-width:720px; margin-left:0;
+    }
     .cta-left h2{margin:0 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000}
-    .cta-right{background:#fff;border-radius:14px;padding:16px;border:2px solid #f3f4f6}
+    .cta-right{
+      /* white side: keep red text nicely formatted within a block */
+      color:var(--ink);
+    }
+    .cta-right .block{
+      max-width:520px; margin-left:auto; /* pulls content inward on the white side */
+    }
 
-    /* Footer */
+    /* Footer (kept simple) */
     footer{background:#111827;color:#e5e7eb}
     .footer-inner{max-width:var(--max);margin:0 auto;padding:28px 18px;display:grid;gap:24px;grid-template-columns:1fr}
     @media(min-width:900px){.footer-inner{grid-template-columns: 1.2fr 1fr 1fr}}
@@ -81,34 +100,21 @@
 </head>
 <body>
 
-  <!-- Utility bar (optional) -->
-  <div class="utility" role="region" aria-label="Utility bar">
-    <div class="inner">
-      <div class="util-left">
-        <form class="search" role="search" onsubmit="event.preventDefault()">
-          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.3 6.3 0 1 0-.71.71l.27.28v.79L20 21.5 21.5 20l-6-6zM6.5 11a4.5 4.5 0 1 1 9 0a4.5 4.5 0 0 1-9 0"/></svg>
-          <input type="search" placeholder="Search" aria-label="Search site" />
-        </form>
-      </div>
-      <div class="util-right">
-        <a class="nav-link" href="/account/signin/">Sign in</a>
-        <span aria-hidden="true">or</span>
-        <a class="nav-link" href="/account/register/">Register</a>
-        <a class="nav-link" href="/cart/">Cart</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Header with centered logo -->
+  <!-- Header with centered (larger) logo + slogan -->
   <header class="site-header" role="banner">
     <div class="header-inner">
       <div class="brand">
-        <!-- If your logo is actually in /assets/, change to /assets/prenzlowmeats.png -->
-        <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920" />
+        <!-- change to /assets/prenzlowmeats.png if your file lives there -->
+        <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920">
+      </div>
+      <div class="slogan-wrap" aria-label="Brand slogan">
+        <span class="rule" aria-hidden="true"></span>
+        <span class="slogan">We Bring The Country To Your Table</span>
+        <span class="rule" aria-hidden="true"></span>
       </div>
     </div>
 
-    <!-- Nav: pulled in from navigation.html -->
+    <!-- Nav: include your shared navbar file -->
     <div data-include="/navigation.html">[loading navigation…]</div>
   </header>
 
@@ -116,50 +122,49 @@
   <section class="section lede" role="region" aria-label="Home lede">
     <div class="inner">
       <h1>Welcome to Prenzlow Meats</h1>
-      <p>Since 1920, our family has delivered honest, hand-crafted meats with old-world care and modern food-safety standards.</p>
+      <p>We’ve been proudly serving our communities for over <strong>100 years</strong>—hand-crafted meats with old-world care and modern food-safety standards.</p>
     </div>
   </section>
 
-  <!-- Example content section -->
-  <section class="section" role="region" aria-label="Highlights">
-    <div class="inner grid-2">
+  <!-- What We Do (expanded to full width) -->
+  <section class="section" role="region" aria-label="What We Do">
+    <div class="inner">
       <article class="card">
         <h2>What We Do</h2>
-        <p class="muted">Retail meats, locker packs, custom processing, house-made sausages, and smokehouse favorites.</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
-          <a class="btn-red" href="/order-here/">See Offerings</a>
+        <p class="muted">Retail meats & locker packs · Custom processing · House-made sausages · Smokehouse specialties — trimmed for flavor, packed for freshness, and ready for the weeknight or the weekend.</p>
+        <div class="actions">
+          <a class="btn-red" href="/products.html">View Our Products</a>
           <a class="btn-ghost" href="/faq/">How Ordering Works</a>
         </div>
       </article>
-
-      <aside class="card">
-        <h2>Visit or Call</h2>
-        <ul class="foot-list" style="color:inherit">
-          <li><strong>Address</strong> 123 Main St, Hometown, USA 00000</li>
-          <li><strong>Phone</strong> (555) 123-4567</li>
-          <li><strong>Email</strong> <a href="mailto:hello@prenzlowmeats.com">hello@prenzlowmeats.com</a></li>
-        </ul>
-      </aside>
     </div>
   </section>
 
-  <!-- CTA split -->
+  <!-- CTA split with invisible blocks + extra Contact button -->
   <section class="section cta" role="region" aria-label="Order CTA">
     <div class="inner">
       <div class="cta-left">
-        <h2>Ready to Start an Order?</h2>
-        <p>Locker packs and custom cuts—tell us what you’re cooking and we’ll help with portions.</p>
+        <div class="block">
+          <h2>Ready to Start an Order?</h2>
+          <p>Locker packs and custom cuts—tell us what you’re cooking and we’ll help with portions.</p>
+          <div class="actions">
+            <a class="btn-red" href="/order-here/">Order Here</a>
+            <a class="btn-ghost" href="/faq/">Read the FAQ</a>
+            <a class="btn-ghost" href="/contact-us/">Contact Us</a>
+          </div>
+        </div>
       </div>
       <div class="cta-right">
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <a class="btn-red" href="/order-here/">Order Here</a>
-          <a class="btn-ghost" href="/faq/">Read the FAQ</a>
+        <div class="block">
+          <h2 style="color:var(--pm-red);margin-top:0">Questions?</h2>
+          <p>We’re happy to help with cuts, quantities, pickup details, and timing.</p>
+          <p><a class="btn-outline" href="/contact-us/">Get in touch</a></p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer (you can swap this for data-include="/sitemap-footer.html" if preferred) -->
+  <!-- Footer (you can swap this entire block for data-include="/sitemap-footer.html" if you prefer the component) -->
   <footer role="contentinfo">
     <div class="footer-inner">
       <section>
