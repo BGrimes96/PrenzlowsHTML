@@ -6,83 +6,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
 
-  <!-- global theme / background -->
-  <link rel="stylesheet" href="background.css">
+  <!-- Global theme / background -->
+  <link rel="stylesheet" href="/background.css" />
 
-  <!-- Snipcart (only if you’re using the add-to-cart buttons) -->
+  <!-- Snipcart (only if you use the add-to-cart buttons) -->
   <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.7.1/default/snipcart.css" />
   <script async src="https://cdn.snipcart.com/themes/v3.7.1/default/snipcart.js"></script>
 </head>
 <body>
 
-  <!-- home-only logo (no inline styling; let CSS handle look if needed) -->
+  <!-- Home-only logo -->
   <header role="banner" aria-label="Prenzlow header">
-    <img src="prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920">
+    <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920" />
   </header>
 
-  <!-- shared NAV component -->
-  <div data-include="navigation.html"></div>
+  <!-- Shared NAV component -->
+  <div data-include="/navigation.html"></div>
 
-  <!-- red -->
+  <!-- Red -->
   <section class="section red" role="region" aria-label="Intro">
     <div class="inner">
       <h1>Prenzlow Meats</h1>
       <p>Since 1920, our family has delivered honest, hand-crafted meats with old-world care and modern food-safety standards.</p>
 
-      <!-- optional product preview (structure only; styling should live in background.css if desired) -->
+      <!-- Product preview -->
       <div aria-label="Featured products (preview)">
         <div>
-          <img src="image1.png" alt="Locker Pack A">
+          <img src="/image1.png" alt="Locker Pack A" />
           <a class="btn-outline snipcart-add-item"
              href="#"
              data-item-id="locker_pack_a"
              data-item-name="Locker Pack A"
              data-item-price="199.00"
              data-item-url=""
-             data-item-image="image1.png"
+             data-item-image="/image1.png"
              data-item-description="Curated locker pack with family-friendly cuts.">VIEW / BUY</a>
         </div>
 
         <div>
-          <img src="image2.png" alt="Sausage Sampler">
+          <img src="/image2.png" alt="Sausage Sampler" />
           <a class="btn-outline snipcart-add-item"
              href="#"
              data-item-id="sausage_sampler"
              data-item-name="Sausage Sampler"
              data-item-price="29.00"
              data-item-url=""
-             data-item-image="image2.png"
+             data-item-image="/image2.png"
              data-item-description="Small-batch classics made in-house.">VIEW / BUY</a>
         </div>
 
         <div>
-          <img src="image3.png" alt="Smoked Bacon Slab">
+          <img src="/image3.png" alt="Smoked Bacon Slab" />
           <a class="btn-outline snipcart-add-item"
              href="#"
              data-item-id="smoked_bacon_slab"
              data-item-name="Smoked Bacon Slab"
              data-item-price="24.00"
              data-item-url=""
-             data-item-image="image3.png"
+             data-item-image="/image3.png"
              data-item-description="Thick-cut, slow-smoked for deep flavor.">VIEW / BUY</a>
         </div>
 
         <div>
-          <img src="image4.png" alt="Jerky Bundle">
+          <img src="/image4.png" alt="Jerky Bundle" />
           <a class="btn-outline snipcart-add-item"
              href="#"
              data-item-id="jerky_bundle"
              data-item-name="Jerky Bundle"
              data-item-price="34.00"
              data-item-url=""
-             data-item-image="image4.png"
+             data-item-image="/image4.png"
              data-item-description="Lean, seasoned, ready to go.">VIEW / BUY</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- white -->
+  <!-- White -->
   <section class="section white" role="region" aria-label="About Prenzlow Meats">
     <div class="inner">
       <h2>Craft Butchery. Trusted Since 1920.</h2>
@@ -97,7 +97,7 @@
     </div>
   </section>
 
-  <!-- red -->
+  <!-- Red -->
   <section class="section red" role="region" aria-label="Get started">
     <div class="inner">
       <h2>Start Your Order</h2>
@@ -108,11 +108,11 @@
     </div>
   </section>
 
-  <!-- shared SITEMAP footer component -->
-  <div data-include="sitemap-footer.html"></div>
+  <!-- Shared SITEMAP footer component -->
+  <div data-include="/sitemap-footer.html"></div>
 
-  <!-- include loader (after the last data-include) -->
-  <script src="include.js"></script>
+  <!-- Include loader (after the last data-include) -->
+  <script src="/include.js"></script>
 
   <script>
     // Snipcart helper: ensure data-item-url resolves when previewing locally
