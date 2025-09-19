@@ -4,129 +4,199 @@
   <meta charset="utf-8" />
   <title>Prenzlow Meats — Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex, nofollow" />
 
-  <!-- Global theme / background -->
-  <link rel="stylesheet" href="/background.css" />
+  <style>
+    :root{
+      --pm-red:#c41a1a; --pm-red-dark:#9e1414;
+      --ink:#0f172a; --ink-on-red:#ffffff; --muted:#6b7280; --surface:#ffffff;
+      --max:1200px;
+    }
+    *{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%}
+    html,body{margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#fff;color:var(--ink);line-height:1.65}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
 
-  <!-- Snipcart (only if you use the add-to-cart buttons) -->
-  <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.7.1/default/snipcart.css" />
-  <script async src="https://cdn.snipcart.com/themes/v3.7.1/default/snipcart.js"></script>
+    /* Utility bar */
+    .utility{background:#fff;border-bottom:1px solid #e5e7eb}
+    .utility .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .util-left,.util-right{display:flex;align-items:center;gap:14px}
+    .search{display:flex;align-items:center;gap:8px;border:1px solid #e5e7eb;border-radius:999px;padding:6px 10px;min-height:36px;background:#fff}
+    .search input{border:0;outline:0;min-width:220px;font:inherit;background:transparent}
+
+    /* Header / brand */
+    header.site-header{background:#fff}
+    .header-inner{max-width:var(--max);margin:0 auto;padding:16px 18px 10px}
+    .brand{display:flex;justify-content:center}
+    .brand img{width:min(520px,92%)}
+
+    /* Primary nav (styles for your included navigation.html) */
+    nav.primary{border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;background:#fff}
+    .primary .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
+    .nav-link{font-weight:900;padding:10px 4px;position:relative;min-height:44px;display:flex;align-items:center}
+    .nav-link[aria-current="page"]{text-decoration:underline;text-underline-offset:6px}
+    .nav-link:hover::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:currentColor}
+    .btn-outline{color:var(--pm-red);border:2px solid var(--pm-red);padding:10px 16px;border-radius:10px;font-weight:1000;min-height:44px;display:inline-flex;align-items:center}
+    .btn-outline:hover{background:var(--pm-red);color:#fff}
+
+    /* Sections */
+    .section .inner{max-width:var(--max);margin:0 auto;padding:clamp(20px,4vw,56px) 18px}
+
+    /* Lede (red hero) */
+    .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
+    .lede h1{margin:0 0 10px;font-size:clamp(28px,5vw,54px);font-weight:1000;letter-spacing:.3px}
+    .lede p{margin:8px auto 0;max-width:900px;font-size:clamp(16px,2.1vw,19px);opacity:.98}
+
+    /* Two-column grid */
+    .grid-2{display:grid;gap:22px;grid-template-columns:1fr}
+    @media(min-width:960px){.grid-2{grid-template-columns:1.1fr .9fr}}
+
+    /* Cards / buttons */
+    .card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:16px}
+    .card h2{margin:0 0 10px;color:var(--pm-red);font-size:clamp(22px,4vw,32px);font-weight:1000}
+    .muted{color:#6b7280}
+    .btn-red{background:var(--pm-red);color:#fff;font-weight:1000;padding:12px 16px;border-radius:12px;border:2px solid var(--pm-red-dark);min-height:44px;display:inline-flex;align-items:center}
+    .btn-red:hover{background:var(--pm-red-dark)}
+    .btn-ghost{background:#fff;color:var(--pm-red);font-weight:1000;padding:12px 16px;border-radius:12px;border:2px solid var(--pm-red);min-height:44px;display:inline-flex;align-items:center}
+    .btn-ghost:hover{background:var(--pm-red);color:#fff}
+
+    /* CTA split */
+    .cta{background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%)}
+    .cta .inner{display:grid;gap:20px;grid-template-columns:1fr}
+    @media(min-width:960px){.cta .inner{grid-template-columns:1.2fr .8fr}}
+    .cta-left{color:#fff}
+    .cta-left h2{margin:0 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000}
+    .cta-right{background:#fff;border-radius:14px;padding:16px;border:2px solid #f3f4f6}
+
+    /* Footer */
+    footer{background:#111827;color:#e5e7eb}
+    .footer-inner{max-width:var(--max);margin:0 auto;padding:28px 18px;display:grid;gap:24px;grid-template-columns:1fr}
+    @media(min-width:900px){.footer-inner{grid-template-columns: 1.2fr 1fr 1fr}}
+    .foot-title{font-weight:1000;margin:0 0 10px;color:#fff}
+    .foot-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+    .foot-list a{color:#e5e7eb}
+    .foot-meta{border-top:1px solid #374151;margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap;font-size:14px;color:#9ca3af}
+  </style>
 </head>
 <body>
 
-  <!-- Top white header (bigger) with centered logo -->
-  <section class="section header" role="region" aria-label="Header">
-    <div class="inner" style="text-align:center">
-      <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920" style="max-width:520px;width:92%">
-    </div>
-  </section>
-
-  <!-- Shared NAV component -->
-  <div data-include="/navigation.html"></div>
-
-  <!-- Red body -->
-  <section class="section body-red" role="region" aria-label="Intro">
+  <!-- Utility bar (optional) -->
+  <div class="utility" role="region" aria-label="Utility bar">
     <div class="inner">
-      <h1>Prenzlow Meats</h1>
+      <div class="util-left">
+        <form class="search" role="search" onsubmit="event.preventDefault()">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.3 6.3 0 1 0-.71.71l.27.28v.79L20 21.5 21.5 20l-6-6zM6.5 11a4.5 4.5 0 1 1 9 0a4.5 4.5 0 0 1-9 0"/></svg>
+          <input type="search" placeholder="Search" aria-label="Search site" />
+        </form>
+      </div>
+      <div class="util-right">
+        <a class="nav-link" href="/account/signin/">Sign in</a>
+        <span aria-hidden="true">or</span>
+        <a class="nav-link" href="/account/register/">Register</a>
+        <a class="nav-link" href="/cart/">Cart</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header with centered logo -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand">
+        <img src="/assets/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920" />
+      </div>
+    </div>
+
+    <!-- Nav: pulled in from navigation.html -->
+    <div data-include="/navigation.html">[loading navigation…]</div>
+  </header>
+
+  <!-- Lede / hero -->
+  <section class="section lede" role="region" aria-label="Home lede">
+    <div class="inner">
+      <h1>Welcome to Prenzlow Meats</h1>
       <p>Since 1920, our family has delivered honest, hand-crafted meats with old-world care and modern food-safety standards.</p>
-
-      <!-- Product preview -->
-      <div aria-label="Featured products (preview)">
-        <div>
-          <img src="/image1.png" alt="Locker Pack A" />
-          <a class="btn-outline snipcart-add-item"
-             href="#"
-             data-item-id="locker_pack_a"
-             data-item-name="Locker Pack A"
-             data-item-price="199.00"
-             data-item-url=""
-             data-item-image="/image1.png"
-             data-item-description="Curated locker pack with family-friendly cuts.">VIEW / BUY</a>
-        </div>
-
-        <div>
-          <img src="/image2.png" alt="Sausage Sampler" />
-          <a class="btn-outline snipcart-add-item"
-             href="#"
-             data-item-id="sausage_sampler"
-             data-item-name="Sausage Sampler"
-             data-item-price="29.00"
-             data-item-url=""
-             data-item-image="/image2.png"
-             data-item-description="Small-batch classics made in-house.">VIEW / BUY</a>
-        </div>
-
-        <div>
-          <img src="/image3.png" alt="Smoked Bacon Slab" />
-          <a class="btn-outline snipcart-add-item"
-             href="#"
-             data-item-id="smoked_bacon_slab"
-             data-item-name="Smoked Bacon Slab"
-             data-item-price="24.00"
-             data-item-url=""
-             data-item-image="/image3.png"
-             data-item-description="Thick-cut, slow-smoked for deep flavor.">VIEW / BUY</a>
-        </div>
-
-        <div>
-          <img src="/image4.png" alt="Jerky Bundle" />
-          <a class="btn-outline snipcart-add-item"
-             href="#"
-             data-item-id="jerky_bundle"
-             data-item-name="Jerky Bundle"
-             data-item-price="34.00"
-             data-item-url=""
-             data-item-image="/image4.png"
-             data-item-description="Lean, seasoned, ready to go.">VIEW / BUY</a>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- White body -->
-  <section class="section body-white" role="region" aria-label="About Prenzlow Meats">
+  <!-- Example content section -->
+  <section class="section" role="region" aria-label="Highlights">
+    <div class="inner grid-2">
+      <article class="card">
+        <h2>What We Do</h2>
+        <p class="muted">Retail meats, locker packs, custom processing, house-made sausages, and smokehouse favorites.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+          <a class="btn-red" href="/order-here/">See Offerings</a>
+          <a class="btn-ghost" href="/faq/">How Ordering Works</a>
+        </div>
+      </article>
+
+      <aside class="card">
+        <h2>Visit or Call</h2>
+        <ul class="foot-list" style="color:inherit">
+          <li><strong>Address</strong> 123 Main St, Hometown, USA 00000</li>
+          <li><strong>Phone</strong> (555) 123-4567</li>
+          <li><strong>Email</strong> <a href="mailto:hello@prenzlowmeats.com">hello@prenzlowmeats.com</a></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- CTA split -->
+  <section class="section cta" role="region" aria-label="Order CTA">
     <div class="inner">
-      <h2>Craft Butchery. Trusted Since 1920.</h2>
-      <p><strong>Prenzlow Meats</strong> is a heritage meat locker known for straight-forward quality and neighborly service.</p>
-      <ul>
-        <li>Est. 1920</li>
-        <li>Small-Batch Sausage</li>
-        <li>Custom Cutting &amp; Wrapping</li>
-        <li>Inspected Facility</li>
-        <li>Family-Owned</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- Final 50/50 split (red | white) -->
-  <section class="section split-50" role="region" aria-label="Get started">
-    <div class="inner">
-      <div class="split-col red">
-        <h2>Start Your Order</h2>
-        <p><a class="btn-outline" href="/order-here/">ORDER HERE</a></p>
+      <div class="cta-left">
+        <h2>Ready to Start an Order?</h2>
+        <p>Locker packs and custom cuts—tell us what you’re cooking and we’ll help with portions.</p>
       </div>
-      <div class="split-col white">
-        <h2>Contact Us</h2>
-        <p><a class="btn-outline" href="/contact-us/">Get in touch</a></p>
+      <div class="cta-right">
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn-red" href="/order-here/">Order Here</a>
+          <a class="btn-ghost" href="/faq/">Read the FAQ</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Shared sitemap/footer component -->
-  <div data-include="/sitemap-footer.html"></div>
+  <!-- Footer (keeping your outline’s footer; if you prefer the sitemap component, swap this block for data-include="/sitemap-footer.html") -->
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <section>
+        <h4 class="foot-title">Navigate</h4>
+        <ul class="foot-list" aria-label="Navigate">
+          <li><a href="/about-us/">About Us</a></li>
+          <li><a href="/our-mission/">Our Mission</a></li>
+          <li><a href="/health-and-nutrition/">Your Health &amp; Nutrition</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/contact-us/">Contact Us</a></li>
+          <li><a href="/sitemap/">Sitemap</a></li>
+        </ul>
+      </section>
+      <section>
+        <h4 class="foot-title">Categories</h4>
+        <ul class="foot-list" aria-label="Categories">
+          <li><a href="/order-here/">ORDER HERE</a></li>
+        </ul>
+      </section>
+      <section>
+        <h4 class="foot-title">Info</h4>
+        <ul class="foot-list" aria-label="Info">
+          <li>Prenzlow Meats</li>
+          <li>Since 1920</li>
+          <li><a href="/contact-us/">Contact &amp; Hours</a></li>
+        </ul>
+      </section>
+      <div class="foot-meta">
+        <span>© <span id="y"></span> Prenzlow Meats</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
 
-  <!-- Include loader (after the last data-include) -->
+  <!-- Year -->
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+
+  <!-- Include loader for the navbar include -->
   <script src="/include.js"></script>
-
-  <script>
-    // Snipcart helper: ensure data-item-url resolves when previewing locally
-    document.addEventListener('DOMContentLoaded', () => {
-      const url = window.location.href.split('#')[0];
-      document.querySelectorAll('.snipcart-add-item').forEach(btn => {
-        if (!btn.getAttribute('data-item-url')) btn.setAttribute('data-item-url', url);
-      });
-    });
-  </script>
 </body>
 </html>
