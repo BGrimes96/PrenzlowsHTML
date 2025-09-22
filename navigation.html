@@ -1,38 +1,32 @@
 <!-- navigation.html (script-free, works with data-include) -->
 <nav class="primary" aria-label="Primary site navigation">
-  <!-- DESKTOP: unchanged full nav -->
+  <!-- DESKTOP -->
   <div class="inner desktop-nav">
-    <a class="btn-outline" href="/order-here/">ORDER HERE</a>
-    <a class="nav-link" href="/about-us/">About Us</a>
-    <a class="nav-link" href="/our-mission/">Our Mission</a>
-    <a class="nav-link" href="/health-and-nutrition/">Your Health &amp; Nutrition</a>
-    <a class="nav-link" href="/faq/">FAQ</a>
-    <a class="nav-link" href="/contact-us/">Contact Us</a>
+    <a class="nav-btn nav-primary" href="/">Home</a>
+    <a class="nav-btn" href="/about-us/">About Us</a>
+    <a class="nav-btn" href="/our-mission/">Our Mission</a>
+    <a class="nav-btn" href="/health-and-nutrition/">Health &amp; Nutrition</a>
+    <a class="nav-btn" href="/faq/">FAQ</a>
+    <a class="nav-btn" href="/contact-us/">Contact Us</a>
   </div>
 
-  <!-- MOBILE: fixed top-left rectangular button + left drawer (CSS-only) -->
+  <!-- MOBILE: fixed button + left drawer (CSS-only) -->
   <div class="mobile-nav" aria-hidden="true">
-    <!-- hidden checkbox drives open/close -->
     <input id="navToggle" class="nav-toggle" type="checkbox" hidden>
 
-    <!-- Button (label toggles the checkbox) -->
     <label for="navToggle" class="site-nav-btn">Site Navigation</label>
-
-    <!-- Backdrop closes when tapped (also a label) -->
     <label for="navToggle" class="site-nav-backdrop" aria-hidden="true"></label>
 
-    <!-- Left drawer -->
     <aside class="site-nav-drawer" role="dialog" aria-modal="true" aria-label="Site Navigation">
       <div class="drawer-head">
         <strong>Browse</strong>
-        <!-- Close icon (also toggles checkbox) -->
         <label for="navToggle" class="drawer-close" aria-label="Close navigation">×</label>
       </div>
       <nav class="drawer-inner">
-        <a class="drawer-link drawer-primary" href="/order-here/">ORDER HERE</a>
+        <a class="drawer-link nav-primary" href="/">Home</a>
         <a class="drawer-link" href="/about-us/">About Us</a>
         <a class="drawer-link" href="/our-mission/">Our Mission</a>
-        <a class="drawer-link" href="/health-and-nutrition/">Your Health &amp; Nutrition</a>
+        <a class="drawer-link" href="/health-and-nutrition/">Health &amp; Nutrition</a>
         <a class="drawer-link" href="/faq/">FAQ</a>
         <a class="drawer-link" href="/contact-us/">Contact Us</a>
       </nav>
@@ -44,63 +38,91 @@
   :root{
     --pm-red:#c41a1a; --pm-red-dark:#9e1414;
     --ink:#0f172a; --ink-on-red:#ffffff;
+    --btn-min: 180px;
+    --btn-max: 220px;
+    --btn-radius: 12px;
   }
 
-  /* Base pulls from your site styles */
   nav.primary{border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;background:#fff}
-  .primary .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
-  .nav-link{font-weight:900;padding:10px 12px;min-height:44px;display:flex;align-items:center;border:2px solid #000;border-radius:6px}
-  .btn-outline{color:var(--pm-red);border:2px solid var(--pm-red);padding:10px 16px;border-radius:10px;font-weight:1000;min-height:44px;display:inline-flex;align-items:center}
-  .btn-outline:hover{background:var(--pm-red);color:#fff}
 
-  /* Desktop vs Mobile visibility */
-  .desktop-nav{display:flex}
+  /* Desktop grid with equal buttons */
+  .primary .inner{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:10px 16px;
+    display:grid;
+    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(var(--btn-min), 1fr));
+    gap:14px;
+    justify-items:center;
+  }
+
+  /* Unified button look */
+  .nav-btn{
+    display:block;
+    width:100%;
+    max-width:var(--btn-max);
+    text-align:center;
+    font-weight:1000;
+    letter-spacing:.2px;
+    padding:14px 16px;
+    min-height:52px;
+    font-size:1.1rem;   /* larger font */
+    border:2px solid var(--ink);
+    border-radius:var(--btn-radius);
+    color:var(--ink);
+    text-decoration:none;
+  }
+  .nav-btn:hover{background:#0f172a; color:#fff}
+
+  /* Primary (Home) */
+  .nav-primary{
+    background:var(--pm-red);
+    color:#fff !important;
+    border-color:var(--pm-red-dark);
+  }
+  .nav-primary:hover{background:var(--pm-red-dark)}
+
+  /* Desktop vs Mobile */
+  .desktop-nav{display:grid}
   .mobile-nav{display:none}
   @media (max-width: 820px){
     .desktop-nav{display:none}
     .mobile-nav{display:block}
   }
 
-  /* MOBILE: rectangular, modern top-left button */
+  /* Mobile trigger button */
   .site-nav-btn{
-    position:fixed;
-    top:12px; left:12px; z-index:10000;
+    position:fixed; top:12px; left:12px; z-index:10000;
     height:48px; padding:0 16px;
     background:var(--pm-red); color:#fff;
     border:2px solid var(--pm-red-dark);
-    border-radius:12px;             /* modern rounded rectangle */
+    border-radius:var(--btn-radius);
     display:inline-flex; align-items:center; justify-content:center;
-    font-weight:1000; text-decoration:none; letter-spacing:.2px;
+    font-weight:1000; letter-spacing:.2px;
+    font-size:1.05rem;
     box-shadow:0 8px 20px rgba(16,24,40,.18);
-    -webkit-tap-highlight-color: transparent;
     cursor:pointer;
   }
+
   .site-nav-btn:active{transform:translateY(1px)}
   .site-nav-btn:focus{outline:3px solid rgba(196,26,26,.35);outline-offset:2px}
   @supports (padding: max(0px)){
     .site-nav-btn{ top:max(12px, env(safe-area-inset-top)); left:max(12px, env(safe-area-inset-left)); }
   }
 
-  /* Drawer & backdrop default (closed) */
+  /* Drawer */
   .site-nav-backdrop{
-    position:fixed; inset:0;
-    background:rgba(15,23,42,.42);
-    z-index:9998;
-    display:none;
-    backdrop-filter:saturate(1.1) blur(1px);
+    position:fixed; inset:0; background:rgba(15,23,42,.42);
+    z-index:9998; display:none; backdrop-filter:saturate(1.1) blur(1px);
   }
   .site-nav-drawer{
-    position:fixed; top:0; bottom:0; left:0;
-    width:min(86vw, 340px);
-    background:#fff;
-    z-index:9999;
+    position:fixed; top:0; bottom:0; left:0; width:min(86vw, 340px);
+    background:#fff; z-index:9999;
     box-shadow:18px 0 40px rgba(16,24,40,.25);
-    transform:translateX(-100%);
-    transition:transform .25s ease;
+    transform:translateX(-100%); transition:transform .25s ease;
     border-right:2px solid #e5e7eb;
   }
-
-  /* When checkbox is checked: show drawer & backdrop */
   .nav-toggle:checked ~ .site-nav-backdrop{ display:block; }
   .nav-toggle:checked ~ .site-nav-drawer{ transform:translateX(0); }
 
@@ -109,20 +131,27 @@
     padding:12px 14px; border-bottom:1px solid #e5e7eb;
   }
   .drawer-head strong{font-weight:1000; color:var(--pm-red)}
-  .drawer-close{
-    background:transparent; border:0; font-size:24px; line-height:1; color:#64748b; cursor:pointer; padding:6px;
-  }
+  .drawer-close{background:transparent; border:0; font-size:24px; line-height:1; color:#64748b; cursor:pointer; padding:6px;}
 
+  /* Drawer links */
   .drawer-inner{
-    padding:14px; display:grid; gap:10px;
+    padding:14px;
+    display:grid;
+    gap:10px;
+    grid-template-columns: 1fr;
   }
   .drawer-link{
     display:block; width:100%; text-align:center;
-    border:2px solid #0f172a; border-radius:12px;
-    padding:12px 14px; font-weight:900; color:#0f172a; text-decoration:none;
+    font-weight:1000; letter-spacing:.2px;
+    padding:14px 16px; min-height:52px;
+    font-size:1.1rem;  /* larger font */
+    border:2px solid var(--ink);
+    border-radius:var(--btn-radius);
+    color:var(--ink); text-decoration:none;
   }
-  .drawer-link.drawer-primary{
+  .drawer-link:hover{background:#0f172a; color:#fff}
+  .drawer-link.nav-primary{
     background:var(--pm-red); color:#fff; border-color:var(--pm-red-dark);
   }
-  .drawer-link.drawer-primary:hover{background:var(--pm-red-dark)}
+  .drawer-link.nav-primary:hover{background:var(--pm-red-dark)}
 </style>
