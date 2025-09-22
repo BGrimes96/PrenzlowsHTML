@@ -64,7 +64,21 @@
     .card h2{margin:0 0 12px;color:var(--pm-red);font-size:clamp(24px,4.4vw,36px);font-weight:1000}
     .muted{color:#6b7280}
     .section[aria-label="What We Do"] .card{text-align:center}
-    .actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;justify-content:center}
+
+    /* EVEN, RESPONSIVE BUTTON ROWS */
+    .actions{
+      display:grid;
+      gap:14px;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      justify-items:center; /* centers the button blocks within their grid cell */
+      margin-top:12px;
+    }
+    .actions > a,
+    .actions > button{
+      width:100%;              /* equal width buttons */
+      max-width:420px;         /* don’t get too huge on wide screens */
+      text-align:center;
+    }
 
     /* Bigger buttons */
     .btn-red, .btn-ghost{
@@ -76,13 +90,17 @@
     .btn-ghost{background:#fff;color:var(--pm-red);border:2px solid var(--pm-red)}
     .btn-ghost:hover{background:var(--pm-red);color:#fff}
 
-    /* CTA split */
-    .cta{background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%)}
-    .cta .inner{display:grid;gap:20px;grid-template-columns:1fr;}
-    @media(min-width:960px){.cta .inner{grid-template-columns:1fr}} /* single column */
+    /* CTA (FULL RED to prevent bleed; centered content) */
+    .cta{background:var(--pm-red);color:#fff}
+    .cta .inner{display:block}
     .cta-left{color:#fff;text-align:center}
-    .cta-left .block{max-width:720px;margin:0 auto;text-align:center}
-    .cta .actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+    .cta-left .block{
+      max-width:720px;
+      margin:0 auto;
+      text-align:center;
+      padding:8px 0;
+    }
+    .cta .actions{margin-top:12px}
 
     /* Footer */
     footer{background:#111827;color:#e5e7eb}
@@ -154,14 +172,15 @@
         <p class="muted">Retail meats &amp; locker packs · Custom processing · House-made sausages · Smokehouse specialties — trimmed for flavor, packed for freshness, and ready for the weeknight or the weekend.</p>
         <div class="actions">
           <a class="btn-red" href="/products.html">View Our Products</a>
-          <a class="btn-ghost" href="/faq/">How Ordering Works</a>
+          <!-- Removed: <a class="btn-ghost" href="/faq/">How Ordering Works</a> -->
+          <a class="btn-ghost" href="/contact-us/">Contact Us</a>
         </div>
       </article>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="section cta">
+  <!-- CTA (full red, centered) -->
+  <section class="section cta" aria-label="Order CTA">
     <div class="inner">
       <div class="cta-left">
         <div class="block">
