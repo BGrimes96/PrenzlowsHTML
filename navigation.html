@@ -10,16 +10,16 @@
     <a class="nav-link" href="/contact-us/">Contact Us</a>
   </div>
 
-  <!-- MOBILE: fixed top-left square button + left drawer -->
+  <!-- MOBILE: fixed top-left rectangular button + left drawer -->
   <div class="mobile-nav" aria-hidden="true">
-    <!-- Use an anchor so it "goes somewhere" even if JS is blocked -->
+    <!-- Anchor gives fallback to /sitemap/ if JS is blocked -->
     <a id="siteNavBtn"
        class="site-nav-btn"
        href="/sitemap/"
        role="button"
        aria-controls="siteNavDrawer"
        aria-expanded="false">
-      <span>Site<br>Navigation</span>
+      Site Navigation
     </a>
 
     <div id="siteNavDrawer"
@@ -29,17 +29,17 @@
          aria-label="Site Navigation"
          hidden>
       <div class="drawer-head">
-        <strong>Site Navigation</strong>
+        <strong>Browse</strong>
         <button type="button" class="drawer-close" id="siteNavClose" aria-label="Close navigation">×</button>
       </div>
-      <div class="drawer-inner">
+      <nav class="drawer-inner">
         <a class="drawer-link drawer-primary" href="/order-here/">ORDER HERE</a>
         <a class="drawer-link" href="/about-us/">About Us</a>
         <a class="drawer-link" href="/our-mission/">Our Mission</a>
         <a class="drawer-link" href="/health-and-nutrition/">Your Health &amp; Nutrition</a>
         <a class="drawer-link" href="/faq/">FAQ</a>
         <a class="drawer-link" href="/contact-us/">Contact Us</a>
-      </div>
+      </nav>
     </div>
 
     <div id="siteNavBackdrop" class="site-nav-backdrop" hidden></div>
@@ -68,26 +68,26 @@
     .mobile-nav{display:block}
   }
 
-  /* MOBILE: fixed top-left big square red button */
+  /* MOBILE: fixed top-left rectangular modern button */
   .site-nav-btn{
     position:fixed;
     top:12px;
     left:12px;
     z-index:10000;
-    width:120px;           /* square */
-    height:120px;          /* square */
+    height:48px;
+    padding:0 16px;
     background:var(--pm-red);
     color:#fff;
     border:2px solid var(--pm-red-dark);
-    border-radius:12px;    /* square-ish corners per your request */
-    display:flex;
+    border-radius:12px;          /* modern rounded rectangle */
+    display:inline-flex;
     align-items:center;
     justify-content:center;
-    text-align:center;
     font-weight:1000;
     text-decoration:none;
-    box-shadow:0 10px 28px rgba(16,24,40,.22);
-    line-height:1.1;
+    box-shadow:0 8px 20px rgba(16,24,40,.18);
+    letter-spacing:.2px;
+    -webkit-tap-highlight-color: transparent;
   }
   .site-nav-btn:active{transform:translateY(1px)}
   .site-nav-btn:focus{outline:3px solid rgba(196,26,26,.35);outline-offset:2px}
@@ -100,7 +100,7 @@
     }
   }
 
-  /* Backdrop for drawer */
+  /* Backdrop for drawer (clicking closes it) */
   .site-nav-backdrop{
     position:fixed; inset:0;
     background:rgba(15,23,42,.42);
@@ -112,7 +112,7 @@
   .site-nav-drawer{
     position:fixed;
     top:0; bottom:0; left:0;
-    width:min(86vw, 320px);
+    width:min(86vw, 340px);
     background:#fff;
     z-index:9999;
     box-shadow:18px 0 40px rgba(16,24,40,.25);
@@ -121,6 +121,7 @@
     border-right:2px solid #e5e7eb;
   }
   .site-nav-drawer.open{transform:translateX(0)}
+
   .drawer-head{
     display:flex; align-items:center; justify-content:space-between;
     padding:12px 14px;
@@ -130,13 +131,14 @@
   .drawer-close{
     background:transparent; border:0; font-size:24px; line-height:1; color:#64748b; cursor:pointer; padding:6px;
   }
+
   .drawer-inner{
     padding:14px;
     display:grid; gap:10px;
   }
   .drawer-link{
     display:block; width:100%; text-align:center;
-    border:2px solid #0f172a; border-radius:10px;
+    border:2px solid #0f172a; border-radius:12px;
     padding:12px 14px; font-weight:900; color:#0f172a; text-decoration:none;
   }
   .drawer-link.drawer-primary{
@@ -153,8 +155,7 @@
     const backdrop = document.getElementById('siteNavBackdrop');
 
     function openDrawer(e){
-      // If JS is working, prevent the fallback nav to /sitemap/
-      if(e) e.preventDefault();
+      if(e) e.preventDefault();            // prevent fallback to /sitemap/ when JS works
       drawer.hidden = false;
       backdrop.hidden = false;
       requestAnimationFrame(()=> drawer.classList.add('open'));
@@ -172,12 +173,20 @@
       }, 250);
     }
 
+    // open/close events
     if(btn) btn.addEventListener('click', openDrawer);
     if(closeBtn) closeBtn.addEventListener('click', closeDrawer);
     if(backdrop) backdrop.addEventListener('click', closeDrawer);
 
+    // close on Esc
     document.addEventListener('keydown', (e)=>{
       if(e.key === 'Escape' && drawer && !drawer.hidden){ closeDrawer(); }
     }, {passive:true});
+
+    // close when clicking any link inside the drawer
+    drawer && drawer.addEventListener('click', (e)=>{
+      const link = e.target.closest('a');
+      if(link){ closeDrawer(); }
+    });
   })();
 </script>
