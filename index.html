@@ -33,10 +33,19 @@
       padding:6px 12px; border:2px solid var(--pm-red); border-radius:999px; white-space:nowrap;
     }
 
-    /* Primary nav (for the included navigation.html) */
+    /* Primary nav */
     nav.primary{border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;background:#fff}
     .primary .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
-    .nav-link{font-weight:900;padding:10px 4px;position:relative;min-height:44px;display:flex;align-items:center}
+    .nav-link{
+      font-weight:900;
+      padding:10px 12px;
+      position:relative;
+      min-height:44px;
+      display:flex;
+      align-items:center;
+      border:2px solid #000; /* black outline */
+      border-radius:6px;
+    }
     .nav-link[aria-current="page"]{text-decoration:underline;text-underline-offset:6px}
     .nav-link:hover::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:currentColor}
     .btn-outline{color:var(--pm-red);border:2px solid var(--pm-red);padding:10px 18px;border-radius:10px;font-weight:1000;min-height:44px;display:inline-flex;align-items:center}
@@ -50,12 +59,12 @@
     .lede h1{margin:0 0 10px;font-size:clamp(28px,5vw,54px);font-weight:1000;letter-spacing:.3px}
     .lede p{margin:8px auto 0;max-width:900px;font-size:clamp(16px,2.1vw,19px);opacity:.98}
 
-    /* What We Do (centered, full width) */
+    /* What We Do */
     .card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:20px}
     .card h2{margin:0 0 12px;color:var(--pm-red);font-size:clamp(24px,4.4vw,36px);font-weight:1000}
     .muted{color:#6b7280}
-    .section[aria-label="What We Do"] .card{ text-align:center; }
-    .actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;justify-content:center;}
+    .section[aria-label="What We Do"] .card{text-align:center}
+    .actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;justify-content:center}
 
     /* Bigger buttons */
     .btn-red, .btn-ghost{
@@ -67,27 +76,13 @@
     .btn-ghost{background:#fff;color:var(--pm-red);border:2px solid var(--pm-red)}
     .btn-ghost:hover{background:var(--pm-red);color:#fff}
 
-    /* CTA split with invisible content blocks (contain text) */
+    /* CTA split */
     .cta{background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%)}
     .cta .inner{display:grid;gap:20px;grid-template-columns:1fr;}
-    @media(min-width:960px){.cta .inner{grid-template-columns:1.2fr .8fr}}
-    .cta-left{color:#fff}
-    .cta-right{color:var(--ink)}
-
-    /* TRUE invisible, centered content boxes on both sides */
-    .cta-left .block, .cta-right .block{
-      max-width:720px;
-      margin:0 auto;        /* centers the box */
-      text-align:center;    /* centers text + buttons */
-    }
-    .cta-right .block{max-width:520px}
-
-    /* ensure button rows center */
+    @media(min-width:960px){.cta .inner{grid-template-columns:1fr}} /* single column */
+    .cta-left{color:#fff;text-align:center}
+    .cta-left .block{max-width:720px;margin:0 auto;text-align:center}
     .cta .actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:12px}
-
-    /* right-side button red on white */
-    .cta .btn-red{background:var(--pm-red);color:#fff;border:2px solid var(--pm-red-dark)}
-    .cta .btn-red:hover{background:var(--pm-red-dark)}
 
     /* Footer */
     footer{background:#111827;color:#e5e7eb}
@@ -98,10 +93,10 @@
     .foot-list a{color:#e5e7eb}
     .foot-meta{border-top:1px solid #374151;margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap;font-size:14px;color:#9ca3af}
 
-    /* Bottom-right slide-out (USDA) */
+    /* USDA popup */
     .usda-pop{
       position:fixed;right:16px;bottom:16px;z-index:9999;
-      width:min(92vw,360px);
+      width:min(92vw,320px);
       background:#fff;border:2px solid var(--pm-red);border-radius:14px;
       box-shadow:0 10px 30px rgba(16,24,40,.18);
       transform:translateY(20px);opacity:0;pointer-events:none;
@@ -109,16 +104,16 @@
       overflow:hidden;
     }
     .usda-pop.show{transform:translateY(0);opacity:1;pointer-events:auto}
-    .usda-head{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#fff;border-bottom:1px solid #f1f5f9}
-    .usda-title{margin:0;font-weight:1000;font-size:14px;letter-spacing:.02em;color:var(--pm-red)}
-    .usda-close{background:transparent;border:0;cursor:pointer;font-size:18px;line-height:1;padding:4px 6px;color:#475569}
-    .usda-body{padding:12px}
-    .usda-images{display:flex;gap:8px;align-items:center;justify-content:flex-start;margin-bottom:8px}
-    .usda-images img{width:calc(50% - 4px);border:1px solid #f1f5f9;border-radius:8px}
-    .usda-text{font-size:14px;color:#334155}
+    .usda-head{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:#fff;border-bottom:1px solid #f1f5f9}
+    .usda-title{margin:0;font-weight:1000;font-size:13px;letter-spacing:.02em;color:var(--pm-red)}
+    .usda-close{background:transparent;border:0;cursor:pointer;font-size:16px;line-height:1;padding:2px 4px;color:#475569}
+    .usda-body{padding:10px;font-size:13px}
+    .usda-images{display:flex;gap:6px;align-items:center;justify-content:center;margin-bottom:6px;flex-wrap:wrap}
+    .usda-images img{width:calc(50% - 3px);border:1px solid #f1f5f9;border-radius:6px}
+    .usda-text{font-size:13px;color:#334155;text-align:center}
     .usda-text strong{color:#0f172a}
-    .usda-actions{display:flex;justify-content:flex-end;padding:0 12px 12px}
-    .usda-ok{background:#fff;color:var(--pm-red);border:2px solid var(--pm-red);font-weight:1000;padding:8px 12px;border-radius:10px;cursor:pointer}
+    .usda-actions{display:flex;justify-content:center;padding:0 0 10px}
+    .usda-ok{background:#fff;color:var(--pm-red);border:2px solid var(--pm-red);font-weight:1000;padding:6px 10px;border-radius:8px;cursor:pointer;font-size:13px}
     .usda-ok:hover{background:var(--pm-red);color:#fff}
     @media (max-width:420px){
       .usda-images img{width:100%}
@@ -128,33 +123,31 @@
 </head>
 <body>
 
-  <!-- Header with centered (larger) logo + red-lined slogan -->
+  <!-- Header -->
   <header class="site-header" role="banner">
     <div class="header-inner">
       <div class="brand">
         <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920">
       </div>
-      <div class="slogan-wrap" aria-label="Brand slogan">
-        <span class="rule" aria-hidden="true"></span>
+      <div class="slogan-wrap">
+        <span class="rule"></span>
         <span class="slogan">We Bring The Country To Your Table</span>
-        <span class="rule" aria-hidden="true"></span>
+        <span class="rule"></span>
       </div>
     </div>
-
-    <!-- Nav: include your shared navbar file -->
     <div data-include="/navigation.html">[loading navigation…]</div>
   </header>
 
-  <!-- Lede / hero -->
-  <section class="section lede" role="region" aria-label="Home lede">
+  <!-- Hero -->
+  <section class="section lede">
     <div class="inner">
       <h1>Welcome to Prenzlow Meats</h1>
       <p>We’ve been proudly serving our communities for over <strong>100 years</strong>—hand-crafted meats with old-world care and modern food-safety standards.</p>
     </div>
   </section>
 
-  <!-- What We Do (expanded, centered) -->
-  <section class="section" role="region" aria-label="What We Do">
+  <!-- What We Do -->
+  <section class="section" aria-label="What We Do">
     <div class="inner">
       <article class="card">
         <h2>What We Do</h2>
@@ -167,8 +160,8 @@
     </div>
   </section>
 
-  <!-- CTA split with centered invisible blocks + right red button -->
-  <section class="section cta" role="region" aria-label="Order CTA">
+  <!-- CTA -->
+  <section class="section cta">
     <div class="inner">
       <div class="cta-left">
         <div class="block">
@@ -180,24 +173,15 @@
           </div>
         </div>
       </div>
-      <div class="cta-right">
-        <div class="block">
-          <h2 style="color:var(--pm-red);margin-top:0">Questions?</h2>
-        <p>We’re happy to help with cuts, quantities, pickup details, and timing.</p>
-          <div class="actions">
-            <a class="btn-red" href="/contact-us/">Get in touch</a>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- Footer (keep or swap for data-include="/sitemap-footer.html") -->
-  <footer role="contentinfo">
+  <!-- Footer -->
+  <footer>
     <div class="footer-inner">
       <section>
         <h4 class="foot-title">Navigate</h4>
-        <ul class="foot-list" aria-label="Navigate">
+        <ul class="foot-list">
           <li><a href="/about-us/">About Us</a></li>
           <li><a href="/our-mission/">Our Mission</a></li>
           <li><a href="/health-and-nutrition/">Your Health &amp; Nutrition</a></li>
@@ -208,13 +192,13 @@
       </section>
       <section>
         <h4 class="foot-title">Categories</h4>
-        <ul class="foot-list" aria-label="Categories">
+        <ul class="foot-list">
           <li><a href="/order-here/">ORDER HERE</a></li>
         </ul>
       </section>
       <section>
         <h4 class="foot-title">Info</h4>
-        <ul class="foot-list" aria-label="Info">
+        <ul class="foot-list">
           <li>Prenzlow Meats</li>
           <li>Since 1920</li>
           <li><a href="/contact-us/">Contact &amp; Hours</a></li>
@@ -227,11 +211,11 @@
     </div>
   </footer>
 
-  <!-- Bottom-right USDA slide-out -->
-  <aside class="usda-pop" id="usdaPop" aria-live="polite" aria-label="USDA certification info">
+  <!-- USDA popup -->
+  <aside class="usda-pop" id="usdaPop">
     <div class="usda-head">
       <h3 class="usda-title">USDA Certified</h3>
-      <button class="usda-close" aria-label="Close USDA notice" id="usdaCloseX">×</button>
+      <button class="usda-close" id="usdaCloseX">×</button>
     </div>
     <div class="usda-body">
       <div class="usda-images">
@@ -239,16 +223,16 @@
         <img src="/usda2.png" alt="USDA certification badge 2">
       </div>
       <p class="usda-text">
-        <strong>Did you know?</strong> Prenzlow Meats is USDA Certified. That means our facility and processes meet rigorous federal inspection standards for food safety, sanitation, and product traceability.
+        <strong>Did you know?</strong> We’re USDA Certified, meeting strict standards for food safety, sanitation, and traceability.
       </p>
     </div>
     <div class="usda-actions">
-      <button class="usda-ok" id="usdaGood">Good To Know</button>
+      <button class="usda-ok" id="usdaGood">Got it</button>
     </div>
   </aside>
 
   <script>
-    // Include loader for [data-include]
+    // Include loader
     (function () {
       async function inject(selector) {
         const nodes = document.querySelectorAll(selector);
@@ -271,17 +255,17 @@
     // Year
     (function(){ const y=document.getElementById('y'); if(y) y.textContent=new Date().getFullYear(); })();
 
-    // USDA slide-out
+    // USDA popup
     (function(){
-      const pop = document.getElementById('usdaPop');
-      const closeX = document.getElementById('usdaCloseX');
-      const good = document.getElementById('usdaGood');
-      const KEY = 'usda_pop_hidden';
-      if (sessionStorage.getItem(KEY) === '1') return;
-      setTimeout(()=> pop && pop.classList.add('show'), 600);
-      function hide(){ if (!pop) return; pop.classList.remove('show'); sessionStorage.setItem(KEY,'1'); }
-      closeX && closeX.addEventListener('click', hide);
-      good && good.addEventListener('click', hide);
+      const pop=document.getElementById('usdaPop');
+      const closeX=document.getElementById('usdaCloseX');
+      const good=document.getElementById('usdaGood');
+      const KEY='usda_pop_hidden';
+      if(sessionStorage.getItem(KEY)==='1')return;
+      setTimeout(()=> pop && pop.classList.add('show'),600);
+      function hide(){ if(!pop)return; pop.classList.remove('show'); sessionStorage.setItem(KEY,'1'); }
+      closeX&&closeX.addEventListener('click',hide);
+      good&&good.addEventListener('click',hide);
     })();
   </script>
 </body>
