@@ -16,49 +16,53 @@
     html{-webkit-text-size-adjust:100%}
     html,body{margin:0;padding:0}
     body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#fff;color:var(--ink);line-height:1.65}
-
     a{color:inherit;text-decoration:none}
     img{max-width:100%;height:auto;display:block}
 
-    /* Utility bar */
-    .utility{background:#fff;border-bottom:1px solid #e5e7eb}
-    .utility .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    .util-left,.util-right{display:flex;align-items:center;gap:14px}
-    .search{display:flex;align-items:center;gap:8px;border:1px solid #e5e7eb;border-radius:999px;padding:6px 10px;min-height:36px;background:#fff}
-    .search input{border:0;outline:0;min-width:220px;font:inherit;background:transparent}
-
-    /* Header / brand */
+    /* Header (keep white background; no logo here) */
     header.site-header{background:#fff}
-    .header-inner{max-width:var(--max);margin:0 auto;padding:16px 18px 10px}
-    .brand{display:flex;justify-content:center}
-    .brand img{width:min(520px,92%)}
+    .header-inner{max-width:var(--max);margin:0 auto;padding:12px 18px}
 
-    /* Primary nav */
+    /* Primary nav include lives here */
     nav.primary{border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;background:#fff}
     .primary .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
-    .nav-link{font-weight:900;padding:10px 4px;position:relative;min-height:44px;display:flex;align-items:center}
+    .nav-link{font-weight:900;padding:10px 12px;position:relative;min-height:44px;display:flex;align-items:center;border:2px solid #000;border-radius:6px}
+    .nav-link[aria-current="page"]{text-decoration:underline;text-underline-offset:6px}
     .nav-link:hover::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:currentColor}
     .btn-outline{color:var(--pm-red);border:2px solid var(--pm-red);padding:10px 16px;border-radius:10px;font-weight:1000;min-height:44px;display:inline-flex;align-items:center}
     .btn-outline:hover{background:var(--pm-red);color:#fff}
 
     /* Sections */
     .section .inner{max-width:var(--max);margin:0 auto;padding:clamp(20px,4vw,56px) 18px}
+
+    /* Lede – keep same red hero styling as site */
     .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
     .lede h1{margin:0 0 10px;font-size:clamp(28px,5vw,54px);font-weight:1000;letter-spacing:.3px}
     .lede p{margin:8px auto 0;max-width:900px;font-size:clamp(16px,2.1vw,19px);opacity:.98}
 
-    /* Two-column story */
+    /* Story */
     .story{background:#fff}
     .grid-2{display:grid;gap:22px;grid-template-columns:1fr}
     @media(min-width:960px){.grid-2{grid-template-columns:1.2fr .8fr}}
-    .kicker{display:inline-block;background:#fff;color:var(--pm-red);border:2px solid var(--pm-red);border-radius:999px;padding:6px 12px;font-weight:900;font-size:13px;margin-bottom:10px}
-    .story h2{margin:8px 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000;color:var(--pm-red)}
+    .kicker{
+      display:block;
+      background:#fff;
+      color:var(--pm-red);
+      border:2px solid var(--pm-red);
+      border-radius:999px;
+      padding:6px 12px;
+      font-weight:900;
+      font-size:13px;
+      margin:0 auto 12px;        /* center it */
+      width:max-content;          /* shrink to content so it centers nicely */
+      text-align:center;
+    }
+    .story h2{margin:8px 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000;color:var(--pm-red);text-align:center}
     .story p{margin:10px 0;color:var(--muted);font-size:clamp(16px,2vw,18px)}
-
     .photo-card{border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.06)}
     .photo-caption{padding:12px 14px;background:#fff;font-size:14px;color:#6b7280}
 
-    /* Milestones */
+    /* Milestones (keep red/white split, content contained) */
     .milestones{background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%)}
     .milestones .inner{display:grid;gap:20px;grid-template-columns:1fr}
     @media(min-width:960px){.milestones .inner{grid-template-columns:1.1fr .9fr}}
@@ -73,110 +77,27 @@
     .stat h3{margin:0;font-size:clamp(22px,4vw,34px);font-weight:1000;color:var(--pm-red)}
     .stat p{margin:4px 0 0;color:#6b7280;font-weight:700}
 
-    /* Values */
-    .values h2{margin:0 0 10px;color:var(--pm-red);font-size:clamp(22px,4vw,36px);font-weight:1000}
-    .card-grid{display:grid;gap:16px;grid-template-columns:1fr}
-    @media(min-width:900px){.card-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    .card{border:2px solid #f3f4f6;border-radius:14px;padding:16px;background:#fff}
-    .card h3{margin:0 0 6px;font-size:18px;font-weight:900}
-    .card p{margin:0;color:#6b7280}
-
-    /* Process */
-    .process{background:#fff}
-    .steps{display:grid;gap:14px;grid-template-columns:1fr}
-    @media(min-width:900px){.steps{grid-template-columns:repeat(4,minmax(0,1fr))}}
-    .step{border:2px solid #f3f4f6;border-radius:14px;padding:16px}
-    .step .num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;background:var(--pm-red);color:#fff;font-weight:900;margin-bottom:8px}
-    .step h4{margin:0 0 6px;font-weight:900}
-    .step p{margin:0;color:#6b7280}
-
-    /* Team */
-    .team{background:linear-gradient(to right,#ffffff 0 50%,var(--pm-red) 50% 100%)}
-    .team .inner{display:grid;gap:20px;grid-template-columns:1fr}
-    @media(min-width:960px){.team .inner{grid-template-columns:.9fr 1.1fr}}
-    .team h2{color:var(--pm-red);margin:0 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000}
-    .team .panel{background:#fff;border-radius:14px;padding:16px;border:2px solid #f3f4f6}
-    .people{display:grid;gap:14px;grid-template-columns:1fr}
-    @media(min-width:820px){.people{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    .person{border:2px solid #f3f4f6;border-radius:12px;padding:12px;background:#fff}
-    .person img{border-radius:10px;margin-bottom:10px;aspect-ratio:4/3;object-fit:cover;background:#fff}
-    .person strong{display:block}
-    .person span{display:block;color:#6b7280;font-size:14px}
-
-    /* Testimonials (details/summary) */
-    .testimonials h2{margin:0 0 10px;color:var(--pm-red);font-size:clamp(22px,4vw,32px);font-weight:1000}
-    details{border:2px solid #f3f4f6;border-radius:12px;padding:12px;background:#fff}
-    details+details{margin-top:10px}
-    summary{cursor:pointer;font-weight:900}
-    .quote{color:#6b7280;margin:8px 0 0}
-
-    /* CTA */
-    .cta{background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%)}
-    .cta .inner{display:grid;gap:20px;grid-template-columns:1fr}
-    @media(min-width:960px){.cta .inner{grid-template-columns:1.2fr .8fr}}
-    .cta-left{color:#fff}
-    .cta-left h2{margin:0 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000}
-    .cta-left p{margin:6px 0 0;opacity:.96}
-    .cta-right{background:#fff;border-radius:14px;padding:16px;border:2px solid #f3f4f6}
-    .btn-red{background:var(--pm-red);color:#fff;font-weight:1000;padding:12px 16px;border-radius:12px;border:2px solid var(--pm-red-dark);min-height:44px;display:inline-flex;align-items:center}
-    .btn-red:hover{background:var(--pm-red-dark)}
-    .btn-ghost{background:#fff;color:var(--pm-red);font-weight:1000;padding:12px 16px;border-radius:12px;border:2px solid var(--pm-red);min-height:44px;display:inline-flex;align-items:center}
-    .btn-ghost:hover{background:var(--pm-red);color:#fff}
-
-    /* Footer */
-    footer{background:#111827;color:#e5e7eb}
-    .footer-inner{max-width:var(--max);margin:0 auto;padding:28px 18px;display:grid;gap:24px;grid-template-columns:1fr}
-    @media(min-width:900px){.footer-inner{grid-template-columns: 1.2fr 1fr 1fr}}
-    .foot-title{font-weight:1000;margin:0 0 10px;color:#fff}
-    .foot-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-    .foot-list a{color:#e5e7eb}
-    .foot-meta{border-top:1px solid #374151;margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap;font-size:14px;color:#9ca3af}
+    /* Footer include wrapper (no style changes; just reserve space) */
+    .footer-slot{background:#111827}
   </style>
 </head>
 <body>
 
-  <!-- Utility bar -->
-  <div class="utility" role="region" aria-label="Utility bar">
-    <div class="inner">
-      <div class="util-left">
-        <form class="search" role="search" onsubmit="event.preventDefault()">
-          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.3 6.3 0 1 0-.71.71l.27.28v.79L20 21.5 21.5 20l-6-6zM6.5 11a4.5 4.5 0 1 1 9 0a4.5 4.5 0 0 1-9 0"/></svg>
-          <input type="search" placeholder="Search" aria-label="Search site" />
-        </form>
-      </div>
-      <div class="util-right">
-        <a class="nav-link" href="/account/signin/">Sign in</a>
-        <span aria-hidden="true">or</span>
-        <a class="nav-link" href="/account/register/">Register</a>
-        <a class="nav-link" href="/cart/">Cart</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Header -->
+  <!-- Header (no logo on this page) -->
   <header class="site-header" role="banner">
     <div class="header-inner">
-      <div class="brand">
-        <img src="/assets/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920" />
-      </div>
+      <!-- intentionally empty to keep spacing/background consistent -->
     </div>
-    <nav class="primary" aria-label="Primary">
-      <div class="inner">
-        <a class="btn-outline" href="/order-here/">ORDER HERE</a>
-        <a class="nav-link" href="/about-us/">About Us</a>
-        <a class="nav-link" href="/our-mission/">Our Mission</a>
-        <a class="nav-link" href="/health-and-nutrition/">Your Health &amp; Nutrition</a>
-        <a class="nav-link" href="/faq/">FAQ</a>
-        <a class="nav-link" href="/contact-us/">Contact Us</a>
-      </div>
-    </nav>
+
+    <!-- Shared nav include -->
+    <div data-include="/navigation.html">[loading navigation…]</div>
   </header>
 
   <!-- Lede -->
   <section class="section lede" role="region" aria-label="About lede">
     <div class="inner">
       <h1>About Prenzlow Meats</h1>
-      <p>Rooted in 1920s locker-room craftsmanship, guided by today’s best safety standards, and fueled by neighbors who’ve trusted us for generations.</p>
+      <p>Rooted in locker-room craftsmanship, guided by today’s best safety standards, and fueled by neighbors who’ve trusted us for generations.</p>
     </div>
   </section>
 
@@ -184,11 +105,10 @@
   <section class="section story" role="region" aria-label="Our story">
     <div class="inner grid-2">
       <div>
-        <span class="kicker">Family-Owned Since 1920</span>
+        <span class="kicker">In business for over 100 years</span>
         <h2>Old-World Skill. Modern Standards.</h2>
         <p>From the earliest days of icehouse lockers to today’s inspected facility, <strong>Prenzlow Meats</strong> has stood for straightforward quality: humane handling, careful trimming, and clean, freezer-ready packaging. We believe great meat starts with respect—for animals, for the craft, and for the families we serve.</p>
-        <p>We’ve kept our promise simple for a century: be honest about what’s in the package, make it taste great, and treat every order like it’s going on our own table.</p>
-        <p><em>What we don’t do:</em> flashy shortcuts, mystery blends, or race-to-the-bottom pricing. What we do every day: clean processes, consistent cuts, small-batch sausages, and dependable advice when you need it.</p>
+        <p>Our promise is simple: be honest about what’s in the package, make it taste great, and treat every order like it’s going on our own table.</p>
       </div>
       <aside>
         <figure class="photo-card">
@@ -208,7 +128,7 @@
           <div class="t-item"><strong>1920</strong><span>Locker opens with hand-crank grinders and block ice.</span></div>
           <div class="t-item"><strong>1950s</strong><span>Smokehouse perfected for bacon and ring bologna.</span></div>
           <div class="t-item"><strong>1980s</strong><span>Custom cutting expands to quarter/half beef and whole hogs.</span></div>
-          <div class="t-item"><strong>2000s</strong><span>Facility upgrades for modern food-safety and traceability.</span></div>
+          <div class="t-item"><strong>2000s</strong><span>Upgrades for modern food safety and traceability.</span></div>
           <div class="t-item"><strong>Today</strong><span>Small-batch sausages, locker packs, and freezer-ready labeling.</span></div>
         </div>
       </div>
@@ -223,160 +143,31 @@
     </div>
   </section>
 
-  <!-- Values -->
-  <section class="section values" role="region" aria-label="Our values">
-    <div class="inner">
-      <h2>What We Stand For</h2>
-      <div class="card-grid">
-        <article class="card">
-          <h3>Integrity</h3>
-          <p>Clear labeling, honest weights, and cuts you can count on—every order, every time.</p>
-        </article>
-        <article class="card">
-          <h3>Craft</h3>
-          <p>Knife work, smoke, and seasoning balanced the right way—not cranked up for trends.</p>
-        </article>
-        <article class="card">
-          <h3>Care</h3>
-          <p>Food-safe handling from dock to counter, packaged for real-world freezers and families.</p>
-        </article>
-      </div>
-    </div>
-  </section>
+  <!-- NOTE: “Meet the Team” and everything under it were removed per your request -->
 
-  <!-- Process -->
-  <section class="section process" role="region" aria-label="How we work">
-    <div class="inner">
-      <span class="kicker">From Order to Pickup</span>
-      <h2 class="story" style="color:var(--pm-red);margin:8px 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000">Our Process</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="num">1</div>
-          <h4>Choose Your Cuts</h4>
-          <p>Order locker packs or pick individual items. Need help? Tell us what you’re cooking.</p>
-        </div>
-        <div class="step">
-          <div class="num">2</div>
-          <h4>We Prepare</h4>
-          <p>Trimmed for flavor and portioned to match your family—labels included.</p>
-        </div>
-        <div class="step">
-          <div class="num">3</div>
-          <h4>Quality Check</h4>
-          <p>Temperature logs, clean-room handling, and final inspection before packaging.</p>
-        </div>
-        <div class="step">
-          <div class="num">4</div>
-          <h4>Pickup</h4>
-          <p>We’ll notify you when it’s ready—bring a cooler or drive straight home to the freezer.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Team -->
-  <section class="section team" role="region" aria-label="Meet the team">
-    <div class="inner">
-      <div>
-        <h2>Meet the Team</h2>
-        <p class="story" style="color:#6b7280">Good meat comes from good people—patient cutters, careful packers, and folks who actually love talking about dinner.</p>
-      </div>
-      <div class="panel">
-        <div class="people">
-          <article class="person">
-            <img src="/assets/team-1.jpg" alt="Lead Butcher at the cutting table" />
-            <strong>Lead Butcher</strong>
-            <span>Cut Lists &amp; Quality</span>
-          </article>
-          <article class="person">
-            <img src="/assets/team-2.jpg" alt="Smokehouse specialist checking racks" />
-            <strong>Smokehouse</strong>
-            <span>Bacon • Jerky • Sausage</span>
-          </article>
-          <article class="person">
-            <img src="/assets/team-3.jpg" alt="Front counter staff helping a customer" />
-            <strong>Counter</strong>
-            <span>Orders &amp; Pickup</span>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section class="section testimonials" role="region" aria-label="Testimonials">
-    <div class="inner">
-      <h2>What Neighbors Say</h2>
-      <details>
-        <summary>“Locker packs make weeknights easy.”</summary>
-        <p class="quote">Everything’s labeled and portioned. The bacon doesn’t survive the weekend.</p>
-      </details>
-      <details>
-        <summary>“Clean facility, friendly help, fair prices.”</summary>
-        <p class="quote">They walked me through a half-beef order and it turned out perfect.</p>
-      </details>
-      <details>
-        <summary>“Sausage is the star.”</summary>
-        <p class="quote">Balanced seasoning, great snap. You can tell it’s made in small batches.</p>
-      </details>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="section cta" role="region" aria-label="Ready to order">
-    <div class="inner">
-      <div class="cta-left">
-        <h2>Ready When You Are</h2>
-        <p>Have questions about portions or packaging? We’re happy to help before you place an order.</p>
-      </div>
-      <div class="cta-right">
-        <h3 style="margin-top:0;color:var(--pm-red)">Start Your Order</h3>
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <a class="btn-red" href="/order-here/">Order Here</a>
-          <a class="btn-ghost" href="/faq/">How Ordering Works</a>
-          <a class="btn-ghost" href="/contact-us/">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer role="contentinfo">
-    <div class="footer-inner">
-      <section>
-        <h4 class="foot-title">Navigate</h4>
-        <ul class="foot-list" aria-label="Navigate">
-          <li><a href="/about-us/">About Us</a></li>
-          <li><a href="/our-mission/">Our Mission</a></li>
-          <li><a href="/health-and-nutrition/">Your Health &amp; Nutrition</a></li>
-          <li><a href="/faq/">FAQ</a></li>
-          <li><a href="/contact-us/">Contact Us</a></li>
-          <li><a href="/sitemap/">Sitemap</a></li>
-        </ul>
-      </section>
-      <section>
-        <h4 class="foot-title">Categories</h4>
-        <ul class="foot-list" aria-label="Categories">
-          <li><a href="/order-here/">ORDER HERE</a></li>
-        </ul>
-      </section>
-      <section>
-        <h4 class="foot-title">Info</h4>
-        <ul class="foot-list" aria-label="Info">
-          <li>Prenzlow Meats</li>
-          <li>Since 1920</li>
-          <li><a href="/contact-us/">Contact &amp; Hours</a></li>
-        </ul>
-      </section>
-      <div class="foot-meta">
-        <span>© <span id="y"></span> Prenzlow Meats</span>
-        <span>All rights reserved.</span>
-      </div>
-    </div>
-  </footer>
+  <!-- Footer include -->
+  <div class="footer-slot" data-include="/sitemap-footer.html">[loading footer…]</div>
 
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+    // Include loader for [data-include]
+    (function () {
+      async function inject(selector) {
+        const nodes = document.querySelectorAll(selector);
+        for (const el of nodes) {
+          const url = el.getAttribute('data-include');
+          if (!url) continue;
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            el.outerHTML = await res.text();
+          } catch (err) {
+            console.error('[include] failed', url, err);
+            el.textContent = 'Content failed to load.';
+          }
+        }
+      }
+      document.addEventListener('DOMContentLoaded', () => inject('[data-include]'));
+    })();
   </script>
 </body>
 </html>
