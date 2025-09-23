@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Our Products — Prenzlow Meats</title>
+  <title>About Us — Prenzlow Meats</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="index,follow" />
 
@@ -37,70 +37,107 @@
     /* Sections scaffold */
     .section .inner{max-width:var(--max);margin:0 auto;padding:clamp(20px,4vw,56px) 18px}
 
-    /* Red hero */
+    /* Red hero (USDA) */
     .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
     .lede h1{
-      margin:0 0 8px;
+      margin:0 0 14px;
       font-size:clamp(28px,5vw,54px);
       font-weight:1000;
       letter-spacing:.3px;
     }
-    .lede p{
-      margin:0 auto;
-      max-width:900px;
-      font-weight:700;
-      font-size:clamp(16px,2.2vw,20px);
-      opacity:.98;
+    .lede .usda-images{
+      display:flex;justify-content:center;gap:48px;flex-wrap:wrap;margin-top:20px;
+    }
+    .lede .usda-images img{
+      width:clamp(180px, 24vw, 320px);
+      height:auto;
     }
 
-    /* Products grid (white) */
-    .products{background:#fff}
-    .products h2{
-      margin:0 0 12px; text-align:center; color:var(--pm-red);
-      font-size:clamp(24px,4vw,36px); font-weight:1000;
+    /* White info band with “invisible boxes” + divider */
+    .info-white{background:#fff}
+    .twocol{display:grid;gap:22px;grid-template-columns:1fr}
+    .twocol h3{margin:0 0 8px;color:var(--pm-red);font-weight:1000;font-size:clamp(18px,2.4vw,22px)}
+    .twocol p{margin:0;color:#111827;font-size:clamp(16px,2vw,18px);line-height:1.7}
+    @media(min-width:900px){
+      .twocol{grid-template-columns:1fr 1fr}
+      .twocol.divided{position:relative}
+      .twocol.divided::before{
+        content:""; position:absolute; top:0; bottom:0; left:50%; width:1px; background:#e5e7eb;
+        transform:translateX(-.5px);
+      }
+      .twocol > div{padding:0 14px}
     }
+
+    /* Feature red band for “Old-World…” + products */
+    .feature-red{background:var(--pm-red);color:#fff}
+    .feature-red h2{
+      margin:0 0 12px;
+      font-size:clamp(26px,4.4vw,38px);
+      font-weight:1000;
+      color:#fff;
+      text-align:center
+    }
+    .feature-red p.subtext{
+      margin:0 0 20px;
+      text-align:center;
+      font-size:clamp(16px,2.1vw,19px);
+      color:#fff;
+      font-weight:700
+    }
+    .feature-red .product-list{
+      list-style:disc;
+      padding-left:1.5rem;
+      max-width:680px;
+      margin:0 auto 22px;
+      color:#fff;
+      font-size:clamp(16px,2.1vw,19px);
+      font-weight:800
+    }
+
+    /* Product gallery: 4 on one line (desktop), uniform squares */
     .product-gallery{
-      display:grid; gap:14px;
-      grid-template-columns:repeat(2,minmax(0,1fr)); justify-items:center;
+      display:grid;
+      gap:14px;
+      grid-template-columns:repeat(2,minmax(0,1fr)); /* mobile/tablet */
+      justify-items:center;
     }
     @media(min-width:900px){
-      .product-gallery{grid-template-columns:repeat(4,minmax(0,1fr))}
+      .product-gallery{grid-template-columns:repeat(4,minmax(0,1fr))} /* 4 across on desktop */
     }
-    .product-tile{
-      width:100%; aspect-ratio:1/1; border-radius:12px; overflow:hidden;
-      box-shadow:0 4px 16px rgba(0,0,0,.12); background:#fff;
+    .product-frame{
+      width:100%;
+      aspect-ratio:1/1;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 4px 16px rgba(0,0,0,.18);
+      background:#fff;
     }
-    .product-tile > img{width:100%; height:100%; object-fit:cover; display:block}
-    .caption{
-      text-align:center; margin-top:8px; font-weight:800; color:#111827;
-      font-size:clamp(14px,2vw,16px);
-    }
-
-    /* Red band: categories */
-    .band-red{background:var(--pm-red);color:#fff}
-    .band-red h2{
-      margin:0 0 10px; text-align:center; font-weight:1000;
-      font-size:clamp(22px,3.8vw,34px);
-    }
-    .cat-list{
-      list-style:disc; padding-left:1.5rem; margin:0 auto; max-width:720px;
-      font-weight:800; font-size:clamp(16px,2.1vw,19px);
+    .product-frame > img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
     }
 
     /* CTA (white) */
     .cta-white{background:#fff;color:#111827}
     .cta-white .inner{display:block;text-align:center}
     .cta-white h2{
-      margin:0 0 12px; font-size:clamp(24px,4vw,34px); font-weight:1000; color:#111827;
+      margin:0 0 12px;
+      font-size:clamp(24px,4vw,34px);
+      font-weight:1000;
+      color:#111827;
     }
     .actions{
-      display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      display:grid; gap:14px;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
       justify-items:center; max-width:700px; margin:12px auto 0;
     }
     .actions a{
       display:inline-flex; align-items:center; justify-content:center;
       padding:12px 18px; min-height:48px; border-radius:12px; font-weight:1000;
-      text-decoration:none; width:100%; font-size:clamp(15px,1.9vw,18px);
+      text-decoration:none; width:100%;
+      font-size:clamp(15px,1.9vw,18px);
     }
     .btn-red{background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark)}
     .btn-red:hover{background:var(--pm-red-dark)}
@@ -124,53 +161,67 @@
         <span class="rule"></span>
       </div>
     </div>
-    <!-- expect a <nav> in the include -->
-    <div id="navMount" data-include="/navigation.html" data-expect="nav">[loading navigation…]</div>
+    <div data-include="/navigation.html">[loading navigation…]</div>
   </header>
 
   <!-- Red Hero -->
-  <section class="section lede" role="region" aria-label="Products Hero">
+  <section class="section lede" role="region" aria-label="USDA Certified">
     <div class="inner">
-      <h1>Our Products</h1>
-      <p>Small-batch sausages, specialty smoked meats, and custom-cut favorites.</p>
-    </div>
-  </section>
-
-  <!-- Products grid (white) -->
-  <section class="section products" role="region" aria-label="Featured Products">
-    <div class="inner">
-      <h2>Featured Selections</h2>
-      <div class="product-gallery">
-        <figure class="product-tile">
-          <img src="/product1.png" alt="Product 1">
-        </figure>
-        <figure class="product-tile">
-          <img src="/product2.png" alt="Product 2">
-        </figure>
-        <figure class="product-tile">
-          <img src="/product3.png" alt="Product 3">
-        </figure>
-        <figure class="product-tile">
-          <img src="/product4.png" alt="Product 4">
-        </figure>
+      <h1>Prenzlow's Meats Are USDA Certified</h1>
+      <div class="usda-images">
+        <img src="/usda1.png" alt="USDA Certification Logo 1" loading="lazy">
+        <img src="/usda2.png" alt="USDA Certification Logo 2" loading="lazy">
       </div>
     </div>
   </section>
 
-  <!-- Red band: categories -->
-  <section class="section band-red" role="region" aria-label="Product Categories">
-    <div class="inner">
-      <h2>Popular Categories</h2>
-      <ul class="cat-list">
-        <li>Specialty Cut Steaks</li>
-        <li>Specialty Cut Hams</li>
-        <li>Specialty Cut Lunch Meats</li>
-        <li>Specialty Cut Sausages</li>
-      </ul>
+  <!-- White info band: two “invisible” boxes + divider -->
+  <section class="section info-white" role="region" aria-label="Services Overview">
+    <div class="inner twocol divided">
+      <div>
+        <h3>We Offer Specialty <em>Custom Butchery / Slaughter</em></h3>
+        <p>
+          Schedule a harvest with us and we’ll handle humane handling, hanging, aging, and
+          <strong>custom cutting to your exact cut list</strong>. You keep the meat—wrapped,
+          labeled, and freezer-ready for your family. This is your animal, your cuts, your portions.
+          Talk to us about dates, cut instructions, and packaging preferences.
+        </p>
+      </div>
+      <div>
+        <h3>We Also Offer Specialty <em>Retail Cuts of Meat</em></h3>
+        <p>
+          Prefer to buy by the pound? We stock <strong>retail meats</strong> including
+          hamburger, steaks, deli meats, sausages, and more—crafted in small batches to our traditional standards.
+          In short, we provide <strong>two options</strong>: we slaughter for you to keep,
+          and we also produce and sell our own retail meats for immediate purchase.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- White CTA -->
+  <!-- Red Feature Section with products -->
+  <section class="section feature-red" role="region" aria-label="Old World Standards & Products">
+    <div class="inner">
+      <h2>Old-World Skill. Modern Standards.</h2>
+      <p class="subtext">Hand Crafted Without Using Any Manmade Or Any Artificial Chemicals.</p>
+
+      <ul class="product-list">
+        <li>Specialty Cut Hams</li>
+        <li>Specialty Cut Lunch Meats</li>
+        <li>Specialty Cut Sausage</li>
+        <li>Specialty Cut Steaks</li>
+      </ul>
+
+      <div class="product-gallery">
+        <figure class="product-frame"><img src="/product1.png" alt="Product 1" loading="lazy"></figure>
+        <figure class="product-frame"><img src="/product2.png" alt="Product 2" loading="lazy"></figure>
+        <figure class="product-frame"><img src="/product3.png" alt="Product 3" loading="lazy"></figure>
+        <figure class="product-frame"><img src="/product4.png" alt="Product 4" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- White CTA band -->
   <section class="section cta-white" role="region" aria-label="Order CTA">
     <div class="inner">
       <h2>Ready to Start an Order?</h2>
@@ -182,61 +233,23 @@
   </section>
 
   <!-- Footer -->
-  <div class="footer-slot" data-include="/sitemap-footer.html" data-expect="footer">[loading footer…]</div>
+  <div class="footer-slot" data-include="/sitemap-footer.html">[loading footer…]</div>
 
   <script>
-    // Robust include loader: extracts only <nav>/<footer> if a full page is returned
+    // Include loader
     (function () {
-      async function fetchWithBust(url) {
-        const sep = url.includes('?') ? '&' : '?';
-        const res = await fetch(url + sep + 'v=' + Date.now(), { cache: 'no-store' });
-        if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
-        return await res.text();
-      }
-      function looksLikeFullDoc(txt){
-        return /<!doctype|<\s*html[\s>]|<\s*head[\s>]|<\s*body[\s>]/i.test(txt);
-      }
-      function extractFragment(html, expect) {
-        try {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          if (expect === 'nav') {
-            const n = doc.querySelector('nav');
-            if (n) return n.outerHTML;
-          } else if (expect === 'footer') {
-            const f = doc.querySelector('footer');
-            if (f) return f.outerHTML;
-          }
-          return null;
-        } catch { return null; }
-      }
       async function inject(selector) {
         const nodes = document.querySelectorAll(selector);
         for (const el of nodes) {
           const url = el.getAttribute('data-include');
-          const expect = el.getAttribute('data-expect') || '';
           if (!url) continue;
           try {
-            const html = await fetchWithBust(url);
-            let markup = html;
-            if (looksLikeFullDoc(html)) {
-              const frag = extractFragment(html, expect);
-              if (!frag) throw new Error('Expected fragment not found in response');
-              markup = frag;
-            } else if (expect) {
-              const frag = extractFragment(html, expect);
-              if (frag) markup = frag;
-            }
-            el.outerHTML = markup;
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            el.outerHTML = await res.text();
           } catch (err) {
             console.error('[include] failed', url, err);
             el.textContent = 'Content failed to load.';
-            el.style.color = '#b91c1c';
-            el.style.padding = '8px 12px';
-            el.style.fontWeight = '700';
-            el.style.border = '2px solid #fecaca';
-            el.style.borderRadius = '10px';
-            el.style.background = '#fff1f2';
           }
         }
       }
