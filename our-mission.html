@@ -38,43 +38,77 @@
 
     /* RED #1: hero lede */
     .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
-    .lede h1{margin:0 0 10px;font-size:clamp(28px,5vw,54px);font-weight:1000;letter-spacing:.3px;text-align:center}
-    .lede p{margin:8px auto 0;max-width:1000px;font-size:clamp(16px,2.1vw,19px);opacity:.98}
-    .mission {margin-top:10px;font-size:clamp(16px,2.1vw,19px)}
-    .about-blurb{margin:12px auto 0;max-width:1000px;line-height:1.75}
+    .lede h1{
+      margin:0 0 12px;
+      font-size:clamp(32px,6.2vw,64px);  /* bigger title */
+      font-weight:1000; letter-spacing:.3px; text-align:center
+    }
+    .mission{
+      margin-top:6px;
+      font-size:clamp(18px,2.2vw,22px); /* slightly less than H1 */
+    }
+    .about-blurb{
+      margin:22px auto 0;               /* more space below mission */
+      max-width:1000px;
+      line-height:1.75;
+      font-size:clamp(16px,2vw,18px);   /* slightly less than mission */
+    }
 
-    /* WHITE #1: Values */
-    .values{background:#fff;color:var(--pm-red)}
-    .values h2{margin:0 0 10px;color:var(--pm-red);font-size:clamp(22px,4vw,36px);font-weight:1000;text-align:center}
+    /* WHITE #1: Values - black body, red headings */
+    .values{background:#fff}
+    .values h2{
+      margin:0 0 10px; color:var(--pm-red);
+      font-size:clamp(22px,4vw,36px); font-weight:1000; text-align:center
+    }
     .grid-3{display:grid;gap:16px;grid-template-columns:1fr}
     @media(min-width:960px){.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
     .card{border:2px solid #f3f4f6;border-radius:14px;background:#fff;padding:16px}
     .card h3{margin:0 0 6px;font-size:18px;font-weight:900;color:var(--pm-red);text-align:center}
-    .card p{margin:0;color:var(--pm-red);text-align:center}
+    .card p{margin:0;color:#111827;text-align:center}  /* back to black */
 
     /* RED #2: Sourcing & Community (solid red) */
     .sourcing{background:var(--pm-red);color:#fff}
-    .sourcing h2{margin:0 0 12px;font-size:clamp(20px,3.6vw,32px);font-weight:1000;text-align:center;color:#fff}
+    .sourcing h2{
+      margin:0 0 12px; font-size:clamp(20px,3.6vw,32px);
+      font-weight:1000; text-align:center; color:#fff
+    }
     .sourcing .inner > div{max-width:1000px;margin:0 auto}
-    .sourcing p{margin:10px 0 0;color:#fff;opacity:.98;text-align:center}
+    .sourcing p.lead{
+      margin:8px auto 10px; color:#fff; opacity:.98; text-align:center;
+      font-weight:800; font-size:clamp(16px,2.2vw,20px)
+    }
+    .sourcing .points{
+      list-style:none; padding:0; margin:10px auto 0; max-width:900px;
+      display:grid; gap:8px
+    }
+    .sourcing .points li{
+      text-align:center; opacity:.98; line-height:1.6
+    }
 
-    /* WHITE #2: How That Mission Shows Up (expanded copy) */
-    .acc{background:#fff;color:var(--pm-red)}
-    .acc h2{margin:0 0 16px;color:var(--pm-red);font-size:clamp(22px,4vw,32px);font-weight:1000;text-align:center}
+    /* WHITE #2: How That Mission Shows Up (expanded) - black body, red headings */
+    .acc{background:#fff}
+    .acc h2{
+      margin:0 0 16px; color:var(--pm-red);
+      font-size:clamp(22px,4vw,32px); font-weight:1000; text-align:center
+    }
     .acc-grid{display:grid;gap:12px;grid-template-columns:1fr}
     @media(min-width:960px){.acc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
     .acc-item{border:2px solid #f3f4f6;border-radius:12px;background:#fff;padding:14px}
     .acc-item h3{margin:0 0 8px;font-weight:900;color:var(--pm-red);text-align:center}
-    .acc-item p{margin:0;color:var(--pm-red);text-align:center}
+    .acc-item p{margin:0;color:#111827;text-align:center}  /* back to black */
 
-    /* WHITE #3: Start Your Order (moved out of last red) */
-    .order-white{background:#fff;color:var(--pm-red)}
-    .order-white h2{margin:0 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000;color:var(--pm-red);text-align:center}
-    .order-white p{margin:6px auto 0;max-width:900px;text-align:center}
+    /* RED #3: Start Your Order (now includes Contact Us) */
+    .cta{background:var(--pm-red);color:#fff;text-align:center}
+    .cta .inner{display:block}
+    .cta h2{
+      margin:0 0 10px; font-size:clamp(22px,4vw,36px);
+      font-weight:1000; color:#fff; text-align:center
+    }
+    .cta p{margin:6px auto 0;max-width:900px;text-align:center;opacity:.98}
     .actions{
       display:grid; gap:14px;
       grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      justify-items:center; max-width:700px; margin:12px auto 0;
+      justify-items:center; max-width:900px; margin:14px auto 0;
     }
     .actions a{
       display:inline-flex; align-items:center; justify-content:center;
@@ -82,16 +116,10 @@
       text-decoration:none; width:100%;
       font-size:clamp(15px,1.9vw,18px);
     }
-    .btn-red{background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark)}
-    .btn-red:hover{background:var(--pm-red-dark)}
     .btn-ghost{background:#fff; color:var(--pm-red); border:2px solid var(--pm-red)}
-    .btn-ghost:hover{background:var(--pm-red); color:#fff}
-
-    /* RED #3: final band with ONLY Contact Us */
-    .cta{background:var(--pm-red);color:#fff;text-align:center}
-    .cta .inner{display:block}
-    .cta .only{display:flex;justify-content:center}
-    .cta .only a{margin-top:6px}
+    .btn-ghost:hover{background:transparent; color:#fff; border-color:#fff}
+    .btn-red{background:transparent; color:#fff; border:2px solid #fff}
+    .btn-red:hover{background:#fff; color:var(--pm-red)}
 
     /* Footer slot matches other pages */
     .footer-slot{background:#111827}
@@ -156,15 +184,13 @@
   <section class="section sourcing" role="region" aria-label="Sourcing and community">
     <div class="inner">
       <div>
-        <h2>From Our Neighbors, For Our Region</h2>
-        <p>
-          We prioritize responsible sourcing and relationships you can trace. When we say “local,”
-          we mean partners you can learn about and production you can verify.
-        </p>
-        <p>
-          Our goal is full transparency: every cut traceable to the exact farm it came from. That clarity builds trust,
-          improves food safety, and supports regional agriculture—even as we thoughtfully grow beyond our hometown.
-        </p>
+        <h2>We Support Local, You Should Too</h2>
+        <p class="lead">We prioritize responsible sourcing and relationships you can trace.</p>
+        <ul class="points">
+          <li>“Local” means partners you can learn about and production you can verify.</li>
+          <li>Every cut traceable to the exact farm it came from—honesty you can check.</li>
+          <li>Stronger regional agriculture, even as we thoughtfully grow beyond our hometown.</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -190,23 +216,15 @@
     </div>
   </section>
 
-  <!-- WHITE #3: Start Your Order (moved from last red band) -->
-  <section class="section order-white" role="region" aria-label="Start your order">
+  <!-- RED #3: Start Your Order + Contact -->
+  <section class="section cta" role="region" aria-label="Start your order">
     <div class="inner">
       <h2>Start Your Order</h2>
       <p>Locker packs for weeknight sanity, or custom lists for the deep-freeze—either way, we’ll make it easy.</p>
       <div class="actions">
-        <a class="btn-red" href="/order-here/">Order Here</a>
+        <a class="btn-ghost" href="/order-here/">Order Here</a>
         <a class="btn-ghost" href="/faq/">How Ordering Works</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- RED #3: Contact only -->
-  <section class="section cta" role="region" aria-label="Contact">
-    <div class="inner">
-      <div class="only">
-        <a class="btn-ghost" href="/contact-us/">Contact Us</a>
+        <a class="btn-red" href="/contact-us/">Contact Us</a>
       </div>
     </div>
   </section>
