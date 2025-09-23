@@ -36,12 +36,12 @@
     /* Sections scaffold */
     .section .inner{max-width:var(--max);margin:0 auto;padding:clamp(20px,4vw,56px) 18px}
 
-    /* Red hero lede (same red background as other pages) */
+    /* RED #1: hero lede */
     .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
     .lede h1{margin:0 0 10px;font-size:clamp(28px,5vw,54px);font-weight:1000;letter-spacing:.3px}
     .lede p{margin:8px auto 0;max-width:900px;font-size:clamp(16px,2.1vw,19px);opacity:.98}
 
-    /* Pillars */
+    /* WHITE #1: pillars */
     .pillars h2{margin:0 0 10px;color:var(--pm-red);font-size:clamp(22px,4vw,36px);font-weight:1000}
     .grid-3{display:grid;gap:16px;grid-template-columns:1fr}
     @media(min-width:960px){.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
@@ -49,24 +49,25 @@
     .card h3{margin:0 0 6px;font-size:18px;font-weight:900}
     .card p{margin:0;color:#6b7280}
 
-    /* Red/white split strip (kept from your mission design) */
-    .split{background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%)}
+    /* RED #2: split strip (solid red now) */
+    .split{background:var(--pm-red)}
     .split .inner{display:grid;gap:22px;grid-template-columns:1fr}
     @media(min-width:960px){.split .inner{grid-template-columns:1.1fr .9fr}}
     .split h2{color:#fff;margin:0 0 12px;font-size:clamp(20px,3.6vw,32px);font-weight:1000}
+    .split .lede-text{color:#fff;max-width:800px;margin:10px 0 0}
     .white-card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:16px}
     .white-card h3{margin:0 0 8px;color:var(--pm-red);font-weight:1000}
     .white-card p{margin:0;color:#6b7280}
 
-    /* Accordions */
+    /* WHITE #2: accordions */
     .acc h2{margin:0 0 10px;color:var(--pm-red);font-size:clamp(22px,4vw,32px);font-weight:1000}
     details{border:2px solid #f3f4f6;border-radius:12px;padding:12px;background:#fff}
     details+details{margin-top:10px}
     summary{cursor:pointer;font-weight:900}
     .muted{color:#6b7280;margin:8px 0 0}
 
-    /* CTA split (red/white) */
-    .cta{background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%)}
+    /* RED #3: CTA (solid red now) */
+    .cta{background:var(--pm-red)}
     .cta .inner{display:grid;gap:20px;grid-template-columns:1fr}
     @media(min-width:960px){.cta .inner{grid-template-columns:1.2fr .8fr}}
     .cta-left{color:#fff}
@@ -84,7 +85,7 @@
 </head>
 <body>
 
-  <!-- Header (matches Home/Products) -->
+  <!-- Header (white) -->
   <header class="site-header" role="banner">
     <div class="header-inner">
       <div class="brand">
@@ -100,7 +101,7 @@
     <div data-include="/navigation.html">[loading navigation…]</div>
   </header>
 
-  <!-- Red Lede -->
+  <!-- RED #1 -->
   <section class="section lede" role="region" aria-label="Mission lede">
     <div class="inner">
       <h1>Our Mission</h1>
@@ -108,7 +109,7 @@
     </div>
   </section>
 
-  <!-- Pillars -->
+  <!-- WHITE #1 -->
   <section class="section pillars" role="region" aria-label="Mission pillars">
     <div class="inner">
       <h2>Pillars That Guide Every Cut</h2>
@@ -129,12 +130,12 @@
     </div>
   </section>
 
-  <!-- Split: Sourcing & Community (red/white background) -->
+  <!-- RED #2 -->
   <section class="section split" role="region" aria-label="Sourcing and community">
     <div class="inner">
       <div>
         <h2>From Our Neighbors, For Our Neighbors</h2>
-        <p style="color:#fff;max-width:800px;margin:10px 0 0">
+        <p class="lede-text">
           We prioritize responsible sourcing and relationships you can trace. When we say “local,”
           we mean names you can learn and people you can call.
         </p>
@@ -146,7 +147,7 @@
     </div>
   </section>
 
-  <!-- Accordions -->
+  <!-- WHITE #2 -->
   <section class="section acc" role="region" aria-label="More about our mission">
     <div class="inner">
       <h2>How That Mission Shows Up</h2>
@@ -168,7 +169,7 @@
     </div>
   </section>
 
-  <!-- CTA Split -->
+  <!-- RED #3 -->
   <section class="section cta" role="region" aria-label="Ready to order">
     <div class="inner">
       <div class="cta-left">
@@ -224,3 +225,4 @@
   </script>
 </body>
 </html>
+
