@@ -115,6 +115,13 @@
       font-size:clamp(15px,2vw,18px);
     }
 
+    /* Box-specific actions (centered inside each box) */
+    .box-actions{
+      margin-top:16px;
+      display:flex;
+      justify-content:center;
+    }
+
     .what-box p{
       margin:10px 0;
       font-size:clamp(16px,2.1vw,19px);
@@ -127,37 +134,43 @@
       .box-title{text-align:left}
     }
 
-    /* Buttons: Contact (left) / Products (right) */
-    .actions{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
-      margin-top:24px;
-      max-width:1000px;
-      margin-left:auto; margin-right:auto;
-      align-items:center;
-    }
-    .actions > a{ width:auto; text-align:center; }
-    .actions .left{justify-self:start}
-    .actions .right{justify-self:end}
-    @media(max-width:768px){
-      .actions{
-        grid-template-columns:1fr;
-      }
-      .actions .left,
-      .actions .right{
-        justify-self:stretch;
-      }
-    }
+    /* Generic button styles */
     .btn-red, .btn-ghost{
       font-weight:1000; padding:14px 20px; border-radius:14px; min-height:52px;
       display:inline-flex; align-items:center; justify-content:center;
       font-size:clamp(15px,1.9vw,18px);
+      border:2px solid var(--pm-red);
+      text-decoration:none;
     }
-    .btn-red{background:var(--pm-red);color:#fff;border:2px solid var(--pm-red-dark)}
-    .btn-red:hover{background:var(--pm-red-dark)}
-    .btn-ghost{background:#fff;color:var(--pm-red);border:2px solid var(--pm-red)}
-    .btn-ghost:hover{background:var(--pm-red);color:#fff}
+    .btn-red{background:var(--pm-red);color:#fff;border-color:var(--pm-red-dark)}
+    .btn-ghost{background:#fff;color:var(--pm-red);border-color:var(--pm-red)}
+
+    /* HOVER BEHAVIOR (non-navbar buttons): flip colors */
+    .btn-red:hover{
+      background:#fff;
+      color:var(--pm-red);
+      border-color:var(--pm-red);
+    }
+    .btn-ghost:hover{
+      background:var(--pm-red);
+      color:#fff;
+      border-color:var(--pm-red-dark);
+    }
+
+    /* CTA (FULL RED) */
+    .cta{background:var(--pm-red);color:#fff}
+    .cta .inner{display:block}
+    .cta-left{text-align:center}
+    .cta-left .block{max-width:720px;margin:0 auto;text-align:center;padding:8px 0}
+
+    /* Center CTA buttons and tweak spacing */
+    .cta-actions{
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
   </style>
 </head>
 <body>
@@ -207,6 +220,9 @@
                 </ul>
               </li>
             </ul>
+            <div class="box-actions">
+              <a class="btn-ghost" href="/contact-us/">Contact Us</a>
+            </div>
           </div>
 
           <!-- Right Box -->
@@ -216,13 +232,10 @@
             <p>The traditional recipes and processing methods we use have not changed for three generations.</p>
             <p>When you try our meats, you can be confident that the healthy Old-World traditions will be evident with every bite.</p>
             <p>Thank you for your patronage and we welcome all comments and feedback.</p>
+            <div class="box-actions">
+              <a class="btn-red" href="/products.html">View Our Products</a>
+            </div>
           </div>
-        </div>
-
-        <!-- Buttons: left Contact / right Products -->
-        <div class="actions">
-          <a class="btn-ghost left" href="/contact-us/">Contact Us</a>
-          <a class="btn-red right" href="/products.html">View Our Products</a>
         </div>
       </article>
     </div>
@@ -234,10 +247,10 @@
       <div class="cta-left">
         <div class="block">
           <h2>Ready to Start an Order?</h2>
-          <p>Locker packs and custom cuts—tell us what you’re cooking and we’ll help with portions.</p>
-          <div class="actions">
-            <a class="btn-ghost left" href="/faq/">Read the FAQ</a>
-            <a class="btn-ghost right" href="/contact-us/">Contact Us</a>
+          <!-- Removed the descriptive sentence per request -->
+          <div class="cta-actions">
+            <a class="btn-ghost" href="/faq/">Read the FAQ</a>
+            <a class="btn-red" href="/contact-us/">Contact Us</a>
           </div>
         </div>
       </div>
@@ -286,6 +299,10 @@
       }
       document.addEventListener('DOMContentLoaded', () => inject('[data-include]'));
     })();
+  </script>
+</body>
+</html>
+
   </script>
 </body>
 </html>
