@@ -237,61 +237,94 @@
   <div class="footer-slot" data-include="/sitemap-footer.html" data-expect="footer">[loading footer…]</div>
 
   <script>
-    // Hardened include loader: only injects <nav>/<footer> even if a whole page is returned
+    // Robust include loader: tries candidates & extracts nav/footer fragments.
     (function () {
-      async function fetchWithBust(url) {
-        const sep = url.includes('?') ? '&' : '?';
-        const res = await fetch(url + sep + 'v=' + Date.now(), { cache: 'no-store' });
+      async function tryFetch(url) {
+        const bust = (url.includes('?') ? '&' : '?') + 'v=' + Date.now();
+        const res = await fetch(url + bust, { cache: 'no-store' });
         if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
         return await res.text();
       }
+
       function looksLikeFullDoc(txt){
         return /<!doctype|<\s*html[\s>]|<\s*head[\s>]|<\s*body[\s>]/i.test(txt);
       }
-      function extractFragment(html, expect) {
+
+      function pickSelector(expect){
+        if (expect === 'footer') {
+          return ['footer','[role="contentinfo"]','#footer','.site-footer'];
+        }
+        // default to nav
+        return ['nav','[role="navigation"]','#nav','.nav','.primary','.site-nav','header nav'];
+      }
+
+      function extract(html, expect) {
         try {
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
-          if (expect === 'nav') {
-            const n = doc.querySelector('nav');
-            if (n) return n.outerHTML;
-          } else if (expect === 'footer') {
-            const f = doc.querySelector('footer');
-            if (f) return f.outerHTML;
+          const selectors = pickSelector(expect);
+          for (const sel of selectors) {
+            const el = doc.querySelector(sel);
+            if (el) return el.outerHTML;
           }
-          return null;
-        } catch { return null; }
+        } catch (e) {}
+        return null;
       }
+
       async function inject(selector) {
-        const nodes = document.querySelectorAll(selector);
-        for (const el of nodes) {
-          const url = el.getAttribute('data-include');
-          const expect = el.getAttribute('data-expect') || '';
-          if (!url) continue;
-          try {
-            const html = await fetchWithBust(url);
-            let markup = html;
-            if (looksLikeFullDoc(html)) {
-              const frag = extractFragment(html, expect);
-              if (!frag) throw new Error('Expected fragment not found in response');
-              markup = frag;
-            } else if (expect) {
-              const frag = extractFragment(html, expect);
-              if (frag) markup = frag;
+        const mounts = document.querySelectorAll(selector);
+        for (const mount of mounts) {
+          const requested = mount.getAttribute('data-include');
+          const expect = mount.getAttribute('data-expect') || 'nav';
+          // try a few candidate paths in case routing/base hrefs are funky
+          const candidates = [
+            requested,
+            './' + (requested || '').replace(/^\//,''),
+            '/'+ (requested || '').replace(/^\//,''),
+            expect === 'nav' ? './navigation.html' : './sitemap-footer.html',
+            expect === 'nav' ? '/navigation.html' : '/sitemap-footer.html'
+          ].filter(Boolean);
+
+          let inserted = false, lastErr = null;
+
+          for (const href of candidates) {
+            try {
+              const html = await tryFetch(href);
+
+              if (looksLikeFullDoc(html)) {
+                const frag = extract(html, expect);
+                if (frag) {
+                  mount.outerHTML = frag;
+                  inserted = true;
+                  break;
+                } else {
+                  throw new Error('Full page returned but expected <' + expect + '> not found.');
+                }
+              }
+
+              const frag = extract(html, expect);
+              mount.outerHTML = frag || html; // last resort: inject snippet as-is
+              inserted = true;
+              break;
+            } catch (e) {
+              console.warn('[include] failed', href, e.message);
+              lastErr = e;
             }
-            el.outerHTML = markup;
-          } catch (err) {
-            console.error('[include] failed', url, err);
-            el.textContent = 'Content failed to load.';
-            el.style.color = '#b91c1c';
-            el.style.padding = '8px 12px';
-            el.style.fontWeight = '700';
-            el.style.border = '2px solid #fecaca';
-            el.style.borderRadius = '10px';
-            el.style.background = '#fff1f2';
+          }
+
+          if (!inserted) {
+            mount.textContent = (expect === 'footer' ? 'Footer' : 'Navigation') + ' failed to load.';
+            mount.style.color = '#b91c1c';
+            mount.style.padding = '8px 12px';
+            mount.style.fontWeight = '700';
+            mount.style.border = '2px solid #fecaca';
+            mount.style.borderRadius = '10px';
+            mount.style.background = '#fff1f2';
+            if (lastErr) console.error(lastErr);
           }
         }
       }
+
       document.addEventListener('DOMContentLoaded', () => inject('[data-include]'));
     })();
   </script>
