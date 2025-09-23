@@ -11,9 +11,6 @@
       --pm-red:#c41a1a; --pm-red-dark:#9e1414;
       --ink:#0f172a; --ink-on-red:#ffffff; --muted:#6b7280; --surface:#ffffff;
       --max:1200px;
-      /* These will be set by JS based on product1.png natural size */
-      --product-w: 320px;
-      --product-h: 320px;
     }
     *{box-sizing:border-box}
     html{-webkit-text-size-adjust:100%}
@@ -51,15 +48,14 @@
     .lede .usda-images{
       display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:18px;
     }
-    /* Significantly larger USDA badges, responsive */
-    .lede .usda-images img{
-      width:clamp(180px, 26vw, 360px);
-      height:auto;
-    }
+    .lede .usda-images img{width:clamp(140px, 18vw, 220px);height:auto}
 
-    /* White spacer band left intentionally (keeps white/red/white/red rhythm) */
-    .spacer{background:#fff}
-    .spacer .inner{padding-block: clamp(10px, 3vw, 30px)}
+    /* White info band with “invisible boxes” */
+    .info-white{background:#fff}
+    .twocol{display:grid;gap:22px;grid-template-columns:1fr}
+    .twocol h3{margin:0 0 8px;color:var(--pm-red);font-weight:1000;font-size:clamp(18px,2.4vw,22px)}
+    .twocol p{margin:0;color:#111827;font-size:clamp(16px,2vw,18px);line-height:1.7}
+    @media(min-width:900px){.twocol{grid-template-columns:1fr 1fr}}
 
     /* Feature red band for “Old-World…” + products */
     .feature-red{background:var(--pm-red);color:#fff}
@@ -87,18 +83,19 @@
       font-weight:800
     }
 
-    /* Uniform product gallery: exactly match product1.png’s natural size */
+    /* Product gallery: 4 on one line (desktop), uniform squares */
     .product-gallery{
-      display:flex;
-      flex-wrap:wrap;
-      gap:18px;
-      justify-content:center;
-      align-items:flex-start;
+      display:grid;
+      gap:14px;
+      grid-template-columns:repeat(2,minmax(0,1fr)); /* mobile/tablet */
+      justify-items:center;
+    }
+    @media(min-width:900px){
+      .product-gallery{grid-template-columns:repeat(4,minmax(0,1fr))} /* 4 across on desktop */
     }
     .product-frame{
-      width:min(var(--product-w), 100%);
-      /* keep the exact aspect ratio of product1.png */
-      aspect-ratio: calc(var(--product-w) / var(--product-h));
+      width:100%;
+      aspect-ratio:1/1;
       border-radius:12px;
       overflow:hidden;
       box-shadow:0 4px 16px rgba(0,0,0,.18);
@@ -107,7 +104,7 @@
     .product-frame > img{
       width:100%;
       height:100%;
-      object-fit:cover; /* crops taller/wider images so all frames match */
+      object-fit:cover; /* keeps all tiles visually identical in size */
       display:block;
     }
 
@@ -142,12 +139,31 @@
     </div>
   </section>
 
-  <!-- Keep a white band (empty spacer to preserve color rhythm) -->
-  <section class="section spacer" role="presentation">
-    <div class="inner"><!-- intentionally left blank --></div>
+  <!-- White info band: two “invisible” boxes -->
+  <section class="section info-white" role="region" aria-label="Services Overview">
+    <div class="inner twocol">
+      <div>
+        <h3>We Offer Specialty <em>Custom Butchery / Slaughter</em></h3>
+        <p>
+          Schedule a harvest with us and we’ll handle humane handling, hanging, aging, and
+          <strong>custom cutting to your exact cut list</strong>. You keep the meat—wrapped,
+          labeled, and freezer-ready for your family. This is your animal, your cuts, your portions.
+          Talk to us about dates, cut instructions, and packaging preferences.
+        </p>
+      </div>
+      <div>
+        <h3>We Also Offer Specialty <em>Retail Cuts of Meat</em></h3>
+        <p>
+          Prefer to buy by the pound? We stock <strong>retail meats</strong> including
+          hamburger, steaks, deli meats, sausages, and more—crafted in small batches to our traditional standards.
+          In short, we provide <strong>two options</strong>: we slaughter for you to keep,
+          and we also produce and sell our own retail meats for immediate purchase.
+        </p>
+      </div>
+    </div>
   </section>
 
-  <!-- New Red Feature Section with products -->
+  <!-- Red Feature Section with products -->
   <section class="section feature-red" role="region" aria-label="Old World Standards & Products">
     <div class="inner">
       <h2>Old-World Skill. Modern Standards.</h2>
@@ -161,19 +177,10 @@
       </ul>
 
       <div class="product-gallery">
-        <!-- Give product1 an id so we can read its natural size -->
-        <figure class="product-frame">
-          <img id="p1" src="/product1.png" alt="Product 1" loading="lazy">
-        </figure>
-        <figure class="product-frame">
-          <img src="/product2.png" alt="Product 2" loading="lazy">
-        </figure>
-        <figure class="product-frame">
-          <img src="/product3.png" alt="Product 3" loading="lazy">
-        </figure>
-        <figure class="product-frame">
-          <img src="/product4.png" alt="Product 4" loading="lazy">
-        </figure>
+        <figure class="product-frame"><img src="/product1.png" alt="Product 1" loading="lazy"></figure>
+        <figure class="product-frame"><img src="/product2.png" alt="Product 2" loading="lazy"></figure>
+        <figure class="product-frame"><img src="/product3.png" alt="Product 3" loading="lazy"></figure>
+        <figure class="product-frame"><img src="/product4.png" alt="Product 4" loading="lazy"></figure>
       </div>
     </div>
   </section>
@@ -201,22 +208,7 @@
       }
       document.addEventListener('DOMContentLoaded', () => inject('[data-include]'));
     })();
-
-    // Make all product frames exactly match product1.png’s intrinsic size
-    (function () {
-      function applySize(img){
-        if (!img) return;
-        const w = img.naturalWidth || 320;
-        const h = img.naturalHeight || 320;
-        document.documentElement.style.setProperty('--product-w', w + 'px');
-        document.documentElement.style.setProperty('--product-h', h + 'px');
-      }
-      const p1 = document.getElementById('p1');
-      if (p1) {
-        if (p1.complete) applySize(p1);
-        else p1.addEventListener('load', () => applySize(p1));
-      }
-    })();
   </script>
 </body>
 </html>
+
