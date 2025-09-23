@@ -73,7 +73,7 @@
       gap:24px;
       margin:20px auto;
       max-width:1000px;
-      align-items:stretch;
+      align-items:stretch;  /* equal height boxes */
     }
     .what-box{
       background:#fff;
@@ -82,7 +82,8 @@
       padding:22px 20px;
       display:flex;
       flex-direction:column;
-      justify-content:center;
+      justify-content:flex-start;   /* <-- was center; we want content at top */
+      min-height:100%;
     }
     .box-title{
       margin:0 0 10px 0;
@@ -102,10 +103,8 @@
       font-weight:700;
     }
     .what-list li{margin:6px 0}
-    /* Extra space before the second bullet */
     .what-list li.spaced{margin-top:14px}
 
-    /* Sub-bullets under the retail bullet */
     .what-sub{
       list-style:circle;
       margin:6px 0 0;
@@ -115,13 +114,6 @@
       font-size:clamp(15px,2vw,18px);
     }
 
-    /* Box-specific actions (centered inside each box) */
-    .box-actions{
-      margin-top:16px;
-      display:flex;
-      justify-content:center;
-    }
-
     .what-box p{
       margin:10px 0;
       font-size:clamp(16px,2.1vw,19px);
@@ -129,6 +121,15 @@
       color:#111827;
       text-align:left;
     }
+
+    /* Buttons centered INSIDE each box, aligned on same level */
+    .box-actions{
+      margin-top:auto;           /* push actions to the bottom of the box */
+      display:flex;
+      justify-content:center;    /* center within each box */
+      padding-top:10px;
+    }
+
     @media(max-width:768px){
       .what-grid{grid-template-columns:1fr}
       .box-title{text-align:left}
@@ -141,11 +142,12 @@
       font-size:clamp(15px,1.9vw,18px);
       border:2px solid var(--pm-red);
       text-decoration:none;
+      transition:background .15s ease, color .15s ease, border-color .15s ease;
     }
     .btn-red{background:var(--pm-red);color:#fff;border-color:var(--pm-red-dark)}
     .btn-ghost{background:#fff;color:var(--pm-red);border-color:var(--pm-red)}
 
-    /* HOVER BEHAVIOR (non-navbar buttons): flip colors */
+    /* Global hover flip (non-navbar) */
     .btn-red:hover{
       background:#fff;
       color:var(--pm-red);
@@ -157,19 +159,32 @@
       border-color:var(--pm-red-dark);
     }
 
-    /* CTA (FULL RED) */
+    /* CTA (MAKE IT BIGGER & KEEP WHITE HOVER) */
     .cta{background:var(--pm-red);color:#fff}
-    .cta .inner{display:block}
+    .cta .inner{display:block; padding:clamp(40px,7vw,120px) 18px;}
     .cta-left{text-align:center}
-    .cta-left .block{max-width:720px;margin:0 auto;text-align:center;padding:8px 0}
-
-    /* Center CTA buttons and tweak spacing */
+    .cta-left .block{max-width:900px;margin:0 auto;text-align:center;padding:8px 0}
+    .cta-left .block h2{
+      margin:0;
+      font-size:clamp(28px,5.5vw,48px);
+      font-weight:1000;
+      letter-spacing:.3px;
+    }
     .cta-actions{
       display:flex;
       justify-content:center;
-      gap:14px;
-      margin-top:14px;
+      gap:16px;
+      margin-top:18px;
       flex-wrap:wrap;
+    }
+    .cta .btn-ghost{
+      background:#fff; color:var(--pm-red); border-color:#fff;
+      min-height:56px; padding:16px 22px; font-size:clamp(16px,2vw,20px);
+    }
+    /* Override global hover flip INSIDE CTA to keep buttons white */
+    .cta .btn-ghost:hover,
+    .cta .btn-ghost:focus{
+      background:#fff; color:var(--pm-red); border-color:#fff;
     }
   </style>
 </head>
@@ -247,10 +262,10 @@
       <div class="cta-left">
         <div class="block">
           <h2>Ready to Start an Order?</h2>
-          <!-- Removed the descriptive sentence per request -->
+          <!-- descriptive sentence removed -->
           <div class="cta-actions">
             <a class="btn-ghost" href="/faq/">Read the FAQ</a>
-            <a class="btn-red" href="/contact-us/">Contact Us</a>
+            <a class="btn-ghost" href="/contact-us/">Contact Us</a>
           </div>
         </div>
       </div>
@@ -302,9 +317,4 @@
   </script>
 </body>
 </html>
-
-  </script>
-</body>
-</html>
-
 
