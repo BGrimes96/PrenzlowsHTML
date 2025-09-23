@@ -34,7 +34,7 @@
       padding:8px 14px; border:2px solid var(--pm-red); border-radius:999px; white-space:nowrap;
     }
 
-    /* Keep your existing mobile-only outline for .nav-link if needed */
+    /* Mobile outline for .nav-link (unchanged) */
     @media (max-width: 820px){
       .nav-link{border:2px solid #000;border-radius:6px;padding:10px 12px;display:inline-flex;align-items:center;min-height:44px;font-weight:900}
     }
@@ -44,33 +44,49 @@
 
     /* Lede (red hero) */
     .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
-    .lede h1{margin:0 0 10px;font-size:clamp(28px,5vw,54px);font-weight:1000;letter-spacing:.3px}
-    .lede p{margin:8px auto 0;max-width:900px;font-size:clamp(16px,2.1vw,19px);opacity:.98}
+    /* Removed h1 per request; style the single line nicely */
+    .lede p{
+      margin:0 auto;
+      max-width:1000px;
+      font-weight:800;
+      font-size:clamp(18px,2.6vw,28px);
+      letter-spacing:.15px;
+      line-height:1.45;
+      padding:16px 0;
+    }
 
-    /* What We Do (centered) */
-    .card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:20px}
-    .card h2{margin:0 0 12px;color:var(--pm-red);font-size:clamp(24px,4.4vw,36px);font-weight:1000}
+    /* Card / What We Do */
+    .card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:clamp(22px,3.5vw,36px)}
+    .card h2{margin:0 0 16px;color:var(--pm-red);font-size:clamp(26px,4.4vw,38px);font-weight:1000;text-align:center}
     .muted{color:#6b7280}
     .section[aria-label="What We Do"] .card{text-align:center}
 
+    /* Centered bullet list */
+    .what-list{
+      list-style:disc;
+      margin:0 auto;
+      padding:0 0 0 1.25rem;
+      text-align:left;       /* bullets align cleanly */
+      max-width:980px;
+      color:#111827;
+      font-size:clamp(16px,2.1vw,19px);
+      line-height:1.7;
+    }
+    .what-list li{margin:10px 0}
+    .what-strong{font-weight:800}
+    .what-muted{color:var(--muted)}
+
     /* EVEN, RESPONSIVE BUTTON ROWS */
     .actions{
-      display:grid;
-      gap:14px;
-      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-      justify-items:center;
-      margin-top:12px;
+      display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      justify-items:center; margin-top:18px;
     }
-    .actions > a,
-    .actions > button{
-      width:100%;
-      max-width:420px;
-      text-align:center;
-    }
+    .actions > a, .actions > button{ width:100%; max-width:420px; text-align:center; }
 
     /* Bigger buttons */
     .btn-red, .btn-ghost{
-      font-weight:1000; padding:14px 20px; border-radius:14px; min-height:48px; display:inline-flex; align-items:center; justify-content:center;
+      font-weight:1000; padding:14px 20px; border-radius:14px; min-height:48px;
+      display:inline-flex; align-items:center; justify-content:center;
       font-size:clamp(15px,1.9vw,18px);
     }
     .btn-red{background:var(--pm-red);color:#fff;border:2px solid var(--pm-red-dark)}
@@ -93,37 +109,9 @@
     .foot-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
     .foot-list a{color:#e5e7eb}
     .foot-meta{border-top:1px solid #374151;margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap;font-size:14px;color:#9ca3af}
-
-    /* USDA popup */
-    .usda-pop{
-      position:fixed;right:16px;bottom:16px;z-index:9999;
-      width:min(92vw,320px);
-      background:#fff;border:2px solid var(--pm-red);border-radius:14px;
-      box-shadow:0 10px 30px rgba(16,24,40,.18);
-      transform:translateY(20px);opacity:0;pointer-events:none;
-      transition:transform .25s ease,opacity .25s ease;
-      overflow:hidden;
-    }
-    .usda-pop.show{transform:translateY(0);opacity:1;pointer-events:auto}
-    .usda-head{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:#fff;border-bottom:1px solid #f1f5f9}
-    .usda-title{margin:0;font-weight:1000;font-size:13px;letter-spacing:.02em;color:var(--pm-red)}
-    .usda-close{background:transparent;border:0;cursor:pointer;font-size:16px;line-height:1;padding:2px 4px;color:#475569}
-    .usda-body{padding:10px;font-size:13px}
-    .usda-images{display:flex;gap:6px;align-items:center;justify-content:center;margin-bottom:6px;flex-wrap:wrap}
-    .usda-images img{width:calc(50% - 3px);border:1px solid #f1f5f9;border-radius:6px}
-    .usda-text{font-size:13px;color:#334155;text-align:center}
-    .usda-text strong{color:#0f172a}
-    .usda-actions{display:flex;justify-content:center;padding:0 0 10px}
-    .usda-ok{background:#fff;color:var(--pm-red);border:2px solid var(--pm-red);font-weight:1000;padding:6px 10px;border-radius:8px;cursor:pointer;font-size:13px}
-    .usda-ok:hover{background:var(--pm-red);color:#fff}
-    @media (max-width:420px){
-      .usda-images img{width:100%}
-      .usda-images{flex-direction:column}
-    }
   </style>
 </head>
 <body>
-
   <!-- Header -->
   <header class="site-header" role="banner">
     <div class="header-inner">
@@ -137,16 +125,14 @@
       </div>
     </div>
 
-    <!-- Load ONLY the shared navigation -->
-    <!-- Tip: if this page lives in a folder, try `data-include="./navigation.html"` -->
+    <!-- Shared navigation -->
     <div id="navMount" data-include="/navigation.html">[loading navigation…]</div>
   </header>
 
-  <!-- Hero -->
+  <!-- Hero (single professional line) -->
   <section class="section lede">
     <div class="inner">
-      <h1>Welcome to Prenzlow Meats</h1>
-      <p>We’ve been proudly serving our communities for over <strong>100 years</strong>—hand-crafted meats with old-world care and modern food-safety standards.</p>
+      <p>We’ve been proudly serving customers for over 100 years with hand-crafted meats and Old World tradition.</p>
     </div>
   </section>
 
@@ -155,7 +141,27 @@
     <div class="inner">
       <article class="card">
         <h2>What We Do</h2>
-        <p class="muted">Retail meats &amp; locker packs · Custom processing · House-made sausages · Smokehouse specialties — trimmed for flavor, packed for freshness, and ready for the weeknight or the weekend.</p>
+
+        <ul class="what-list">
+          <li><span class="what-strong">Customized customer processing</span></li>
+          <li>
+            <span class="what-strong">Our retail product line includes:</span>
+            <span> premium cuts of meat &amp; specialty smoked products</span>
+          </li>
+          <li>
+            Our hams, lunch meats and sausage are hand crafted without using any manmade chemicals.
+          </li>
+          <li>
+            The traditional recipes and processing methods we use have not changed for three generations.
+          </li>
+          <li>
+            When you try our meats, you can be confident that the healthy Old-World traditions will be evident with every bite.
+          </li>
+          <li>
+            Thank you for your patronage and we welcome all comments and feedback.
+          </li>
+        </ul>
+
         <div class="actions">
           <a class="btn-red" href="/products.html">View Our Products</a>
           <a class="btn-ghost" href="/contact-us/">Contact Us</a>
@@ -215,28 +221,8 @@
     </div>
   </footer>
 
-  <!-- USDA popup -->
-  <aside class="usda-pop" id="usdaPop">
-    <div class="usda-head">
-      <h3 class="usda-title">USDA Certified</h3>
-      <button class="usda-close" id="usdaCloseX">×</button>
-    </div>
-    <div class="usda-body">
-      <div class="usda-images">
-        <img src="/usda1.png" alt="USDA certification badge 1">
-        <img src="/usda2.png" alt="USDA certification badge 2">
-      </div>
-      <p class="usda-text">
-        <strong>Did you know?</strong> We’re USDA Certified, meeting strict standards for food safety, sanitation, and traceability.
-      </p>
-    </div>
-    <div class="usda-actions">
-      <button class="usda-ok" id="usdaGood">Got it</button>
-    </div>
-  </aside>
-
   <script>
-    // Tiny helper: try multiple candidate paths for navigation.html
+    // Include navigation with fallbacks
     (function () {
       async function tryFetch(url) {
         const bust = (url.includes('?') ? '&' : '?') + 'v=' + Date.now();
@@ -244,23 +230,16 @@
         if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
         return await res.text();
       }
-
       async function inject(selector) {
         const nodes = document.querySelectorAll(selector);
         for (const mount of nodes) {
           const requested = mount.getAttribute('data-include');
-          // Candidates to improve odds if pathing is off (same-origin only)
-          const candidates = [
-            requested,
-            './navigation.html',
-            '/navigation.html'
-          ].filter(Boolean);
-
+          const candidates = [ requested, './navigation.html', '/navigation.html' ].filter(Boolean);
           let loaded = false;
           for (const href of candidates) {
             try {
               const html = await tryFetch(href);
-              mount.outerHTML = html; // replace the placeholder div with the nav markup
+              mount.outerHTML = html;
               loaded = true;
               break;
             } catch (e) {
@@ -279,25 +258,13 @@
           }
         }
       }
-
-      // Ensure this runs after DOM is ready
       document.addEventListener('DOMContentLoaded', () => inject('[data-include]'));
     })();
 
-    // Year
-    (function(){ const y=document.getElementById('y'); if(y) y.textContent=new Date().getFullYear(); })();
-
-    // USDA popup
+    // Footer year
     (function(){
-      const pop=document.getElementById('usdaPop');
-      const closeX=document.getElementById('usdaCloseX');
-      const good=document.getElementById('usdaGood');
-      const KEY='usda_pop_hidden';
-      if(sessionStorage.getItem(KEY)==='1')return;
-      setTimeout(()=> pop && pop.classList.add('show'),600);
-      function hide(){ if(!pop)return; pop.classList.remove('show'); sessionStorage.setItem(KEY,'1'); }
-      closeX&&closeX.addEventListener('click',hide);
-      good&&good.addEventListener('click',hide);
+      const y=document.getElementById('y');
+      if(y) y.textContent=new Date().getFullYear();
     })();
   </script>
 </body>
