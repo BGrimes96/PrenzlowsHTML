@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>About Us — Prenzlow Meats</title>
+  <title>Contact Us — Prenzlow Meats</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="index,follow" />
 
   <style>
     :root{
@@ -19,13 +18,11 @@
     a{color:inherit;text-decoration:none}
     img{max-width:100%;height:auto;display:block}
 
-    /* Header / brand */
+    /* Header / brand (shared look) */
     header.site-header{background:#fff}
     .header-inner{max-width:var(--max);margin:0 auto;padding:18px 18px 10px}
     .brand{display:flex;justify-content:center}
     .brand img{width:clamp(180px, 28vw, 420px)}
-
-    /* Slogan ribbon */
     .slogan-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 18px 0}
     .slogan-wrap .rule{height:2px;background:var(--pm-red);flex:1;max-width:260px}
     .slogan{
@@ -37,101 +34,68 @@
     /* Sections scaffold */
     .section .inner{max-width:var(--max);margin:0 auto;padding:clamp(20px,4vw,56px) 18px}
 
-    /* Red hero (USDA) */
+    /* RED #1: hero */
     .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
     .lede h1{
-      margin:0 0 14px;
-      font-size:clamp(28px,5vw,54px);
-      font-weight:1000;
-      letter-spacing:.3px;
-    }
-    .lede .usda-images{
-      display:flex;justify-content:center;gap:48px;flex-wrap:wrap;margin-top:20px;
-    }
-    .lede .usda-images img{
-      width:clamp(180px, 24vw, 320px);
-      height:auto;
-    }
-
-    /* White info band with “invisible boxes” + divider */
-    .info-white{background:#fff}
-    .twocol{display:grid;gap:22px;grid-template-columns:1fr}
-    .twocol h3{margin:0 0 8px;color:var(--pm-red);font-weight:1000;font-size:clamp(18px,2.4vw,22px)}
-    .twocol p{margin:0;color:#111827;font-size:clamp(16px,2vw,18px);line-height:1.7}
-    @media(min-width:900px){
-      .twocol{grid-template-columns:1fr 1fr}
-      .twocol.divided{position:relative}
-      .twocol.divided::before{
-        content:""; position:absolute; top:0; bottom:0; left:50%; width:1px; background:#e5e7eb;
-        transform:translateX(-.5px);
-      }
-      .twocol > div{padding:0 14px}
-    }
-
-    /* Feature red band for “Old-World…” + products */
-    .feature-red{background:var(--pm-red);color:#fff}
-    .feature-red h2{
       margin:0 0 12px;
-      font-size:clamp(26px,4.4vw,38px);
-      font-weight:1000;
-      color:#fff;
-      text-align:center
+      font-size:clamp(32px,6.2vw,64px);
+      font-weight:1000; letter-spacing:.3px
     }
-    .feature-red p.subtext{
-      margin:0 0 20px;
-      text-align:center;
-      font-size:clamp(16px,2.1vw,19px);
-      color:#fff;
-      font-weight:700
-    }
-    .feature-red .product-list{
-      list-style:disc;
-      padding-left:1.5rem;
-      max-width:680px;
-      margin:0 auto 22px;
-      color:#fff;
-      font-size:clamp(16px,2.1vw,19px);
-      font-weight:800
+    .lede p{
+      margin:8px auto 0; max-width:1000px;
+      font-size:clamp(16px,2.1vw,19px); opacity:.98
     }
 
-    /* Product gallery: 4 on one line (desktop), uniform squares */
-    .product-gallery{
-      display:grid;
-      gap:14px;
-      grid-template-columns:repeat(2,minmax(0,1fr)); /* mobile/tablet */
-      justify-items:center;
+    /* WHITE #1: Locations & ways to reach us */
+    .contacts h2{
+      margin:0 0 10px; color:var(--pm-red);
+      font-size:clamp(22px,4vw,36px); font-weight:1000; text-align:center
     }
-    @media(min-width:900px){
-      .product-gallery{grid-template-columns:repeat(4,minmax(0,1fr))} /* 4 across on desktop */
-    }
-    .product-frame{
-      width:100%;
-      aspect-ratio:1/1;
-      border-radius:12px;
-      overflow:hidden;
-      box-shadow:0 4px 16px rgba(0,0,0,.18);
-      background:#fff;
-    }
-    .product-frame > img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
+    .grid-2{display:grid;gap:16px;grid-template-columns:1fr}
+    @media(min-width:960px){.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .card{border:2px solid #f3f4f6;border-radius:14px;background:#fff;padding:16px}
+    .card h3{margin:0 6px 6px 0;font-size:18px;font-weight:900;color:var(--pm-red)}
+    .muted{color:#6b7280}
+    .row{display:grid;gap:6px}
+    .row strong{display:block}
 
-    /* CTA (white) */
-    .cta-white{background:#fff;color:#111827}
-    .cta-white .inner{display:block;text-align:center}
-    .cta-white h2{
-      margin:0 0 12px;
-      font-size:clamp(24px,4vw,34px);
-      font-weight:1000;
-      color:#111827;
+    /* RED #2: Message us (simple form, no backend yet) */
+    .message{background:var(--pm-red);color:#fff}
+    .message h2{
+      margin:0 0 10px; font-size:clamp(22px,4vw,36px);
+      font-weight:1000; color:#fff; text-align:center
     }
+    .form{
+      background:#fff;border-radius:14px;border:2px solid #f3f4f6;
+      padding:16px; max-width:900px; margin:0 auto
+    }
+    .form-grid{display:grid;gap:12px;grid-template-columns:1fr}
+    @media(min-width:720px){.form-grid{grid-template-columns:1fr 1fr}}
+    label{font-weight:800;color:#0f172a}
+    input,select,textarea{
+      width:100%; border:2px solid #e5e7eb; border-radius:10px; padding:10px; font:inherit;
+      background:#fff
+    }
+    textarea{min-height:140px;resize:vertical}
+    .form-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+    .btn-red{background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark)}
+    .btn-red:hover{background:var(--pm-red-dark)}
+    .btn-ghost{background:#fff; color:var(--pm-red); border:2px solid var(--pm-red)}
+    .btn-ghost:hover{background:var(--pm-red); color:#fff}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;min-height:48px;border-radius:12px;font-weight:1000;text-decoration:none}
+
+    /* RED #3: Ready to order (white buttons) */
+    .cta{background:var(--pm-red);color:#fff;text-align:center}
+    .cta .inner{display:block}
+    .cta h2{
+      margin:0 0 10px; font-size:clamp(22px,4vw,36px);
+      font-weight:1000; color:#fff; text-align:center
+    }
+    .cta p{margin:6px auto 0;max-width:900px;text-align:center;opacity:.98}
     .actions{
       display:grid; gap:14px;
       grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      justify-items:center; max-width:700px; margin:12px auto 0;
+      justify-items:center; max-width:900px; margin:14px auto 0;
     }
     .actions a{
       display:inline-flex; align-items:center; justify-content:center;
@@ -139,16 +103,15 @@
       text-decoration:none; width:100%;
       font-size:clamp(15px,1.9vw,18px);
     }
-    .btn-red{background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark)}
-    .btn-red:hover{background:var(--pm-red-dark)}
-    .btn-ghost{background:#fff; color:var(--pm-red); border:2px solid var(--pm-red)}
-    .btn-ghost:hover{background:var(--pm-red); color:#fff}
+    .btn-white{background:#fff; color:var(--pm-red); border:2px solid var(--pm-red)}
+    .btn-white:hover{background:transparent; color:#fff; border-color:#fff}
 
     /* Footer include wrapper */
     .footer-slot{background:#111827}
   </style>
 </head>
 <body>
+
   <!-- Header -->
   <header class="site-header" role="banner">
     <div class="header-inner">
@@ -161,95 +124,149 @@
         <span class="rule"></span>
       </div>
     </div>
+    <!-- Shared navbar include -->
     <div data-include="/navigation.html">[loading navigation…]</div>
   </header>
 
-  <!-- Red Hero -->
-  <section class="section lede" role="region" aria-label="USDA Certified">
+  <!-- RED #1 -->
+  <section class="section lede" role="region" aria-label="Contact lede">
     <div class="inner">
-      <h1>Prenzlow's Meats Are USDA Certified</h1>
-      <div class="usda-images">
-        <img src="/usda1.png" alt="USDA Certification Logo 1" loading="lazy">
-        <img src="/usda2.png" alt="USDA Certification Logo 2" loading="lazy">
+      <h1>Contact Us</h1>
+      <p>Real people, straight answers. Questions about ordering, custom processing, or pickup—we’re here to help.</p>
+    </div>
+  </section>
+
+  <!-- WHITE #1: Locations & ways to reach us -->
+  <section class="section contacts" role="region" aria-label="Locations and contact">
+    <div class="inner">
+      <h2>Where to Find Us</h2>
+      <div class="grid-2">
+        <article class="card" aria-label="Retail location">
+          <h3>Retail Location — Waterloo, NE</h3>
+          <div class="row">
+            <strong>Address</strong>
+            <p>635 S. 240th Street<br/>Waterloo, NE 68069</p>
+          </div>
+          <div class="row" style="margin-top:8px">
+            <a class="btn btn-ghost" href="https://maps.google.com/?q=635 S. 240th Street, Waterloo, NE 68069" target="_blank" rel="noopener">Open in Maps</a>
+          </div>
+        </article>
+
+        <article class="card" aria-label="Processing facility">
+          <h3>Processing Facility — Snyder, NE</h3>
+          <p class="muted">By appointment for harvest scheduling and custom cut lists.</p>
+          <div class="row" style="margin-top:8px">
+            <a class="btn btn-ghost" href="/faq/">How Custom Processing Works</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="grid-2" style="margin-top:16px">
+        <article class="card" aria-label="General contact">
+          <h3>Talk With Us</h3>
+          <p class="muted">Prefer email or a quick call? Reach out—tell us what you’re planning and we’ll guide portions, cuts, and timing.</p>
+          <div class="row" style="margin-top:8px">
+            <!-- Replace with your real email/phone if desired -->
+            <a class="btn btn-ghost" href="/contact-us/">Email the Team</a>
+          </div>
+        </article>
+
+        <article class="card" aria-label="Ordering help">
+          <h3>Ordering Help</h3>
+          <p class="muted">Locker packs or by-the-pound—get exactly what fits your household and freezer space.</p>
+          <div class="row" style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn btn-ghost" href="/order-here/">Order Here</a>
+            <a class="btn btn-ghost" href="/faq/">How Ordering Works</a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- White info band: two “invisible” boxes + divider -->
-  <section class="section info-white" role="region" aria-label="Services Overview">
-    <div class="inner twocol divided">
-      <div>
-        <h3>We Offer Specialty <em>Custom Butchery / Slaughter</em></h3>
-        <p>
-          Schedule a harvest with us and we’ll handle humane handling, hanging, aging, and
-          <strong>custom cutting to your exact cut list</strong>. You keep the meat—wrapped,
-          labeled, and freezer-ready for your family. This is your animal, your cuts, your portions.
-          Talk to us about dates, cut instructions, and packaging preferences.
-        </p>
-      </div>
-      <div>
-        <h3>We Also Offer Specialty <em>Retail Cuts of Meat</em></h3>
-        <p>
-          Prefer to buy by the pound? We stock <strong>retail meats</strong> including
-          hamburger, steaks, deli meats, sausages, and more—crafted in small batches to our traditional standards.
-          In short, we provide <strong>two options</strong>: we slaughter for you to keep,
-          and we also produce and sell our own retail meats for immediate purchase.
-        </p>
-      </div>
+  <!-- RED #2: Message form -->
+  <section class="section message" role="region" aria-label="Send a message">
+    <div class="inner">
+      <h2>Send Us a Message</h2>
+      <form class="form" method="post" action="#">
+        <!-- TODO: Replace action with your form endpoint (e.g., /api/contact or Formspree/Netlify) -->
+        <div class="form-grid">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+        </div>
+        <div class="form-grid" style="margin-top:8px">
+          <div>
+            <label for="phone">Phone (optional)</label>
+            <input id="phone" name="phone" type="tel" />
+          </div>
+          <div>
+            <label for="topic">Topic</label>
+            <select id="topic" name="topic">
+              <option>General Question</option>
+              <option>Retail Order Question</option>
+              <option>Custom Processing / Harvest Scheduling</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top:8px">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us what you’re planning or ask anything…"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-red">Send Message</button>
+          <a class="btn btn-ghost" href="/faq/">Read the FAQ</a>
+        </div>
+      </form>
     </div>
   </section>
 
-  <!-- Red Feature Section with products -->
-  <section class="section feature-red" role="region" aria-label="Old World Standards & Products">
+  <!-- RED #3: Ready to order -->
+  <section class="section cta" role="region" aria-label="Ready to order">
     <div class="inner">
-      <h2>Old-World Skill. Modern Standards.</h2>
-      <p class="subtext">Hand Crafted Without Using Any Manmade Or Any Artificial Chemicals.</p>
-
-      <ul class="product-list">
-        <li>Specialty Cut Hams</li>
-        <li>Specialty Cut Lunch Meats</li>
-        <li>Specialty Cut Sausage</li>
-        <li>Specialty Cut Steaks</li>
-      </ul>
-
-      <div class="product-gallery">
-        <figure class="product-frame"><img src="/product1.png" alt="Product 1" loading="lazy"></figure>
-        <figure class="product-frame"><img src="/product2.png" alt="Product 2" loading="lazy"></figure>
-        <figure class="product-frame"><img src="/product3.png" alt="Product 3" loading="lazy"></figure>
-        <figure class="product-frame"><img src="/product4.png" alt="Product 4" loading="lazy"></figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- White CTA band -->
-  <section class="section cta-white" role="region" aria-label="Order CTA">
-    <div class="inner">
-      <h2>Ready to Start an Order?</h2>
+      <h2>Ready to Order?</h2>
+      <p>We’ll help you pick cuts and portions that fit your household and your week.</p>
       <div class="actions">
-        <a class="btn-ghost" href="/faq.html">Read the FAQ</a>
-        <a class="btn-red" href="/contact-us.html">Contact Us</a>
+        <a class="btn-white" href="/order-here/">Order Here</a>
+        <a class="btn-white" href="/faq/">How Ordering Works</a>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Shared footer include -->
   <div class="footer-slot" data-include="/sitemap-footer.html">[loading footer…]</div>
 
   <script>
-    // Include loader
+    // Include loader: injects snippets; avoids full-page injection.
     (function () {
+      function isFullDocument(txt){
+        return /<!doctype|<\s*html[\s>]|<\s*head[\s>]|<\s*body[\s>]/i.test(txt);
+      }
       async function inject(selector) {
         const nodes = document.querySelectorAll(selector);
         for (const el of nodes) {
           const url = el.getAttribute('data-include');
           if (!url) continue;
           try {
-            const res = await fetch(url, { cache: 'no-store' });
+            const bust = (url.includes('?') ? '&' : '?') + 'v=' + Date.now();
+            const res = await fetch(url + bust, { cache: 'no-store' });
             if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
-            el.outerHTML = await res.text();
+            const html = await res.text();
+            if (isFullDocument(html)) throw new Error('Expected snippet, received full HTML: ' + url);
+            el.outerHTML = html;
           } catch (err) {
             console.error('[include] failed', url, err);
             el.textContent = 'Content failed to load.';
+            el.style.color = '#b91c1c';
+            el.style.padding = '8px 12px';
+            el.style.fontWeight = '700';
+            el.style.border = '2px solid #fecaca';
+            el.style.borderRadius = '10px';
+            el.style.background = '#fff1f2';
           }
         }
       }
