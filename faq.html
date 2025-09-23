@@ -18,244 +18,190 @@
     a{color:inherit;text-decoration:none}
     img{max-width:100%;height:auto;display:block}
 
-    /* Utility bar */
-    .utility{background:#fff;border-bottom:1px solid #e5e7eb}
-    .utility .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    .util-left,.util-right{display:flex;align-items:center;gap:14px}
-    .search{display:flex;align-items:center;gap:8px;border:1px solid #e5e7eb;border-radius:999px;padding:6px 10px;min-height:36px;background:#fff}
-    .search input{border:0;outline:0;min-width:220px;font:inherit;background:transparent}
-
-    /* Header / brand */
+    /* Header / brand (shared look) */
     header.site-header{background:#fff}
-    .header-inner{max-width:var(--max);margin:0 auto;padding:16px 18px 10px}
+    .header-inner{max-width:var(--max);margin:0 auto;padding:18px 18px 10px}
     .brand{display:flex;justify-content:center}
-    .brand img{width:min(520px,92%)}
-
-    /* Primary nav */
-    nav.primary{border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;background:#fff}
-    .primary .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
-    .nav-link{font-weight:900;padding:10px 4px;position:relative;min-height:44px;display:flex;align-items:center}
-    .nav-link[aria-current="page"]{text-decoration:underline;text-underline-offset:6px}
-    .nav-link:hover::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:currentColor}
-    .btn-outline{color:var(--pm-red);border:2px solid var(--pm-red);padding:10px 16px;border-radius:10px;font-weight:1000;min-height:44px;display:inline-flex;align-items:center}
-    .btn-outline:hover{background:var(--pm-red);color:#fff}
+    .brand img{width:clamp(180px, 28vw, 420px)}
+    .slogan-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 18px 0}
+    .slogan-wrap .rule{height:2px;background:var(--pm-red);flex:1;max-width:260px}
+    .slogan{
+      font-weight:1000; letter-spacing:.08em; text-transform:uppercase;
+      font-size:clamp(14px,3.2vw,24px); color:var(--pm-red);
+      padding:8px 14px; border:2px solid var(--pm-red); border-radius:999px; white-space:nowrap;
+    }
 
     /* Sections */
     .section .inner{max-width:var(--max);margin:0 auto;padding:clamp(20px,4vw,56px) 18px}
 
-    /* Lede */
+    /* RED #1: hero */
     .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
-    .lede h1{margin:0 0 10px;font-size:clamp(28px,5vw,54px);font-weight:1000;letter-spacing:.3px}
-    .lede p{margin:8px auto 0;max-width:900px;font-size:clamp(16px,2.1vw,19px);opacity:.98}
+    .lede h1{
+      margin:0 0 12px;
+      font-size:clamp(32px,6.2vw,64px);
+      font-weight:1000; letter-spacing:.3px
+    }
+    .lede p{
+      margin:8px auto 0; max-width:1000px;
+      font-size:clamp(16px,2.1vw,19px); opacity:.98
+    }
 
-    /* FAQ accordions */
-    .faq h2{margin:0 0 10px;color:var(--pm-red);font-size:clamp(22px,4vw,36px);font-weight:1000}
+    /* WHITE: FAQ accordions */
+    .faq h2{
+      margin:0 0 10px; color:var(--pm-red);
+      font-size:clamp(22px,4vw,36px); font-weight:1000; text-align:center
+    }
+    .grid-2{display:grid;gap:16px;grid-template-columns:1fr}
+    @media(min-width:960px){.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
     details{border:2px solid #f3f4f6;border-radius:12px;padding:12px;background:#fff}
     details+details{margin-top:10px}
     summary{cursor:pointer;font-weight:900;list-style:none}
     summary::-webkit-details-marker{display:none}
-    .answer{color:#6b7280;margin:8px 0 0}
-    .grid-2{display:grid;gap:16px;grid-template-columns:1fr}
-    @media(min-width:960px){.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .answer{color:#111827;margin:8px 0 0}
 
-    /* Contact strip */
-    .strip{background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%)}
-    .strip .inner{display:grid;gap:22px;grid-template-columns:1fr}
-    @media(min-width:960px){.strip .inner{grid-template-columns:1.1fr .9fr}}
-    .strip h2{color:#fff;margin:0 0 12px;font-size:clamp(20px,3.6vw,32px);font-weight:1000}
-    .white-card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:16px}
-    .white-card h3{margin:0 0 8px;color:var(--pm-red);font-weight:1000}
-    .btn-red{background:var(--pm-red);color:#fff;font-weight:1000;padding:12px 16px;border-radius:12px;border:2px solid var(--pm-red-dark);min-height:44px;display:inline-flex;align-items:center}
-    .btn-red:hover{background:var(--pm-red-dark)}
-    .btn-ghost{background:#fff;color:var(--pm-red);font-weight:1000;padding:12px 16px;border-radius:12px;border:2px solid var(--pm-red);min-height:44px;display:inline-flex;align-items:center}
-    .btn-ghost:hover{background:var(--pm-red);color:#fff}
+    /* RED CTA: Ready to order (white buttons) */
+    .cta{background:var(--pm-red);color:#fff;text-align:center}
+    .cta .inner{display:block}
+    .cta h2{
+      margin:0 0 10px; font-size:clamp(22px,4vw,36px);
+      font-weight:1000; color:#fff; text-align:center
+    }
+    .cta p{margin:6px auto 0;max-width:900px;text-align:center;opacity:.98}
+    .actions{
+      display:grid; gap:14px;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      justify-items:center; max-width:900px; margin:14px auto 0;
+    }
+    .actions a{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 18px; min-height:48px; border-radius:12px; font-weight:1000;
+      text-decoration:none; width:100%;
+      font-size:clamp(15px,1.9vw,18px);
+    }
+    .btn-ghost{background:#fff; color:var(--pm-red); border:2px solid var(--pm-red)}
+    .btn-ghost:hover{background:transparent; color:#fff; border-color:#fff}
 
-    /* Footer */
-    footer{background:#111827;color:#e5e7eb}
-    .footer-inner{max-width:var(--max);margin:0 auto;padding:28px 18px;display:grid;gap:24px;grid-template-columns:1fr}
-    @media(min-width:900px){.footer-inner{grid-template-columns: 1.2fr 1fr 1fr}}
-    .foot-title{font-weight:1000;margin:0 0 10px;color:#fff}
-    .foot-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-    .foot-list a{color:#e5e7eb}
-    .foot-meta{border-top:1px solid #374151;margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap;font-size:14px;color:#9ca3af}
+    /* Footer include wrapper */
+    .footer-slot{background:#111827}
   </style>
 </head>
 <body>
-
-  <!-- Utility bar -->
-  <div class="utility" role="region" aria-label="Utility bar">
-    <div class="inner">
-      <div class="util-left">
-        <form class="search" role="search" onsubmit="event.preventDefault()">
-          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.3 6.3 0 1 0-.71.71l.27.28v.79L20 21.5 21.5 20l-6-6zM6.5 11a4.5 4.5 0 1 1 9 0a4.5 4.5 0 0 1-9 0"/></svg>
-          <input type="search" placeholder="Search" aria-label="Search site" />
-        </form>
-      </div>
-      <div class="util-right">
-        <a class="nav-link" href="/account/signin/">Sign in</a>
-        <span aria-hidden="true">or</span>
-        <a class="nav-link" href="/account/register/">Register</a>
-        <a class="nav-link" href="/cart/">Cart</a>
-      </div>
-    </div>
-  </div>
 
   <!-- Header -->
   <header class="site-header" role="banner">
     <div class="header-inner">
       <div class="brand">
-        <img src="/assets/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920" />
+        <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920">
+      </div>
+      <div class="slogan-wrap">
+        <span class="rule"></span>
+        <span class="slogan">We Bring The Country To Your Table</span>
+        <span class="rule"></span>
       </div>
     </div>
-    <nav class="primary" aria-label="Primary">
-      <div class="inner">
-        <a class="btn-outline" href="/order-here/">ORDER HERE</a>
-        <a class="nav-link" href="/about-us/">About Us</a>
-        <a class="nav-link" href="/our-mission/">Our Mission</a>
-        <a class="nav-link" href="/health-and-nutrition/">Your Health &amp; Nutrition</a>
-        <a class="nav-link" aria-current="page" href="/faq/">FAQ</a>
-        <a class="nav-link" href="/contact-us/">Contact Us</a>
-      </div>
-    </nav>
+    <!-- Shared navbar include -->
+    <div data-include="/navigation.html">[loading navigation…]</div>
   </header>
 
-  <!-- Lede -->
+  <!-- RED #1 -->
   <section class="section lede" role="region" aria-label="FAQ lede">
     <div class="inner">
       <h1>Frequently Asked Questions</h1>
-      <p>Straight answers to the things customers ask us most—ordering, pickup, storage, and more.</p>
+      <p>Straight answers about ordering, pickup, storage, and our small-batch process.</p>
     </div>
   </section>
 
-  <!-- FAQ blocks -->
+  <!-- WHITE: FAQs -->
   <section class="section faq" role="region" aria-label="FAQ">
     <div class="inner">
-      <h2>Ordering & Pickup</h2>
+      <h2>Ordering &amp; Pickup</h2>
       <div class="grid-2">
         <details>
           <summary>How do I place an order?</summary>
-          <p class="answer">Use <a href="/order-here/">ORDER HERE</a> to select locker packs or individual cuts. If you need help with portions, add a note at checkout or <a href="/contact-us/">contact us</a>.</p>
+          <p class="answer">Use <a href="/order-here/">ORDER HERE</a> to choose locker packs or individual cuts. Not sure on portions? Add a note at checkout or <a href="/contact-us/">contact us</a>—we’ll help size it right.</p>
         </details>
         <details>
           <summary>When will my order be ready?</summary>
-          <p class="answer">Most retail orders are ready within 1–2 business days. Custom cut lists (quarter/half beef, whole hog) take longer—we’ll confirm timing when we review your selections.</p>
+          <p class="answer">Most retail orders are ready within 1–2 business days. Custom cut lists (quarter/half beef, whole hog) take longer—timing is confirmed when we review your selections.</p>
         </details>
         <details>
           <summary>Do you accept special requests?</summary>
-          <p class="answer">Yes—tell us your preferred steak thickness, number-per-pack, or sausage spice level. We’ll confirm what’s possible before we start.</p>
+          <p class="answer">Yes. Tell us steak thickness, number-per-pack, grind preference, or sausage spice level. We’ll confirm what’s possible before we start.</p>
         </details>
         <details>
           <summary>How does pickup work?</summary>
-          <p class="answer">We’ll notify you when it’s ready. Bring a cooler for longer drives. Our counter team will review labels and quantities with you.</p>
+          <p class="answer">We’ll notify you when your order is ready. Bring a cooler for longer drives. Our counter team reviews labels and counts with you at pickup.</p>
         </details>
       </div>
 
-      <h2 style="margin-top:28px">Product & Preparation</h2>
+      <h2 style="margin-top:28px">Product &amp; Preparation</h2>
       <div class="grid-2">
         <details>
           <summary>What’s in your sausages?</summary>
-          <p class="answer">Small-batch blends of meat, salt, spices, and natural casings—no gimmicks. Seasonal batches vary; ask for today’s ingredient list.</p>
+          <p class="answer">Small-batch blends of meat, salt, and spices—no filler gimmicks. Seasonal batches vary; ask for today’s ingredient list.</p>
         </details>
         <details>
           <summary>Do you smoke your own bacon and jerky?</summary>
-          <p class="answer">Yes—house smokehouse, balanced seasoning, and time/temperature profiles we’ve refined over decades.</p>
+          <p class="answer">Yes—house smokehouse, balanced seasoning, and time/temperature profiles refined over decades.</p>
         </details>
         <details>
           <summary>How should I thaw meat safely?</summary>
-          <p class="answer">Refrigerator thaw is best. For a faster option, use sealed-bag cold water and change water every 30 minutes—cook immediately after.</p>
+          <p class="answer">Thaw in the refrigerator. For a faster option, use sealed-bag cold water; change the water every 30 minutes and cook immediately after.</p>
         </details>
         <details>
           <summary>What temperatures should I cook to?</summary>
-          <p class="answer">Ground meats: 160°F. Whole cuts beef/pork: 145°F with 3-minute rest. Poultry: 165°F. Fish: 145°F (opaque and flakes easily).</p>
+          <p class="answer">Ground meats: 160°F. Whole cuts beef/pork: 145°F + 3-minute rest. Poultry: 165°F. Fish: 145°F (opaque, flakes easily).</p>
         </details>
       </div>
 
-      <h2 style="margin-top:28px">Packaging, Storage & Allergens</h2>
+      <h2 style="margin-top:28px">Packaging, Storage &amp; Allergens</h2>
       <div class="grid-2">
         <details>
           <summary>How are items packaged?</summary>
-          <p class="answer">Trimmed, labeled, and portioned for real-world freezers. We aim for clear labels (cut, weight, date) and right-sized packs.</p>
+          <p class="answer">Trimmed, labeled, and portioned for real-world freezers. We keep labels clear—cut, weight, and date—for easy rotation.</p>
         </details>
         <details>
           <summary>How long can I freeze meats?</summary>
-          <p class="answer">Quality guidelines: ground 3–4 months; steaks/roasts 6–12 months; bacon/sausage 1–2 months. Foods kept at 0°F remain safe indefinitely.</p>
+          <p class="answer">Best quality guide: ground 3–4 months; steaks/roasts 6–12 months; bacon/sausage 1–2 months. Foods at 0°F remain safe indefinitely.</p>
         </details>
         <details>
           <summary>Do you list allergens?</summary>
-          <p class="answer">Yes—common allergens (e.g., dairy, wheat, soy) appear on labels when present. Ask the counter for current sausage ingredients.</p>
+          <p class="answer">Yes. Common allergens (e.g., dairy, wheat, soy) appear on labels when present. Ask the counter for current sausage ingredients.</p>
         </details>
         <details>
-          <summary>Do you offer low-sodium or gluten-conscious options?</summary>
-          <p class="answer">Choose simple, single-ingredient cuts most often. We’ll help you pick batches with lighter seasoning when available.</p>
+          <summary>Low-sodium or gluten-conscious options?</summary>
+          <p class="answer">Choose simple, single-ingredient cuts most often. We can also suggest current small-batch sausages with lighter seasoning.</p>
         </details>
       </div>
 
       <h2 style="margin-top:28px">Custom Processing</h2>
       <div class="grid-2">
         <details>
-          <summary>Can you do quarter/half beef or whole hogs?</summary>
+          <summary>Do you process quarter/half beef or whole hogs?</summary>
           <p class="answer">Absolutely. We’ll walk you through a cut list (steak thickness, roast vs. grind, sausage choices) and label everything for easy freezer rotation.</p>
         </details>
         <details>
-          <summary>Do you provide sides or recipes?</summary>
-          <p class="answer">Ask the counter—we keep simple side ideas and rub suggestions handy, and we’re happy to talk through cooking methods.</p>
+          <summary>Can you help with sides or simple recipes?</summary>
+          <p class="answer">Yes—ask at the counter. We keep quick side ideas and rub suggestions handy, and we’re happy to talk cooking methods.</p>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- Contact strip -->
-  <section class="section strip" role="region" aria-label="Need more help">
+  <!-- RED CTA: Ready to order -->
+  <section class="section cta" role="region" aria-label="Ready to order">
     <div class="inner">
-      <div>
-        <h2>Didn’t See Your Question?</h2>
-        <p style="color:#fff;max-width:780px;margin:10px 0 0">Give us a call, send a message, or stop by—we’ll get you a straight answer and help you pick the right cuts.</p>
+      <h2>Ready to Order?</h2>
+      <p>We’ll help you pick cuts and portions that fit your household and your week.</p>
+      <div class="actions">
+        <a class="btn-ghost" href="/contact-us/">Contact Us</a>
+        <a class="btn-ghost" href="/faq/">How Ordering Works</a>
       </div>
-      <aside class="white-card">
-        <h3>We’re Happy to Help</h3>
-        <p class="answer">Our counter team can advise on portions, thawing, and weeknight-friendly meals.</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
-          <a class="btn-red" href="/contact-us/">Contact Us</a>
-          <a class="btn-ghost" href="/order-here/">Order Here</a>
-        </div>
-      </aside>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer role="contentinfo">
-    <div class="footer-inner">
-      <section>
-        <h4 class="foot-title">Navigate</h4>
-        <ul class="foot-list" aria-label="Navigate">
-          <li><a href="/about-us/">About Us</a></li>
-          <li><a href="/our-mission/">Our Mission</a></li>
-          <li><a href="/health-and-nutrition/">Your Health &amp; Nutrition</a></li>
-          <li><a href="/faq/">FAQ</a></li>
-          <li><a href="/contact-us/">Contact Us</a></li>
-          <li><a href="/sitemap/">Sitemap</a></li>
-        </ul>
-      </section>
-      <section>
-        <h4 class="foot-title">Categories</h4>
-        <ul class="foot-list" aria-label="Categories">
-          <li><a href="/order-here/">ORDER HERE</a></li>
-        </ul>
-      </section>
-      <section>
-        <h4 class="foot-title">Info</h4>
-        <ul class="foot-list" aria-label="Info">
-          <li>Prenzlow Meats</li>
-          <li>Since 1920</li>
-          <li><a href="/contact-us/">Contact &amp; Hours</a></li>
-        </ul>
-      </section>
-      <div class="foot-meta">
-        <span>© <span id="y"></span> Prenzlow Meats</span>
-        <span>All rights reserved.</span>
-      </div>
-    </div>
-  </footer>
+  <!-- Shared footer include -->
+  <div class="footer-slot" data-include="/sitemap-footer.html">[loading footer…]</div>
 
   <!-- JSON-LD for FAQ rich results -->
   <script type="application/ld+json">
@@ -263,16 +209,53 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      {"@type":"Question","name":"How do I place an order?","acceptedAnswer":{"@type":"Answer","text":"Use ORDER HERE to select locker packs or cuts. Add notes at checkout or contact us for help with portions."}},
-      {"@type":"Question","name":"When will my order be ready?","acceptedAnswer":{"@type":"Answer","text":"Retail orders are typically ready in 1–2 business days. Custom cut lists take longer; we confirm timing after reviewing your selections."}},
-      {"@type":"Question","name":"How should I thaw meat safely?","acceptedAnswer":{"@type":"Answer","text":"Thaw in the refrigerator. For quicker thawing, use sealed-bag cold water, changing the water every 30 minutes; cook immediately after."}},
+      {"@type":"Question","name":"How do I place an order?","acceptedAnswer":{"@type":"Answer","text":"Use ORDER HERE to choose locker packs or individual cuts. Add notes at checkout or contact us for portion help."}},
+      {"@type":"Question","name":"When will my order be ready?","acceptedAnswer":{"@type":"Answer","text":"Retail orders are typically ready in 1–2 business days. Custom cut lists take longer and are confirmed after review."}},
+      {"@type":"Question","name":"How should I thaw meat safely?","acceptedAnswer":{"@type":"Answer","text":"Thaw in the refrigerator. For quicker thawing, use sealed-bag cold water, changing water every 30 minutes; cook immediately after."}},
       {"@type":"Question","name":"What temperatures should I cook to?","acceptedAnswer":{"@type":"Answer","text":"Ground meats 160°F; whole cuts beef/pork 145°F with 3-minute rest; poultry 165°F; fish 145°F until opaque and flaky."}},
       {"@type":"Question","name":"Do you list allergens?","acceptedAnswer":{"@type":"Answer","text":"Yes—common allergens appear on labels when present. Ask for current sausage ingredients."}},
-      {"@type":"Question","name":"Do you offer quarter/half beef or whole hogs?","acceptedAnswer":{"@type":"Answer","text":"Yes—we provide a guided cut list, portioning, and clear labels for easy freezer rotation."}}
+      {"@type":"Question","name":"Do you process quarter/half beef or whole hogs?","acceptedAnswer":{"@type":"Answer","text":"Yes—guided cut lists, portioning, and clear labels for easy freezer rotation."}}
     ]
   }
   </script>
 
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  <script>
+    // Include loader: injects fragments; avoids whole-page injection.
+    (function () {
+      function isFullDocument(txt){
+        return /<!doctype|<\s*html[\s>]|<\s*head[\s>]|<\s*body[\s>]/i.test(txt);
+      }
+      async function inject(selector) {
+        const nodes = document.querySelectorAll(selector);
+        for (const el of nodes) {
+          const url = el.getAttribute('data-include');
+          if (!url) continue;
+          try {
+            const bust = (url.includes('?') ? '&' : '?') + 'v=' + Date.now();
+            const res = await fetch(url + bust, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            const html = await res.text();
+            if (isFullDocument(html)) throw new Error('Expected snippet, received full HTML: ' + url);
+            el.outerHTML = html;
+          } catch (err) {
+            console.error('[include] failed', url, err);
+            el.textContent = 'Content failed to load.';
+            el.style.color = '#b91c1c';
+            el.style.padding = '8px 12px';
+            el.style.fontWeight = '700';
+            el.style.border = '2px solid #fecaca';
+            el.style.borderRadius = '10px';
+            el.style.background = '#fff1f2';
+          }
+        }
+      }
+      document.addEventListener('DOMContentLoaded', () => inject('[data-include]'));
+      // Year in any footer include that uses #y
+      document.addEventListener('DOMContentLoaded', () => {
+        const y = document.getElementById('y'); if (y) y.textContent = new Date().getFullYear();
+      });
+    })();
+  </script>
 </body>
 </html>
+
