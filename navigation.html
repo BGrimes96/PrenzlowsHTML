@@ -59,8 +59,10 @@
     gap:12px;
   }
 
-  /* Buttons: all red with white text (Contact Us matches exactly) */
-  .nav-btn{
+  /* Base button styles */
+  .nav-btn,
+  .drawer-link,
+  .site-nav-btn{
     display:flex;
     justify-content:center;
     align-items:center;
@@ -74,8 +76,31 @@
     min-height:46px;
     text-decoration:none;
     text-align:center;
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
   }
-  .nav-btn:hover{background:var(--pm-red-dark)}
+
+  /* HOVER / FOCUS: invert to white w/ red text */
+  .nav-btn:hover,
+  .drawer-link:hover,
+  .site-nav-btn:hover,
+  .nav-btn:focus-visible,
+  .drawer-link:focus-visible,
+  .site-nav-btn:focus-visible{
+    background:#fff;
+    color:var(--pm-red);
+    border-color:var(--pm-red);
+    box-shadow:0 0 0 3px rgba(196,26,26,0.15); /* subtle focus ring */
+    outline:none;
+  }
+
+  /* Optional active press */
+  .nav-btn:active,
+  .drawer-link:active,
+  .site-nav-btn:active{
+    background:#fff;
+    color:var(--pm-red-dark);
+    border-color:var(--pm-red-dark);
+  }
 
   /* Desktop vs Mobile */
   .desktop-nav{display:grid}
@@ -85,15 +110,10 @@
     .mobile-nav{display:block}
   }
 
-  /* Mobile trigger button */
+  /* Mobile Menu trigger */
   .site-nav-btn{
     position:fixed; top:12px; left:12px; z-index:10000;
     height:44px; padding:0 14px;
-    background:var(--pm-red); color:#fff;
-    border:2px solid var(--pm-red-dark);
-    border-radius:var(--btn-radius);
-    display:inline-flex; align-items:center; justify-content:center;
-    font-weight:900; font-size:1.05rem;
     cursor:pointer;
   }
 
@@ -120,17 +140,5 @@
   .drawer-inner{
     display:grid; gap:10px; padding:14px;
   }
-  .drawer-link{
-    display:flex; justify-content:center; align-items:center;
-    background:var(--pm-red);
-    color:#fff;
-    border:2px solid var(--pm-red-dark);
-    border-radius:var(--btn-radius);
-    font-weight:900;
-    font-size:1.1rem;
-    padding:8px 12px;
-    min-height:46px;
-    text-decoration:none;
-  }
-  .drawer-link:hover{background:var(--pm-red-dark)}
 </style>
+
