@@ -24,7 +24,7 @@
     .brand{display:flex;justify-content:center}
     .brand img{width:clamp(180px, 28vw, 420px)}
 
-    /* Slogan ribbon (matches Home/Products) */
+    /* Slogan ribbon */
     .slogan-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 18px 0}
     .slogan-wrap .rule{height:2px;background:var(--pm-red);flex:1;max-width:260px}
     .slogan{
@@ -38,46 +38,60 @@
 
     /* RED #1: hero lede */
     .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
-    .lede h1{margin:0 0 10px;font-size:clamp(28px,5vw,54px);font-weight:1000;letter-spacing:.3px}
-    .lede p{margin:8px auto 0;max-width:900px;font-size:clamp(16px,2.1vw,19px);opacity:.98}
+    .lede h1{margin:0 0 10px;font-size:clamp(28px,5vw,54px);font-weight:1000;letter-spacing:.3px;text-align:center}
+    .lede p{margin:8px auto 0;max-width:1000px;font-size:clamp(16px,2.1vw,19px);opacity:.98}
+    .mission {margin-top:10px;font-size:clamp(16px,2.1vw,19px)}
+    .about-blurb{margin:12px auto 0;max-width:1000px;line-height:1.75}
 
-    /* WHITE #1: pillars */
-    .pillars h2{margin:0 0 10px;color:var(--pm-red);font-size:clamp(22px,4vw,36px);font-weight:1000}
+    /* WHITE #1: Values */
+    .values{background:#fff;color:var(--pm-red)}
+    .values h2{margin:0 0 10px;color:var(--pm-red);font-size:clamp(22px,4vw,36px);font-weight:1000;text-align:center}
     .grid-3{display:grid;gap:16px;grid-template-columns:1fr}
     @media(min-width:960px){.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
     .card{border:2px solid #f3f4f6;border-radius:14px;background:#fff;padding:16px}
-    .card h3{margin:0 0 6px;font-size:18px;font-weight:900}
-    .card p{margin:0;color:#6b7280}
+    .card h3{margin:0 0 6px;font-size:18px;font-weight:900;color:var(--pm-red);text-align:center}
+    .card p{margin:0;color:var(--pm-red);text-align:center}
 
-    /* RED #2: split strip (solid red now) */
-    .split{background:var(--pm-red)}
-    .split .inner{display:grid;gap:22px;grid-template-columns:1fr}
-    @media(min-width:960px){.split .inner{grid-template-columns:1.1fr .9fr}}
-    .split h2{color:#fff;margin:0 0 12px;font-size:clamp(20px,3.6vw,32px);font-weight:1000}
-    .split .lede-text{color:#fff;max-width:800px;margin:10px 0 0}
-    .white-card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:16px}
-    .white-card h3{margin:0 0 8px;color:var(--pm-red);font-weight:1000}
-    .white-card p{margin:0;color:#6b7280}
+    /* RED #2: Sourcing & Community (solid red) */
+    .sourcing{background:var(--pm-red);color:#fff}
+    .sourcing h2{margin:0 0 12px;font-size:clamp(20px,3.6vw,32px);font-weight:1000;text-align:center;color:#fff}
+    .sourcing .inner > div{max-width:1000px;margin:0 auto}
+    .sourcing p{margin:10px 0 0;color:#fff;opacity:.98;text-align:center}
 
-    /* WHITE #2: accordions */
-    .acc h2{margin:0 0 10px;color:var(--pm-red);font-size:clamp(22px,4vw,32px);font-weight:1000}
-    details{border:2px solid #f3f4f6;border-radius:12px;padding:12px;background:#fff}
-    details+details{margin-top:10px}
-    summary{cursor:pointer;font-weight:900}
-    .muted{color:#6b7280;margin:8px 0 0}
+    /* WHITE #2: How That Mission Shows Up (expanded copy) */
+    .acc{background:#fff;color:var(--pm-red)}
+    .acc h2{margin:0 0 16px;color:var(--pm-red);font-size:clamp(22px,4vw,32px);font-weight:1000;text-align:center}
+    .acc-grid{display:grid;gap:12px;grid-template-columns:1fr}
+    @media(min-width:960px){.acc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    .acc-item{border:2px solid #f3f4f6;border-radius:12px;background:#fff;padding:14px}
+    .acc-item h3{margin:0 0 8px;font-weight:900;color:var(--pm-red);text-align:center}
+    .acc-item p{margin:0;color:var(--pm-red);text-align:center}
 
-    /* RED #3: CTA (solid red now) */
-    .cta{background:var(--pm-red)}
-    .cta .inner{display:grid;gap:20px;grid-template-columns:1fr}
-    @media(min-width:960px){.cta .inner{grid-template-columns:1.2fr .8fr}}
-    .cta-left{color:#fff}
-    .cta-left h2{margin:0 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000}
-    .cta-left p{margin:6px 0 0;opacity:.96}
-    .cta-right{background:#fff;border-radius:14px;padding:16px;border:2px solid #f3f4f6}
-    .btn-red{background:var(--pm-red);color:#fff;font-weight:1000;padding:12px 16px;border-radius:12px;border:2px solid var(--pm-red-dark);min-height:44px;display:inline-flex;align-items:center}
+    /* WHITE #3: Start Your Order (moved out of last red) */
+    .order-white{background:#fff;color:var(--pm-red)}
+    .order-white h2{margin:0 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000;color:var(--pm-red);text-align:center}
+    .order-white p{margin:6px auto 0;max-width:900px;text-align:center}
+    .actions{
+      display:grid; gap:14px;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      justify-items:center; max-width:700px; margin:12px auto 0;
+    }
+    .actions a{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 18px; min-height:48px; border-radius:12px; font-weight:1000;
+      text-decoration:none; width:100%;
+      font-size:clamp(15px,1.9vw,18px);
+    }
+    .btn-red{background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark)}
     .btn-red:hover{background:var(--pm-red-dark)}
-    .btn-ghost{background:#fff;color:var(--pm-red);font-weight:1000;padding:12px 16px;border-radius:12px;border:2px solid var(--pm-red);min-height:44px;display:inline-flex;align-items:center}
-    .btn-ghost:hover{background:var(--pm-red);color:#fff}
+    .btn-ghost{background:#fff; color:var(--pm-red); border:2px solid var(--pm-red)}
+    .btn-ghost:hover{background:var(--pm-red); color:#fff}
+
+    /* RED #3: final band with ONLY Contact Us */
+    .cta{background:var(--pm-red);color:#fff;text-align:center}
+    .cta .inner{display:block}
+    .cta .only{display:flex;justify-content:center}
+    .cta .only a{margin-top:6px}
 
     /* Footer slot matches other pages */
     .footer-slot{background:#111827}
@@ -104,15 +118,23 @@
   <!-- RED #1 -->
   <section class="section lede" role="region" aria-label="Mission lede">
     <div class="inner">
-      <h1>Our Mission</h1>
-      <p>To honor a century of craft by delivering meat that’s honestly made, consistently labeled, and safe for every family we serve.</p>
+      <h1>About Us &amp; The Mission We’re On</h1>
+      <p class="mission"><strong><em>Our Mission is to honor a century of craft by providing meats that are made with integrity, consistently labeled, and safe for every family we serve.</em></strong></p>
+      <p class="about-blurb">
+        Prenzlow Meats, where tradition and flavor meet in every bite. Our processing plant is based in Snyder, Nebraska,
+        and our retail location is in Waterloo, Nebraska. We carry on a legacy of crafting premium products using
+        time-tested slaughter techniques passed down through generations. From signature sausages to specialty steaks,
+        every batch is made with care and attention to detail. What sets us apart is responsible, local-first sourcing and
+        radical transparency—so you can know exactly when and where your meat came from. We honor the past while delivering
+        quality that fits today’s table.
+      </p>
     </div>
   </section>
 
-  <!-- WHITE #1 -->
-  <section class="section pillars" role="region" aria-label="Mission pillars">
+  <!-- WHITE #1: Values -->
+  <section class="section values" role="region" aria-label="Values">
     <div class="inner">
-      <h2>Pillars That Guide Every Cut</h2>
+      <h2>Values That Guide Every Cut</h2>
       <div class="grid-3">
         <article class="card">
           <h3>Integrity</h3>
@@ -130,59 +152,61 @@
     </div>
   </section>
 
-  <!-- RED #2 -->
-  <section class="section split" role="region" aria-label="Sourcing and community">
+  <!-- RED #2: Sourcing & Community -->
+  <section class="section sourcing" role="region" aria-label="Sourcing and community">
     <div class="inner">
       <div>
-        <h2>From Our Neighbors, For Our Neighbors</h2>
-        <p class="lede-text">
+        <h2>From Our Neighbors, For Our Region</h2>
+        <p>
           We prioritize responsible sourcing and relationships you can trace. When we say “local,”
-          we mean names you can learn and people you can call.
+          we mean partners you can learn about and production you can verify.
+        </p>
+        <p>
+          Our goal is full transparency: every cut traceable to the exact farm it came from. That clarity builds trust,
+          improves food safety, and supports regional agriculture—even as we thoughtfully grow beyond our hometown.
         </p>
       </div>
-      <aside class="white-card">
-        <h3>Community Promise</h3>
-        <p>We support school events, food drives, and neighborhood fundraisers. Good meat should do more than feed—it should <em>belong</em> to a place.</p>
-      </aside>
     </div>
   </section>
 
-  <!-- WHITE #2 -->
-  <section class="section acc" role="region" aria-label="More about our mission">
+  <!-- WHITE #2: Expanded (no click) -->
+  <section class="section acc" role="region" aria-label="How that mission shows up">
     <div class="inner">
       <h2>How That Mission Shows Up</h2>
-
-      <details>
-        <summary>Animal Care &amp; Humane Handling</summary>
-        <p class="muted">Respect at every step: transport timing, calm environments, and trained hands. Better treatment leads to better results—ethically and on the plate.</p>
-      </details>
-
-      <details>
-        <summary>Radical Transparency</summary>
-        <p class="muted">Ask what’s in the sausage, how we smoke our bacon, or why a cut is portioned a certain way—we’ll explain it plainly.</p>
-      </details>
-
-      <details>
-        <summary>Sustainability that Makes Sense</summary>
-        <p class="muted">Right-sized packaging for real freezers, waste reduction in cutting rooms, and equipment upgrades that save energy while improving safety.</p>
-      </details>
+      <div class="acc-grid">
+        <div class="acc-item">
+          <h3>Animal Care &amp; Humane Handling</h3>
+          <p>Respect at every step: transport timing, calm environments, and trained hands. Better treatment leads to better results—ethically and on the plate.</p>
+        </div>
+        <div class="acc-item">
+          <h3>Radical Transparency</h3>
+          <p>Ask what’s in the sausage, how we smoke our bacon, or why a cut is portioned a certain way—we’ll explain it plainly.</p>
+        </div>
+        <div class="acc-item">
+          <h3>Sustainability that Makes Sense</h3>
+          <p>Right-sized packaging for real freezers, waste reduction in cutting rooms, and equipment upgrades that save energy while improving safety.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- RED #3 -->
-  <section class="section cta" role="region" aria-label="Ready to order">
+  <!-- WHITE #3: Start Your Order (moved from last red band) -->
+  <section class="section order-white" role="region" aria-label="Start your order">
     <div class="inner">
-      <div class="cta-left">
-        <h2>Ready to Put Our Mission on Your Table?</h2>
-        <p>Locker packs for weeknight sanity, or custom lists for the deep-freeze—either way, we’ll make it easy.</p>
+      <h2>Start Your Order</h2>
+      <p>Locker packs for weeknight sanity, or custom lists for the deep-freeze—either way, we’ll make it easy.</p>
+      <div class="actions">
+        <a class="btn-red" href="/order-here/">Order Here</a>
+        <a class="btn-ghost" href="/faq/">How Ordering Works</a>
       </div>
-      <div class="cta-right">
-        <h3 style="margin-top:0;color:var(--pm-red)">Start Your Order</h3>
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <a class="btn-red" href="/order-here/">Order Here</a>
-          <a class="btn-ghost" href="/faq/">How Ordering Works</a>
-          <a class="btn-ghost" href="/contact-us/">Contact Us</a>
-        </div>
+    </div>
+  </section>
+
+  <!-- RED #3: Contact only -->
+  <section class="section cta" role="region" aria-label="Contact">
+    <div class="inner">
+      <div class="only">
+        <a class="btn-ghost" href="/contact-us/">Contact Us</a>
       </div>
     </div>
   </section>
@@ -225,4 +249,3 @@
   </script>
 </body>
 </html>
-
