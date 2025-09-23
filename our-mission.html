@@ -40,18 +40,18 @@
     .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
     .lede h1{
       margin:0 0 12px;
-      font-size:clamp(32px,6.2vw,64px);  /* bigger title */
+      font-size:clamp(32px,6.2vw,64px);
       font-weight:1000; letter-spacing:.3px; text-align:center
     }
     .mission{
       margin-top:6px;
-      font-size:clamp(18px,2.2vw,22px); /* slightly less than H1 */
+      font-size:clamp(18px,2.2vw,22px);
     }
     .about-blurb{
-      margin:22px auto 0;               /* more space below mission */
+      margin:22px auto 0;
       max-width:1000px;
       line-height:1.75;
-      font-size:clamp(16px,2vw,18px);   /* slightly less than mission */
+      font-size:clamp(16px,2vw,18px);
     }
 
     /* WHITE #1: Values - black body, red headings */
@@ -64,7 +64,7 @@
     @media(min-width:960px){.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
     .card{border:2px solid #f3f4f6;border-radius:14px;background:#fff;padding:16px}
     .card h3{margin:0 0 6px;font-size:18px;font-weight:900;color:var(--pm-red);text-align:center}
-    .card p{margin:0;color:#111827;text-align:center}  /* back to black */
+    .card p{margin:0;color:#111827;text-align:center}
 
     /* RED #2: Sourcing & Community (solid red) */
     .sourcing{background:var(--pm-red);color:#fff}
@@ -95,9 +95,9 @@
     @media(min-width:960px){.acc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
     .acc-item{border:2px solid #f3f4f6;border-radius:12px;background:#fff;padding:14px}
     .acc-item h3{margin:0 0 8px;font-weight:900;color:var(--pm-red);text-align:center}
-    .acc-item p{margin:0;color:#111827;text-align:center}  /* back to black */
+    .acc-item p{margin:0;color:#111827;text-align:center}
 
-    /* RED #3: Start Your Order (now includes Contact Us) */
+    /* RED #3: Start Your Order (only white Contact + How Ordering Works) */
     .cta{background:var(--pm-red);color:#fff;text-align:center}
     .cta .inner{display:block}
     .cta h2{
@@ -216,15 +216,14 @@
     </div>
   </section>
 
-  <!-- RED #3: Start Your Order + Contact -->
+  <!-- RED #3: Start Your Order (Contact + How Ordering Works only) -->
   <section class="section cta" role="region" aria-label="Start your order">
     <div class="inner">
       <h2>Start Your Order</h2>
       <p>Locker packs for weeknight sanity, or custom lists for the deep-freeze—either way, we’ll make it easy.</p>
       <div class="actions">
-        <a class="btn-ghost" href="/order-here/">Order Here</a>
+        <a class="btn-ghost" href="/contact-us/">Contact Us</a>
         <a class="btn-ghost" href="/faq/">How Ordering Works</a>
-        <a class="btn-red" href="/contact-us/">Contact Us</a>
       </div>
     </div>
   </section>
@@ -267,3 +266,4 @@
   </script>
 </body>
 </html>
+
