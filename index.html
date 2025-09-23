@@ -22,10 +22,9 @@
     header.site-header{background:#fff}
     .header-inner{max-width:var(--max);margin:0 auto;padding:18px 18px 10px}
     .brand{display:flex;justify-content:center}
-    /* ↓ smaller logo */
     .brand img{width:clamp(180px, 28vw, 420px)}
 
-    /* Slogan ribbon — bigger and bolder */
+    /* Slogan ribbon */
     .slogan-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 18px 0}
     .slogan-wrap .rule{height:2px;background:var(--pm-red);flex:1;max-width:260px}
     .slogan{
@@ -44,7 +43,6 @@
 
     /* Lede (red hero) */
     .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
-    /* Removed h1 per request; style the single line nicely */
     .lede p{
       margin:0 auto;
       max-width:1000px;
@@ -56,36 +54,73 @@
     }
 
     /* Card / What We Do */
-    .card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:clamp(22px,3.5vw,36px)}
-    .card h2{margin:0 0 16px;color:var(--pm-red);font-size:clamp(26px,4.4vw,38px);font-weight:1000;text-align:center}
-    .muted{color:#6b7280}
-    .section[aria-label="What We Do"] .card{text-align:center}
+    .card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:clamp(22px,3.5vw,40px)}
+    .card h2{
+      margin:0 0 10px;
+      color:var(--pm-red);
+      font-size:clamp(26px,4.4vw,38px);
+      font-weight:1000;
+      text-align:center
+    }
 
-    /* Centered bullet list */
+    /* Subheading line for readability */
+    .card .subhead{
+      margin:0 auto 18px;
+      max-width:820px;
+      text-align:center;
+      color:#374151;
+      font-size:clamp(16px,2.1vw,19px);
+      line-height:1.6;
+    }
+
+    /* Bullet block — only where you want it */
+    .what-bullets{
+      margin:0 auto 10px;
+      max-width:900px;
+    }
     .what-list{
       list-style:disc;
-      margin:0 auto;
+      margin:0;
       padding:0 0 0 1.25rem;
-      text-align:left;       /* bullets align cleanly */
-      max-width:980px;
+      text-align:left;
       color:#111827;
       font-size:clamp(16px,2.1vw,19px);
       line-height:1.7;
+      font-weight:700; /* makes bullets feel intentional & “hero” */
     }
-    .what-list li{margin:10px 0}
-    .what-strong{font-weight:800}
-    .what-muted{color:var(--muted)}
+    .what-list li{margin:8px 0}
+    .what-list .sub{
+      list-style:circle;
+      margin:6px 0 0;
+      padding-left:1.25rem;
+      font-weight:600;
+    }
 
-    /* EVEN, RESPONSIVE BUTTON ROWS */
+    /* Body paragraphs (not bullets) */
+    .what-body{
+      margin:14px auto 0;
+      max-width:900px;
+      text-align:center;
+      color:#111827;
+      font-size:clamp(16px,2.1vw,19px);
+      line-height:1.8;
+    }
+    .what-body p{margin:10px 0}
+
+    /* Divider for visual breath */
+    .rule-soft{
+      height:2px; background:#f3f4f6; border:0; margin:18px auto; width:min(880px,92%);
+    }
+
+    /* Buttons */
     .actions{
-      display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
       justify-items:center; margin-top:18px;
+      max-width:900px; margin-left:auto; margin-right:auto;
     }
     .actions > a, .actions > button{ width:100%; max-width:420px; text-align:center; }
-
-    /* Bigger buttons */
     .btn-red, .btn-ghost{
-      font-weight:1000; padding:14px 20px; border-radius:14px; min-height:48px;
+      font-weight:1000; padding:14px 20px; border-radius:14px; min-height:52px;
       display:inline-flex; align-items:center; justify-content:center;
       font-size:clamp(15px,1.9vw,18px);
     }
@@ -129,7 +164,7 @@
     <div id="navMount" data-include="/navigation.html">[loading navigation…]</div>
   </header>
 
-  <!-- Hero (single professional line) -->
+  <!-- Hero -->
   <section class="section lede">
     <div class="inner">
       <p>We’ve been proudly serving customers for over 100 years with hand-crafted meats and Old World tradition.</p>
@@ -141,26 +176,27 @@
     <div class="inner">
       <article class="card">
         <h2>What We Do</h2>
+        <p class="subhead">Old-World craftsmanship, modern food-safety, and service you can trust.</p>
 
-        <ul class="what-list">
-          <li><span class="what-strong">Customized customer processing</span></li>
-          <li>
-            <span class="what-strong">Our retail product line includes:</span>
-            <span> premium cuts of meat &amp; specialty smoked products</span>
-          </li>
-          <li>
-            Our hams, lunch meats and sausage are hand crafted without using any manmade chemicals.
-          </li>
-          <li>
-            The traditional recipes and processing methods we use have not changed for three generations.
-          </li>
-          <li>
-            When you try our meats, you can be confident that the healthy Old-World traditions will be evident with every bite.
-          </li>
-          <li>
-            Thank you for your patronage and we welcome all comments and feedback.
-          </li>
-        </ul>
+        <div class="what-bullets">
+          <ul class="what-list">
+            <li>
+              Customized customer processing
+              <ul class="sub">
+                <li><strong>Our retail product line includes:</strong> Premium cuts of meat &amp; specialty smoked products</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <hr class="rule-soft" />
+
+        <div class="what-body">
+          <p>Our hams, lunch meats and sausage are hand crafted without using any manmade chemicals.</p>
+          <p>The traditional recipes and processing methods we use have not changed for three generations.</p>
+          <p>When you try our meats, you can be confident that the healthy Old-World traditions will be evident with every bite.</p>
+          <p>Thank you for your patronage and we welcome all comments and feedback.</p>
+        </div>
 
         <div class="actions">
           <a class="btn-red" href="/products.html">View Our Products</a>
