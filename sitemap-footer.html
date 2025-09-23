@@ -1,14 +1,11 @@
 <!-- sitemap-footer.html -->
-<footer class="sitemap-footer variant-dark" role="contentinfo" aria-label="Sitemap">
+<footer class="sitemap-footer variant-dark" role="contentinfo" aria-label="Footer Navigation">
   <style>
     /* ---- Scoped styles so this file is self-contained ---- */
     .sitemap-footer{
-      --pm-red:#c41a1a;           /* falls back if not defined on page */
+      --pm-red:#c41a1a;
       --ink:#0f172a;
-      --muted:#6b7280;
-      --surface:#ffffff;
       --max:1200px;
-
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       margin: 0;
       padding: 0;
@@ -21,43 +18,20 @@
     }
     /* Themes */
     .sitemap-footer.variant-dark{
-      background: #0f172a;  /* slightly deeper than your main footer */
+      background: #0f172a;
       color: #e5e7eb;
     }
     .sitemap-footer.variant-light{
-      background: #f7f7f8;  /* soft contrast panel */
+      background: #f7f7f8;
       color: #111827;
       border-top-color: var(--pm-red);
     }
 
-    .sitemap-footer .title{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin: 0 0 10px 0;
-      font-weight: 900;
-      font-size: clamp(14px,2vw,15px);
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: currentColor;
-      opacity: .95;
-    }
-    .sitemap-footer .title::before{
-      content: "";
-      display: inline-block;
-      width: 10px; height: 10px;
-      border-radius: 2px;
-      background: var(--pm-red);
-      box-shadow: 0 0 0 2px rgba(196,26,26,.15);
-    }
-
+    /* Navigation grid */
     .sitemap-footer nav{
-      /* keeps it compact but legible */
       font-size: clamp(14px,1.9vw,15px);
       line-height: 1.7;
     }
-
-    /* Responsive grid for links */
     .sitemap-footer .grid{
       list-style: none;
       margin: 0;
@@ -81,7 +55,6 @@
       opacity: .95;
       transition: opacity .15s ease, color .15s ease;
     }
-    /* Minimal “map dot” bullet */
     .sitemap-footer a::before{
       content: "";
       position: relative;
@@ -93,28 +66,12 @@
       background: currentColor;
       opacity: .35;
     }
-    /* Underline animation on hover/focus */
-    .sitemap-footer a::after{
-      content: "";
-      position: absolute;
-      left: 16px; right: 0; bottom: 0;
-      height: 1px;
-      transform: scaleX(0);
-      transform-origin: left;
-      background: currentColor;
-      opacity: .5;
-      transition: transform .2s ease;
-    }
     .sitemap-footer a:hover,
     .sitemap-footer a:focus{
       opacity: 1;
     }
-    .sitemap-footer a:hover::after,
-    .sitemap-footer a:focus::after{
-      transform: scaleX(1);
-    }
 
-    /* Compact meta line (optional) */
+    /* Compact meta line */
     .sitemap-footer .meta{
       margin-top: 10px;
       padding-top: 10px;
@@ -130,35 +87,39 @@
       border-top-color: rgba(15,23,42,.1);
       color: rgba(17,24,39,.75);
     }
+
+    /* Bottom red banner */
+    .sitemap-footer .bottom-banner{
+      background: var(--pm-red);
+      color: #fff;
+      text-align: center;
+      font-weight: 700;
+      font-size: clamp(13px,2vw,15px);
+      padding: 10px 8px;
+      margin-top: 18px;
+      letter-spacing: .5px;
+    }
   </style>
 
   <div class="wrap">
-    <h4 class="title">Sitemap</h4>
-    <nav aria-label="Sitemap">
+    <nav aria-label="Footer Links">
       <ul class="grid">
         <li><a href="/">Home</a></li>
-        <li><a href="/order-here/">Order Here</a></li>
         <li><a href="/about-us/">About Us</a></li>
         <li><a href="/our-mission/">Our Mission</a></li>
         <li><a href="/health-and-nutrition/">Your Health &amp; Nutrition</a></li>
         <li><a href="/faq/">FAQ</a></li>
         <li><a href="/contact-us/">Contact Us</a></li>
-        <li><a href="/sitemap.html">Full Sitemap</a></li>
       </ul>
     </nav>
 
-    <!-- Optional: small meta row to keep the area finished but not heavy -->
     <div class="meta">
-      <span>© <span id="site-year"></span> Prenzlow Meats</span>
-      <span>Since 1920</span>
+      <span>© 2025 Prenzlow Meats</span>
+      <span>All rights reserved.</span>
     </div>
   </div>
 
-  <script>
-    // tiny year helper (isolated so it won’t clash with page scripts)
-    (function(){
-      var y = document.getElementById('site-year');
-      if(y){ y.textContent = new Date().getFullYear(); }
-    })();
-  </script>
+  <div class="bottom-banner">
+    Operating for 100+ Years, Since 1920
+  </div>
 </footer>
