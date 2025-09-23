@@ -79,10 +79,18 @@
       background:#fff;
       border:1px solid #f3f4f6;
       border-radius:12px;
-      padding:20px;
+      padding:22px 20px;
       display:flex;
       flex-direction:column;
       justify-content:center;
+    }
+    .box-title{
+      margin:0 0 10px 0;
+      font-weight:900;
+      color:var(--pm-red);
+      font-size:clamp(18px,2.2vw,22px);
+      letter-spacing:.2px;
+      text-align:left;
     }
     .what-list{
       list-style:disc;
@@ -93,6 +101,20 @@
       color:#111827;
       font-weight:700;
     }
+    .what-list li{margin:6px 0}
+    /* Extra space before the second bullet */
+    .what-list li.spaced{margin-top:14px}
+
+    /* Sub-bullets under the retail bullet */
+    .what-sub{
+      list-style:circle;
+      margin:6px 0 0;
+      padding-left:1.25rem;
+      font-weight:600;
+      color:#111827;
+      font-size:clamp(15px,2vw,18px);
+    }
+
     .what-box p{
       margin:10px 0;
       font-size:clamp(16px,2.1vw,19px);
@@ -102,15 +124,31 @@
     }
     @media(max-width:768px){
       .what-grid{grid-template-columns:1fr}
+      .box-title{text-align:left}
     }
 
-    /* Buttons */
+    /* Buttons: Contact (left) / Products (right) */
     .actions{
-      display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-      justify-items:center; margin-top:24px;
-      max-width:900px; margin-left:auto; margin-right:auto;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      margin-top:24px;
+      max-width:1000px;
+      margin-left:auto; margin-right:auto;
+      align-items:center;
     }
-    .actions > a{ width:100%; max-width:420px; text-align:center; }
+    .actions > a{ width:auto; text-align:center; }
+    .actions .left{justify-self:start}
+    .actions .right{justify-self:end}
+    @media(max-width:768px){
+      .actions{
+        grid-template-columns:1fr;
+      }
+      .actions .left,
+      .actions .right{
+        justify-self:stretch;
+      }
+    }
     .btn-red, .btn-ghost{
       font-weight:1000; padding:14px 20px; border-radius:14px; min-height:52px;
       display:inline-flex; align-items:center; justify-content:center;
@@ -120,22 +158,6 @@
     .btn-red:hover{background:var(--pm-red-dark)}
     .btn-ghost{background:#fff;color:var(--pm-red);border:2px solid var(--pm-red)}
     .btn-ghost:hover{background:var(--pm-red);color:#fff}
-
-    /* CTA (FULL RED) */
-    .cta{background:var(--pm-red);color:#fff}
-    .cta .inner{display:block}
-    .cta-left{text-align:center}
-    .cta-left .block{max-width:720px;margin:0 auto;padding:8px 0}
-    .cta .actions{margin-top:12px}
-
-    /* Footer */
-    footer{background:#111827;color:#e5e7eb}
-    .footer-inner{max-width:var(--max);margin:0 auto;padding:28px 18px;display:grid;gap:24px;grid-template-columns:1fr}
-    @media(min-width:900px){.footer-inner{grid-template-columns: 1.2fr 1fr 1fr}}
-    .foot-title{font-weight:1000;margin:0 0 10px;color:#fff}
-    .foot-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-    .foot-list a{color:#e5e7eb}
-    .foot-meta{border-top:1px solid #374151;margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap;font-size:14px;color:#9ca3af}
   </style>
 </head>
 <body>
@@ -171,14 +193,25 @@
         <div class="what-grid">
           <!-- Left Box -->
           <div class="what-box">
+            <h3 class="box-title">Custom Butchery / Slaughter</h3>
             <ul class="what-list">
               <li>Professional Customized Meat Processing</li>
-              <li>We Also Offer Retail Product that includes Specialty Smoked Meats and Premium Cuts</li>
+              <li class="spaced">
+                We Also Offer Retail Product that includes Specialty Smoked Meats and Premium Cuts
+                <ul class="what-sub">
+                  <li>Specialty Cut Hams</li>
+                  <li>Specialty Cut Lunch Meats</li>
+                  <li>Specialty Cut Sausage</li>
+                  <li>Specialty Cut Steaks</li>
+                  <li>Specialty Ground Hamburger By The Pound</li>
+                </ul>
+              </li>
             </ul>
           </div>
 
           <!-- Right Box -->
           <div class="what-box">
+            <h3 class="box-title">Specialty Retail Cuts of Meat</h3>
             <p>Our hams, lunch meats and sausage are hand crafted without using any manmade chemicals.</p>
             <p>The traditional recipes and processing methods we use have not changed for three generations.</p>
             <p>When you try our meats, you can be confident that the healthy Old-World traditions will be evident with every bite.</p>
@@ -186,9 +219,10 @@
           </div>
         </div>
 
+        <!-- Buttons: left Contact / right Products -->
         <div class="actions">
-          <a class="btn-red" href="/products.html">View Our Products</a>
-          <a class="btn-ghost" href="/contact-us/">Contact Us</a>
+          <a class="btn-ghost left" href="/contact-us/">Contact Us</a>
+          <a class="btn-red right" href="/products.html">View Our Products</a>
         </div>
       </article>
     </div>
@@ -202,51 +236,19 @@
           <h2>Ready to Start an Order?</h2>
           <p>Locker packs and custom cuts—tell us what you’re cooking and we’ll help with portions.</p>
           <div class="actions">
-            <a class="btn-ghost" href="/faq/">Read the FAQ</a>
-            <a class="btn-ghost" href="/contact-us/">Contact Us</a>
+            <a class="btn-ghost left" href="/faq/">Read the FAQ</a>
+            <a class="btn-ghost right" href="/contact-us/">Contact Us</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-inner">
-      <section>
-        <h4 class="foot-title">Navigate</h4>
-        <ul class="foot-list">
-          <li><a href="/about-us/">About Us</a></li>
-          <li><a href="/our-mission/">Our Mission</a></li>
-          <li><a href="/health-and-nutrition/">Your Health &amp; Nutrition</a></li>
-          <li><a href="/faq/">FAQ</a></li>
-          <li><a href="/contact-us/">Contact Us</a></li>
-          <li><a href="/sitemap/">Sitemap</a></li>
-        </ul>
-      </section>
-      <section>
-        <h4 class="foot-title">Categories</h4>
-        <ul class="foot-list">
-          <li><a href="/order-here/">ORDER HERE</a></li>
-        </ul>
-      </section>
-      <section>
-        <h4 class="foot-title">Info</h4>
-        <ul class="foot-list">
-          <li>Prenzlow Meats</li>
-          <li>Since 1920</li>
-          <li><a href="/contact-us/">Contact &amp; Hours</a></li>
-        </ul>
-      </section>
-      <div class="foot-meta">
-        <span>© <span id="y"></span> Prenzlow Meats</span>
-        <span>All rights reserved.</span>
-      </div>
-    </div>
-  </footer>
+  <!-- Include the shared sitemap/footer -->
+  <div id="footerMount" data-include="/sitemap-footer.html">[loading footer…]</div>
 
   <script>
-    // Navigation include
+    // Generic include helper (nav + footer)
     (function () {
       async function tryFetch(url) {
         const bust = (url.includes('?') ? '&' : '?') + 'v=' + Date.now();
@@ -258,7 +260,7 @@
         const nodes = document.querySelectorAll(selector);
         for (const mount of nodes) {
           const requested = mount.getAttribute('data-include');
-          const candidates = [ requested, './navigation.html', '/navigation.html' ].filter(Boolean);
+          const candidates = [ requested, './' + (requested||'').replace(/^\//,''), (requested||'') ].filter(Boolean);
           let loaded = false;
           for (const href of candidates) {
             try {
@@ -272,7 +274,7 @@
             }
           }
           if (!loaded) {
-            mount.textContent = 'Navigation failed to load.';
+            mount.textContent = 'Section failed to load.';
             mount.style.color = '#b91c1c';
             mount.style.padding = '8px 12px';
             mount.style.fontWeight = '700';
@@ -284,13 +286,8 @@
       }
       document.addEventListener('DOMContentLoaded', () => inject('[data-include]'));
     })();
-
-    // Footer year
-    (function(){
-      const y=document.getElementById('y');
-      if(y) y.textContent=new Date().getFullYear();
-    })();
   </script>
 </body>
 </html>
+
 
