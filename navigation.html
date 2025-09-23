@@ -3,16 +3,16 @@
   <!-- DESKTOP -->
   <div class="inner desktop-nav">
     <a class="nav-btn" href="/">Home</a>
-    <a class="nav-btn" href="/about-us/">About Us</a>
     <a class="nav-btn" href="/our-products/">Our Products</a>
     <a class="nav-btn" href="/our-mission/">Our Mission</a>
     <a class="nav-btn" href="/health-and-nutrition/">Health &amp; Nutrition</a>
     <a class="nav-btn" href="/faq/">FAQ</a>
+    <!-- Removed About Us -->
     <a class="nav-btn" href="/contact-us/">Contact Us</a>
   </div>
 
   <!-- MOBILE -->
-  <div class="mobile-nav" aria-hidden="true">
+  <div class="mobile-nav">
     <input id="navToggle" class="nav-toggle" type="checkbox" hidden>
     <label for="navToggle" class="site-nav-btn">Menu</label>
     <label for="navToggle" class="site-nav-backdrop" aria-hidden="true"></label>
@@ -24,10 +24,11 @@
       </div>
       <nav class="drawer-inner">
         <a class="drawer-link" href="/">Home</a>
-        <a class="drawer-link" href="/about-us/">About Us</a>
+        <a class="drawer-link" href="/our-products/">Our Products</a>
         <a class="drawer-link" href="/our-mission/">Our Mission</a>
         <a class="drawer-link" href="/health-and-nutrition/">Health &amp; Nutrition</a>
         <a class="drawer-link" href="/faq/">FAQ</a>
+        <!-- Removed About Us -->
         <a class="drawer-link" href="/contact-us/">Contact Us</a>
       </nav>
     </aside>
@@ -39,9 +40,14 @@
     --pm-red:#c41a1a;
     --pm-red-dark:#9e1414;
     --btn-radius:10px;
+    --max:1200px;
   }
 
-  nav.primary{border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;background:#fff}
+  nav.primary{
+    border-top:1px solid #e5e7eb;
+    border-bottom:1px solid #e5e7eb;
+    background:#fff;
+  }
 
   /* Desktop grid */
   .primary .inner{
@@ -53,7 +59,7 @@
     gap:12px;
   }
 
-  /* Buttons: all red with white text */
+  /* Buttons: all red with white text (Contact Us matches exactly) */
   .nav-btn{
     display:flex;
     justify-content:center;
@@ -63,8 +69,8 @@
     border:2px solid var(--pm-red-dark);
     border-radius:var(--btn-radius);
     font-weight:900;
-    font-size:1.2rem;     /* larger font */
-    padding:8px 12px;     /* tighter padding */
+    font-size:1.1rem;
+    padding:8px 12px;
     min-height:46px;
     text-decoration:none;
     text-align:center;
@@ -79,7 +85,7 @@
     .mobile-nav{display:block}
   }
 
-  /* Mobile trigger */
+  /* Mobile trigger button */
   .site-nav-btn{
     position:fixed; top:12px; left:12px; z-index:10000;
     height:44px; padding:0 14px;
@@ -87,7 +93,7 @@
     border:2px solid var(--pm-red-dark);
     border-radius:var(--btn-radius);
     display:inline-flex; align-items:center; justify-content:center;
-    font-weight:900; font-size:1.1rem;
+    font-weight:900; font-size:1.05rem;
     cursor:pointer;
   }
 
@@ -105,10 +111,15 @@
   .nav-toggle:checked ~ .site-nav-backdrop{ display:block; }
   .nav-toggle:checked ~ .site-nav-drawer{ transform:translateX(0); }
 
-  .drawer-head{display:flex; justify-content:space-between; align-items:center; padding:12px; border-bottom:1px solid #e5e7eb;}
+  .drawer-head{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:12px; border-bottom:1px solid #e5e7eb;
+  }
   .drawer-close{background:none; border:0; font-size:24px; cursor:pointer;}
 
-  .drawer-inner{display:grid; gap:10px; padding:14px;}
+  .drawer-inner{
+    display:grid; gap:10px; padding:14px;
+  }
   .drawer-link{
     display:flex; justify-content:center; align-items:center;
     background:var(--pm-red);
@@ -116,7 +127,7 @@
     border:2px solid var(--pm-red-dark);
     border-radius:var(--btn-radius);
     font-weight:900;
-    font-size:1.2rem;
+    font-size:1.1rem;
     padding:8px 12px;
     min-height:46px;
     text-decoration:none;
