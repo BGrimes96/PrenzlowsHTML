@@ -161,7 +161,8 @@
         <span class="rule"></span>
       </div>
     </div>
-    <div data-include="/navigation.html">[loading navigation…]</div>
+    <!-- Expect a <nav> element from the include -->
+    <div id="navMount" data-include="/navigation.html" data-expect="nav">[loading navigation…]</div>
   </header>
 
   <!-- Red Hero -->
@@ -232,24 +233,62 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <div class="footer-slot" data-include="/sitemap-footer.html">[loading footer…]</div>
+  <!-- Footer: expect a <footer> element -->
+  <div class="footer-slot" data-include="/sitemap-footer.html" data-expect="footer">[loading footer…]</div>
 
   <script>
-    // Include loader
+    // Hardened include loader: only injects <nav>/<footer> even if a whole page is returned
     (function () {
+      async function fetchWithBust(url) {
+        const sep = url.includes('?') ? '&' : '?';
+        const res = await fetch(url + sep + 'v=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+        return await res.text();
+      }
+      function looksLikeFullDoc(txt){
+        return /<!doctype|<\s*html[\s>]|<\s*head[\s>]|<\s*body[\s>]/i.test(txt);
+      }
+      function extractFragment(html, expect) {
+        try {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          if (expect === 'nav') {
+            const n = doc.querySelector('nav');
+            if (n) return n.outerHTML;
+          } else if (expect === 'footer') {
+            const f = doc.querySelector('footer');
+            if (f) return f.outerHTML;
+          }
+          return null;
+        } catch { return null; }
+      }
       async function inject(selector) {
         const nodes = document.querySelectorAll(selector);
         for (const el of nodes) {
           const url = el.getAttribute('data-include');
+          const expect = el.getAttribute('data-expect') || '';
           if (!url) continue;
           try {
-            const res = await fetch(url, { cache: 'no-store' });
-            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
-            el.outerHTML = await res.text();
+            const html = await fetchWithBust(url);
+            let markup = html;
+            if (looksLikeFullDoc(html)) {
+              const frag = extractFragment(html, expect);
+              if (!frag) throw new Error('Expected fragment not found in response');
+              markup = frag;
+            } else if (expect) {
+              const frag = extractFragment(html, expect);
+              if (frag) markup = frag;
+            }
+            el.outerHTML = markup;
           } catch (err) {
             console.error('[include] failed', url, err);
             el.textContent = 'Content failed to load.';
+            el.style.color = '#b91c1c';
+            el.style.padding = '8px 12px';
+            el.style.fontWeight = '700';
+            el.style.border = '2px solid #fecaca';
+            el.style.borderRadius = '10px';
+            el.style.background = '#fff1f2';
           }
         }
       }
@@ -258,4 +297,3 @@
   </script>
 </body>
 </html>
-
