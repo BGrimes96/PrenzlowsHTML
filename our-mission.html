@@ -18,31 +18,25 @@
     a{color:inherit;text-decoration:none}
     img{max-width:100%;height:auto;display:block}
 
-    /* Utility bar */
-    .utility{background:#fff;border-bottom:1px solid #e5e7eb}
-    .utility .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    .util-left,.util-right{display:flex;align-items:center;gap:14px}
-    .search{display:flex;align-items:center;gap:8px;border:1px solid #e5e7eb;border-radius:999px;padding:6px 10px;min-height:36px;background:#fff}
-    .search input{border:0;outline:0;min-width:220px;font:inherit;background:transparent}
-
-    /* Header / brand */
+    /* Header / brand (matches Home/Products) */
     header.site-header{background:#fff}
-    .header-inner{max-width:var(--max);margin:0 auto;padding:16px 18px 10px}
+    .header-inner{max-width:var(--max);margin:0 auto;padding:18px 18px 10px}
     .brand{display:flex;justify-content:center}
-    .brand img{width:min(520px,92%)}
+    .brand img{width:clamp(180px, 28vw, 420px)}
 
-    /* Primary nav */
-    nav.primary{border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;background:#fff}
-    .primary .inner{max-width:var(--max);margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
-    .nav-link{font-weight:900;padding:10px 4px;position:relative;min-height:44px;display:flex;align-items:center}
-    .nav-link:hover::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:currentColor}
-    .btn-outline{color:var(--pm-red);border:2px solid var(--pm-red);padding:10px 16px;border-radius:10px;font-weight:1000;min-height:44px;display:inline-flex;align-items:center}
-    .btn-outline:hover{background:var(--pm-red);color:#fff}
+    /* Slogan ribbon (matches Home/Products) */
+    .slogan-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 18px 0}
+    .slogan-wrap .rule{height:2px;background:var(--pm-red);flex:1;max-width:260px}
+    .slogan{
+      font-weight:1000; letter-spacing:.08em; text-transform:uppercase;
+      font-size:clamp(14px,3.2vw,24px); color:var(--pm-red);
+      padding:8px 14px; border:2px solid var(--pm-red); border-radius:999px; white-space:nowrap;
+    }
 
-    /* Sections */
+    /* Sections scaffold */
     .section .inner{max-width:var(--max);margin:0 auto;padding:clamp(20px,4vw,56px) 18px}
 
-    /* Lede */
+    /* Red hero lede (same red background as other pages) */
     .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
     .lede h1{margin:0 0 10px;font-size:clamp(28px,5vw,54px);font-weight:1000;letter-spacing:.3px}
     .lede p{margin:8px auto 0;max-width:900px;font-size:clamp(16px,2.1vw,19px);opacity:.98}
@@ -55,7 +49,7 @@
     .card h3{margin:0 0 6px;font-size:18px;font-weight:900}
     .card p{margin:0;color:#6b7280}
 
-    /* Split strip */
+    /* Red/white split strip (kept from your mission design) */
     .split{background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%)}
     .split .inner{display:grid;gap:22px;grid-template-columns:1fr}
     @media(min-width:960px){.split .inner{grid-template-columns:1.1fr .9fr}}
@@ -71,7 +65,7 @@
     summary{cursor:pointer;font-weight:900}
     .muted{color:#6b7280;margin:8px 0 0}
 
-    /* CTA */
+    /* CTA split (red/white) */
     .cta{background:linear-gradient(to right,var(--pm-red) 0 50%,#ffffff 50% 100%)}
     .cta .inner{display:grid;gap:20px;grid-template-columns:1fr}
     @media(min-width:960px){.cta .inner{grid-template-columns:1.2fr .8fr}}
@@ -84,56 +78,29 @@
     .btn-ghost{background:#fff;color:var(--pm-red);font-weight:1000;padding:12px 16px;border-radius:12px;border:2px solid var(--pm-red);min-height:44px;display:inline-flex;align-items:center}
     .btn-ghost:hover{background:var(--pm-red);color:#fff}
 
-    /* Footer */
-    footer{background:#111827;color:#e5e7eb}
-    .footer-inner{max-width:var(--max);margin:0 auto;padding:28px 18px;display:grid;gap:24px;grid-template-columns:1fr}
-    @media(min-width:900px){.footer-inner{grid-template-columns: 1.2fr 1fr 1fr}}
-    .foot-title{font-weight:1000;margin:0 0 10px;color:#fff}
-    .foot-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-    .foot-list a{color:#e5e7eb}
-    .foot-meta{border-top:1px solid #374151;margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap;font-size:14px;color:#9ca3af}
+    /* Footer slot matches other pages */
+    .footer-slot{background:#111827}
   </style>
 </head>
 <body>
 
-  <!-- Utility bar -->
-  <div class="utility" role="region" aria-label="Utility bar">
-    <div class="inner">
-      <div class="util-left">
-        <form class="search" role="search" onsubmit="event.preventDefault()">
-          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.3 6.3 0 1 0-.71.71l.27.28v.79L20 21.5 21.5 20l-6-6zM6.5 11a4.5 4.5 0 1 1 9 0a4.5 4.5 0 0 1-9 0"/></svg>
-          <input type="search" placeholder="Search" aria-label="Search site" />
-        </form>
-      </div>
-      <div class="util-right">
-        <a class="nav-link" href="/account/signin/">Sign in</a>
-        <span aria-hidden="true">or</span>
-        <a class="nav-link" href="/account/register/">Register</a>
-        <a class="nav-link" href="/cart/">Cart</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Header -->
+  <!-- Header (matches Home/Products) -->
   <header class="site-header" role="banner">
     <div class="header-inner">
       <div class="brand">
-        <img src="/assets/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920" />
+        <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920">
+      </div>
+      <div class="slogan-wrap">
+        <span class="rule"></span>
+        <span class="slogan">We Bring The Country To Your Table</span>
+        <span class="rule"></span>
       </div>
     </div>
-    <nav class="primary" aria-label="Primary">
-      <div class="inner">
-        <a class="btn-outline" href="/order-here/">ORDER HERE</a>
-        <a class="nav-link" href="/about-us/">About Us</a>
-        <a class="nav-link" aria-current="page" href="/our-mission/">Our Mission</a>
-        <a class="nav-link" href="/health-and-nutrition/">Your Health &amp; Nutrition</a>
-        <a class="nav-link" href="/faq/">FAQ</a>
-        <a class="nav-link" href="/contact-us/">Contact Us</a>
-      </div>
-    </nav>
+    <!-- Shared navbar include -->
+    <div data-include="/navigation.html">[loading navigation…]</div>
   </header>
 
-  <!-- Lede -->
+  <!-- Red Lede -->
   <section class="section lede" role="region" aria-label="Mission lede">
     <div class="inner">
       <h1>Our Mission</h1>
@@ -162,27 +129,30 @@
     </div>
   </section>
 
-  <!-- Split: Sourcing & Community -->
+  <!-- Split: Sourcing & Community (red/white background) -->
   <section class="section split" role="region" aria-label="Sourcing and community">
     <div class="inner">
       <div>
         <h2>From Our Neighbors, For Our Neighbors</h2>
-        <p style="color:#fff;max-width:800px;margin:10px 0 0">We prioritize responsible sourcing and relationships you can trace. When we say “local,” we mean names you can learn and people you can call.</p>
+        <p style="color:#fff;max-width:800px;margin:10px 0 0">
+          We prioritize responsible sourcing and relationships you can trace. When we say “local,”
+          we mean names you can learn and people you can call.
+        </p>
       </div>
       <aside class="white-card">
         <h3>Community Promise</h3>
-        <p>We support school events, food drives, and neighborhood fundraisers. Good meat should do more than feed— it should <em>belong</em> to a place.</p>
+        <p>We support school events, food drives, and neighborhood fundraisers. Good meat should do more than feed—it should <em>belong</em> to a place.</p>
       </aside>
     </div>
   </section>
 
-  <!-- Accordions: Animal Care, Transparency, Sustainability -->
+  <!-- Accordions -->
   <section class="section acc" role="region" aria-label="More about our mission">
     <div class="inner">
       <h2>How That Mission Shows Up</h2>
 
       <details>
-        <summary>Animal Care & Humane Handling</summary>
+        <summary>Animal Care &amp; Humane Handling</summary>
         <p class="muted">Respect at every step: transport timing, calm environments, and trained hands. Better treatment leads to better results—ethically and on the plate.</p>
       </details>
 
@@ -198,7 +168,7 @@
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- CTA Split -->
   <section class="section cta" role="region" aria-label="Ready to order">
     <div class="inner">
       <div class="cta-left">
@@ -216,41 +186,41 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer role="contentinfo">
-    <div class="footer-inner">
-      <section>
-        <h4 class="foot-title">Navigate</h4>
-        <ul class="foot-list" aria-label="Navigate">
-          <li><a href="/about-us/">About Us</a></li>
-          <li><a href="/our-mission/">Our Mission</a></li>
-          <li><a href="/health-and-nutrition/">Your Health &amp; Nutrition</a></li>
-          <li><a href="/faq/">FAQ</a></li>
-          <li><a href="/contact-us/">Contact Us</a></li>
-          <li><a href="/sitemap/">Sitemap</a></li>
-        </ul>
-      </section>
-      <section>
-        <h4 class="foot-title">Categories</h4>
-        <ul class="foot-list" aria-label="Categories">
-          <li><a href="/order-here/">ORDER HERE</a></li>
-        </ul>
-      </section>
-      <section>
-        <h4 class="foot-title">Info</h4>
-        <ul class="foot-list" aria-label="Info">
-          <li>Prenzlow Meats</li>
-          <li>Since 1920</li>
-          <li><a href="/contact-us/">Contact &amp; Hours</a></li>
-        </ul>
-      </section>
-      <div class="foot-meta">
-        <span>© <span id="y"></span> Prenzlow Meats</span>
-        <span>All rights reserved.</span>
-      </div>
-    </div>
-  </footer>
+  <!-- Shared footer include -->
+  <div class="footer-slot" data-include="/sitemap-footer.html">[loading footer…]</div>
 
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  <script>
+    // Simple include loader: injects fragments; avoids full-page injection.
+    (function () {
+      function isFullDocument(txt){
+        return /<!doctype|<\s*html[\s>]|<\s*head[\s>]|<\s*body[\s>]/i.test(txt);
+      }
+      async function inject(selector) {
+        const nodes = document.querySelectorAll(selector);
+        for (const el of nodes) {
+          const url = el.getAttribute('data-include');
+          if (!url) continue;
+          try {
+            const bust = (url.includes('?') ? '&' : '?') + 'v=' + Date.now();
+            const res = await fetch(url + bust, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            const html = await res.text();
+            if (isFullDocument(html)) throw new Error('Expected snippet, received full HTML: ' + url);
+            el.outerHTML = html;
+          } catch (err) {
+            console.error('[include] failed', url, err);
+            el.textContent = 'Content failed to load.';
+            el.style.color = '#b91c1c';
+            el.style.padding = '8px 12px';
+            el.style.fontWeight = '700';
+            el.style.border = '2px solid #fecaca';
+            el.style.borderRadius = '10px';
+            el.style.background = '#fff1f2';
+          }
+        }
+      }
+      document.addEventListener('DOMContentLoaded', () => inject('[data-include]'));
+    })();
+  </script>
 </body>
 </html>
