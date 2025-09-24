@@ -18,7 +18,7 @@
     a{color:inherit;text-decoration:none}
     img{max-width:100%;height:auto;display:block}
 
-    /* Header / brand (shared look) */
+    /* Header / brand */
     header.site-header{background:#fff}
     .header-inner{max-width:var(--max);margin:0 auto;padding:18px 18px 10px}
     .brand{display:flex;justify-content:center}
@@ -31,30 +31,22 @@
       padding:8px 14px; border:2px solid var(--pm-red); border-radius:999px; white-space:nowrap;
     }
 
-    /* Sections scaffold */
+    /* Sections */
     .section .inner{max-width:var(--max);margin:0 auto;padding:clamp(20px,4vw,56px) 18px}
 
     /* RED #1: hero */
     .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
-    .lede h1{
-      margin:0 0 12px;
-      font-size:clamp(32px,6.2vw,64px);
-      font-weight:1000; letter-spacing:.3px
-    }
-    .lede p{
-      margin:8px auto 0; max-width:1000px;
-      font-size:clamp(16px,2.1vw,19px); opacity:.98
-    }
+    .lede h1{margin:0 0 12px;font-size:clamp(32px,6.2vw,64px);font-weight:1000;letter-spacing:.3px}
+    .lede p{margin:8px auto 0;max-width:1000px;font-size:clamp(16px,2.1vw,19px);opacity:.98}
 
-    /* WHITE #1: Locations & ways to reach us */
+    /* WHITE area */
     .contacts h2{
       margin:0 0 10px; color:var(--pm-red);
       font-size:clamp(22px,4vw,36px); font-weight:1000; text-align:center
     }
     .grid-2{display:grid;gap:16px;grid-template-columns:1fr}
     @media(min-width:960px){.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    .place-right{grid-column:1/-1}
-    @media(min-width:960px){.place-right{grid-column:2/3}}
+    .span-2{grid-column:1/-1}
     .card{
       border:2px solid #f3f4f6;border-radius:14px;background:#fff;padding:16px;
       display:flex;flex-direction:column;min-height:100%
@@ -64,17 +56,17 @@
     .row{display:grid;gap:6px}
     .row strong{display:block}
     .btn-col{margin-top:auto;display:grid;gap:10px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;min-height:48px;border-radius:12px;font-weight:1000;text-decoration:none}
-    .btn-ghost{background:#fff; color:var(--pm-red); border:2px solid var(--pm-red)}
-    .btn-ghost:hover{background:var(--pm-red); color:#fff}
-    .btn-block{width:100%}
 
-    /* RED #2: Message us (form on red, no white box) */
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;min-height:48px;border-radius:12px;font-weight:1000;text-decoration:none}
+    .btn-block{width:100%}
+    /* Solid red button (white area + anywhere needed) */
+    .btn-solid-red{background:var(--pm-red); color:#fff; border:2px solid var(--pm-red)}
+    .btn-solid-red:hover{background:var(--pm-red-dark); border-color:var(--pm-red-dark)}
+
+    /* RED #2: Message form on red */
     .message{background:var(--pm-red);color:#fff}
-    .message h2{
-      margin:0 0 10px; font-size:clamp(22px,4vw,36px);
-      font-weight:1000; color:#fff; text-align:center
-    }
+    .message h2{margin:0 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000;color:#fff;text-align:center}
     .form{background:transparent;border:0;padding:0;max-width:900px;margin:0 auto}
     .form-grid{display:grid;gap:12px;grid-template-columns:1fr}
     @media(min-width:720px){.form-grid{grid-template-columns:1fr 1fr}}
@@ -87,20 +79,17 @@
     input:focus,select:focus,textarea:focus{outline:none;border-color:#fff;box-shadow:0 0 0 3px #ffffff55}
     textarea{min-height:220px;resize:vertical}
     .form-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;justify-content:center}
-    .btn-red{background:#fff; color:var(--pm-red); border:2px solid #fff;font-weight:1000}
-    .btn-red:hover{background:transparent; color:#fff}
-    .link-white{color:#fff;text-decoration:underline}
+    /* Red buttons on the red band need white border to pop */
+    .btn-red{background:var(--pm-red); color:#fff; border:2px solid #fff}
+    .btn-red:hover{background:var(--pm-red-dark); border-color:#fff}
 
-    /* CTA — now white */
+    /* CTA — white */
     .cta{background:#fff;color:var(--ink);text-align:center;border-top:2px solid #f3f4f6}
     .cta h2{margin:0 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000;color:var(--pm-red);text-align:center}
     .cta p{margin:6px auto 0;max-width:900px;text-align:center;opacity:.98;color:var(--ink)}
     .cta .actions{display:flex;justify-content:center;margin-top:14px}
     .cta .actions a{min-width:220px}
-    .btn-solid-red{background:var(--pm-red); color:#fff; border:2px solid var(--pm-red)}
-    .btn-solid-red:hover{background:var(--pm-red-dark);border-color:var(--pm-red-dark)}
 
-    /* Footer include wrapper */
     .footer-slot{background:#111827}
   </style>
 </head>
@@ -129,7 +118,7 @@
     </div>
   </section>
 
-  <!-- WHITE #1: Locations & ways to reach us -->
+  <!-- WHITE area -->
   <section class="section contacts" role="region" aria-label="Locations and contact">
     <div class="inner">
       <h2>Where to Find Us</h2>
@@ -143,7 +132,7 @@
             <p>635 S. 240th Street<br/>Waterloo, NE 68069</p>
           </div>
           <div class="btn-col">
-            <a class="btn btn-ghost btn-block" href="https://maps.google.com/?q=635 S. 240th Street, Waterloo, NE 68069" target="_blank" rel="noopener">Open in Maps</a>
+            <a class="btn btn-solid-red btn-block" href="https://maps.google.com/?q=635 S. 240th Street, Waterloo, NE 68069" target="_blank" rel="noopener">Open in Maps</a>
           </div>
         </article>
 
@@ -156,51 +145,50 @@
           </div>
           <p class="muted">By appointment for harvest scheduling and custom cut lists.</p>
           <div class="btn-col">
-            <a class="btn btn-ghost btn-block" href="/faq/">How Custom Processing Works</a>
-            <a class="btn btn-ghost btn-block" href="https://maps.google.com/?q=102 3rd St, Snyder, NE 68664" target="_blank" rel="noopener">Open in Maps</a>
+            <a class="btn btn-solid-red btn-block" href="/faq/">How Custom Processing Works</a>
+            <a class="btn btn-solid-red btn-block" href="https://maps.google.com/?q=102 3rd St, Snyder, NE 68664" target="_blank" rel="noopener">Open in Maps</a>
           </div>
         </article>
       </div>
 
-      <!-- Give Us a Ring aligned to the right column on desktop -->
+      <!-- Give Us a Ring — spans full width of bottom row -->
       <div class="grid-2" style="margin-top:16px">
-        <article class="card place-right" aria-label="General contact">
+        <article class="card span-2" aria-label="General contact">
           <h3>Give Us a Ring</h3>
           <p class="muted" style="text-align:center">We’d love to help—cuts, portions, timing, or anything else.</p>
           <div class="btn-col">
-            <a class="btn btn-ghost btn-block" href="tel:4029603367">402-960-3367</a>
+            <a class="btn btn-solid-red btn-block" href="tel:4029603367">402-960-3367</a>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- RED #2: Message form (on red, no white box wrapper) -->
+  <!-- RED #2: Message form -->
   <section class="section message" role="region" aria-label="Send a message">
     <div class="inner">
       <h2>Send Us a Message</h2>
-      <form class="form" method="post" action="https://formsubmit.co/mrbriangrimes@icloud.com" accept-charset="UTF-8">
-        <!-- FormSubmit helpers (no captcha, nicer subject) -->
+      <form class="form" method="post" action="https://formsubmit.co/mrbriangrimes@icloud.com" accept-charset="UTF-8" novalidate>
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_subject" value="Prenzlow Meats — Contact Form">
         <div class="form-grid">
           <div>
             <label for="name">Name <span class="req" aria-hidden="true">*</span></label>
-            <input id="name" name="name" type="text" required aria-required="true" />
+            <input id="name" name="name" type="text" required />
           </div>
           <div>
-            <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
-            <input id="email" name="email" type="email" required aria-required="true" />
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" />
           </div>
         </div>
         <div class="form-grid" style="margin-top:8px">
           <div>
             <label for="phone">Phone <span class="req" aria-hidden="true">*</span></label>
-            <input id="phone" name="phone" type="tel" required aria-required="true" />
+            <input id="phone" name="phone" type="tel" required />
           </div>
           <div>
             <label for="topic">Topic <span class="req" aria-hidden="true">*</span></label>
-            <select id="topic" name="topic" required aria-required="true">
+            <select id="topic" name="topic" required>
               <option value="">Please choose…</option>
               <option>General Question</option>
               <option>Retail Order Question</option>
@@ -213,18 +201,17 @@
         </div>
         <div style="margin-top:8px">
           <label for="message">Message <span class="req" aria-hidden="true">*</span></label>
-          <textarea id="message" name="message" required aria-required="true" placeholder="Tell us what you’re planning or ask anything…"></textarea>
+          <textarea id="message" name="message" required placeholder="Tell us what you’re planning or ask anything…"></textarea>
         </div>
         <div class="form-actions">
           <button type="submit" class="btn btn-red">Send Message</button>
-          <a class="btn btn-ghost" href="/faq/">Read the FAQ</a>
+          <a class="btn btn-red" href="/faq/">Read the FAQ</a>
         </div>
-        <p style="margin-top:8px;text-align:center"><span class="req" aria-hidden="true">*</span> All fields are required.</p>
       </form>
     </div>
   </section>
 
-  <!-- CTA: now white with single centered button -->
+  <!-- CTA: white, single centered button -->
   <section class="section cta" role="region" aria-label="Ready to order">
     <div class="inner">
       <h2>Ready to Order?</h2>
@@ -235,11 +222,10 @@
     </div>
   </section>
 
-  <!-- Shared footer include -->
   <div class="footer-slot" data-include="/sitemap-footer.html">[loading footer…]</div>
 
   <script>
-    // Include loader: injects snippets; avoids full-page injection.
+    // Include loader
     (function () {
       function isFullDocument(txt){
         return /<!doctype|<\s*html[\s>]|<\s*head[\s>]|<\s*body[\s>]/i.test(txt);
@@ -269,6 +255,32 @@
         }
       }
       document.addEventListener('DOMContentLoaded', () => inject('[data-include]'));
+    })();
+
+    // Friendly required-field messages (popup per field)
+    (function () {
+      const messages = {
+        name: 'Please enter your name.',
+        phone: 'Please enter your phone number.',
+        topic: 'Please choose a topic.',
+        message: 'Please enter your message.'
+      };
+      ['name','phone','topic','message'].forEach(id=>{
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.addEventListener('invalid', (e)=>{
+          e.target.setCustomValidity(messages[id] || 'This field is required.');
+        });
+        el.addEventListener('input', (e)=>{
+          e.target.setCustomValidity('');
+        });
+      });
+      // Let browser show native popups, but ensure validation runs
+      document.querySelector('form').addEventListener('submit', (e)=>{
+        if(!e.target.reportValidity()){
+          e.preventDefault();
+        }
+      });
     })();
   </script>
 </body>
