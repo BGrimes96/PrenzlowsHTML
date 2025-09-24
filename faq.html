@@ -48,29 +48,31 @@
 
     /* WHITE: Two “invisible” boxes (columns) */
     .faq{background:#fff}
-    .faq .controls{max-width:var(--max);margin:0 auto;padding:0 18px 18px}
-    .search-wrap{position:sticky;top:0;background:#fff;padding:10px 0 0;z-index:2}
+    .faq .controls{max-width:var(--max);margin:0 auto;padding:0 18px 0}
+    /* Make search NOT right under the red: add generous spacing */
+    .search-wrap{margin-top:28px; margin-bottom:8px}
     .search{
-      width:100%; max-width:var(--max); margin:0 auto;
-      display:flex; align-items:center; gap:10px;
+      width:100%; display:flex; align-items:center; gap:10px;
+      position:relative;
+    }
+    .search .icon{
+      position:absolute; left:16px; top:50%; transform:translateY(-50%);
+      width:22px; height:22px; opacity:.55;
     }
     .search input{
-      width:100%; padding:14px 16px; border:2px solid #e5e7eb; border-radius:12px;
-      font-size:16px; outline:none;
+      width:100%; padding:18px 18px 18px 48px;
+      border:3px solid var(--pm-red); border-radius:14px;
+      font-size:18px; outline:none; font-weight:700;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
     }
-    .search input::placeholder{color:#9ca3af}
+    .search input::placeholder{color:#9ca3af; font-weight:700}
 
     .columns{display:grid;grid-template-columns:1fr;gap:26px}
     @media(min-width:980px){.columns{grid-template-columns:1fr 1fr}}
 
-    .qa-col{
-      background:transparent; /* invisible box */
-      border:none;            /* no border so it blends into white area */
-      border-radius:12px;
-      padding:0;
-    }
+    .qa-col{background:transparent;border:none;border-radius:12px;padding:0}
     .qa-title{
-      margin:0 0 10px;
+      margin:10px 0 6px;
       font-size:clamp(22px,4vw,36px);
       font-weight:1000; color:var(--pm-red); text-align:center;
     }
@@ -82,33 +84,35 @@
     summary::-webkit-details-marker{display:none}
     .answer{color:#111827;margin:8px 0 0}
 
-    /* Right-column “question-only” items */
+    /* Step badges for LEFT column */
+    .step-badge{
+      display:inline-block; min-width:28px; height:28px; line-height:28px;
+      text-align:center; border-radius:999px; background:var(--pm-red); color:#fff;
+      font-size:14px; font-weight:900; margin-right:8px;
+    }
+
+    /* Right-column “question-only” items now clickable with placeholder answers */
     .q-only{border:2px dashed #f3f4f6;background:#fff}
-    .q-only summary{cursor:default} /* feels like a list item; no answers yet */
+    .pending{font-style:italic; color:#6b7280}
     .q-list{display:grid;gap:10px}
     .muted{color:#6b7280}
 
-    /* RED CTA */
+    /* Single RED CTA at bottom */
     .cta{background:var(--pm-red);color:#fff;text-align:center}
     .cta .inner{display:block}
     .cta h2{
-      margin:0 0 10px; font-size:clamp(22px,4vw,36px);
+      margin:0 0 14px; font-size:clamp(22px,4vw,36px);
       font-weight:1000; color:#fff; text-align:center
     }
-    .cta p{margin:6px auto 0;max-width:900px;text-align:center;opacity:.98}
-    .actions{
-      display:grid; gap:14px;
-      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      justify-items:center; max-width:900px; margin:14px auto 0;
-    }
+    .actions{display:block; max-width:520px; margin:0 auto}
     .actions a{
       display:inline-flex; align-items:center; justify-content:center;
-      padding:12px 18px; min-height:48px; border-radius:12px; font-weight:1000;
+      padding:16px 22px; min-height:56px; border-radius:14px; font-weight:1000;
       text-decoration:none; width:100%;
-      font-size:clamp(15px,1.9vw,18px);
+      font-size:clamp(16px,2vw,18px);
+      background:#fff; color:var(--pm-red); border:2px solid #fff;
     }
-    .btn-ghost{background:#fff; color:var(--pm-red); border:2px solid var(--pm-red)}
-    .btn-ghost:hover{background:transparent; color:#fff; border-color:#fff}
+    .actions a:hover{background:transparent; color:#fff; border-color:#fff}
 
     /* Footer include wrapper */
     .footer-slot{background:#111827}
@@ -142,8 +146,15 @@
 
   <!-- WHITE: Two-column Q&A with search -->
   <section class="section faq" role="region" aria-label="FAQ">
+
+    <!-- NOTICEABLE SEARCH (not right under red band) -->
     <div class="controls search-wrap">
-      <div class="search" role="search">
+      <div class="search" role="search" aria-label="Search all questions">
+        <!-- simple magnifying glass icon (inline SVG) -->
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"></circle>
+          <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="currentColor" stroke-width="2"></line>
+        </svg>
         <input id="faqSearch" type="search" placeholder="Search Any Questions You Have Here" aria-label="Search questions">
       </div>
     </div>
@@ -151,197 +162,171 @@
     <div class="inner">
       <div class="columns">
 
-        <!-- LEFT: Custom Slaughter Q&A (full answers) -->
+        <!-- LEFT: Custom Slaughter Q&A (step-by-step for first-timers) -->
         <div class="qa-col" id="custom-col">
           <h2 class="qa-title">Custom Slaughter Q&amp;A</h2>
-          <p class="qa-note">Everything a first-timer needs—why it’s worth it, how it works, timelines, costs, yields, and what to expect on pickup day.</p>
+          <p class="qa-note">A plain-English, first-timer guide—start at Step 1 and go in order.</p>
 
-          <details>
-            <summary>Why would I buy a quarter, half, or whole beef instead of retail cuts?</summary>
+          <details open>
+            <summary><span class="step-badge">1</span>What am I actually buying and why does it save money?</summary>
             <div class="answer">
-              Buying in bulk lowers your per-pound price across premium and everyday cuts, lets you choose thickness/pack sizes, and stocks your freezer with consistent, labeled meat from a single animal. It’s budget-friendly, convenient, and traceable.
+              You’re buying a share of one animal (quarter, half, or whole). Because you’re buying everything together—not just steaks—you get a lower average price per pound and custom packaging for your family.
             </div>
           </details>
 
           <details>
-            <summary>How does the process work from start to finish?</summary>
+            <summary><span class="step-badge">2</span>How do I reserve my spot?</summary>
             <div class="answer">
-              1) Reserve a quarter/half/whole with a deposit. 2) We schedule harvest and hang/age the carcass. 3) You complete a cut sheet (we help). 4) We cut, wrap, label, and freeze. 5) We call you for pickup and final payment. Everything is boxed, labeled, and ready for your freezer.
+              Call or use <a href="/contact-us/">Contact Us</a>. We’ll confirm quarter/half/whole and take a small deposit to secure your harvest date.
             </div>
           </details>
 
           <details>
-            <summary>What’s the difference between live weight, hanging weight, and take-home (boxed) weight?</summary>
+            <summary><span class="step-badge">3</span>How much freezer space do I need?</summary>
             <div class="answer">
-              <strong>Live weight</strong> is the animal on the hoof. <strong>Hanging weight</strong> (carcass) is after harvest and initial trim. <strong>Boxed weight</strong> is what you take home after cutting, deboning, and trim. Typical beef yields ~60–65% from live→hanging and ~60–70% from hanging→boxed, depending on your cut choices (more bone-in vs. boneless, trim level, grind).
+              Rule of thumb: ~35–40 lb per cubic foot.<br>
+              Quarter ≈ 3–4 cu ft • Half ≈ 7–8 cu ft • Whole ≈ 14–16 cu ft.
             </div>
           </details>
 
           <details>
-            <summary>How much freezer space do I need?</summary>
+            <summary><span class="step-badge">4</span>How is weight measured and what will I take home?</summary>
             <div class="answer">
-              A good rule: about 35–40 lbs of beef per cubic foot of freezer space. A quarter beef often needs ~3–4 cu ft; a half ~7–8 cu ft; a whole ~14–16 cu ft. Chest freezers pack more efficiently than uprights.
+              <b>Live</b> (animal) → <b>Hanging</b> (carcass) → <b>Boxed</b> (what you take).<br>
+              Typical yields: live→hanging ~60–65%; hanging→boxed ~60–70% depending on cut choices and trim.
             </div>
           </details>
 
           <details>
-            <summary>How long does it take?</summary>
+            <summary><span class="step-badge">5</span>What’s the timeline?</summary>
             <div class="answer">
-              From harvest to pickup, plan roughly 2–4 weeks depending on schedule and aging time. We’ll give you your date range up front and keep you updated.
+              From harvest to pickup is usually 2–4 weeks (includes aging and cutting). We’ll give you a date window when you reserve.
             </div>
           </details>
 
           <details>
-            <summary>What is “aging,” and should I do it?</summary>
+            <summary><span class="step-badge">6</span>What is aging and do I want it?</summary>
             <div class="answer">
-              Aging improves tenderness and flavor. We dry-age carcasses under controlled temperature and airflow. Most families love the results. We’ll recommend a timeframe based on your preferences and schedule.
+              Aging makes beef more tender and flavorful. We dry-age under controlled conditions. Most folks choose it—we’ll suggest a time that fits your schedule.
             </div>
           </details>
 
           <details>
-            <summary>How do I fill out the cut sheet if I’ve never done this?</summary>
+            <summary><span class="step-badge">7</span>How do I fill out the cut sheet if I’ve never done one?</summary>
             <div class="answer">
-              We walk you through it step-by-step: steak thickness, number per pack, roast vs. grind, and whether you’d like stew meat, short ribs, soup bones, etc. Tell us how you cook, how many you feed, and we’ll tailor the plan.
+              We help you choose steak thickness, number per pack, roasts vs. grind, and extras (stew meat, short ribs, soup bones). Tell us how you cook and how many you feed—we’ll tailor it.
             </div>
           </details>
 
           <details>
-            <summary>Can I choose bone-in vs. boneless? Does it change what I take home?</summary>
+            <summary><span class="step-badge">8</span>Can I choose bone-in vs. boneless?</summary>
             <div class="answer">
-              Yes. Bone-in cuts (like T-bones, rib steaks) keep more weight in steaks; boneless options shift more weight into trim/grind. Your preference guides the balance between steaks, roasts, and ground.
+              Yes. Bone-in keeps more weight in steaks; boneless shifts more into trim/grind. We’ll explain trade-offs so it fits your meals.
             </div>
           </details>
 
           <details>
-            <summary>What comes labeled on each package?</summary>
+            <summary><span class="step-badge">9</span>What will my packages look like?</summary>
             <div class="answer">
-              Every package shows the cut, weight, and date. Boxes are grouped by cut for easy stashing. It makes meal planning and freezer rotation simple.
+              Every package is labeled with cut, weight, and date. Boxes are sorted by cut—easy to load and organize in your freezer.
             </div>
           </details>
 
           <details>
-            <summary>How is pricing structured?</summary>
+            <summary><span class="step-badge">10</span>How is pricing calculated?</summary>
             <div class="answer">
-              Typically: price per pound on <em>hanging weight</em> plus standard processing. Final cost depends on your size (quarter/half/whole) and cut choices. We provide an estimate up front and review the final at pickup.
+              Price per lb on <em>hanging weight</em> plus processing. We estimate up front and finalize at pickup once everything is boxed and weighed.
             </div>
           </details>
 
           <details>
-            <summary>Can I split a half or whole with family/friends?</summary>
+            <summary><span class="step-badge">11</span>Can I split with family or a friend?</summary>
             <div class="answer">
-              Absolutely. Many families split halves or wholes. We can pack and label evenly by cut for an easy, fair divide.
+              Absolutely. We can pack evenly by cut so you both get a fair mix of steaks, roasts, and ground.
             </div>
           </details>
 
           <details>
-            <summary>Do I get the bones, fat, organs, or soup bones?</summary>
+            <summary><span class="step-badge">12</span>Can I request bones, fat, or organs?</summary>
             <div class="answer">
-              If you want marrow bones, soup bones, suet/tallow fat, heart, liver, tongue, or oxtail, tell us on the cut sheet and we’ll include what’s available and inspected.
+              Yes—ask for marrow/soup bones, suet/tallow, heart, liver, tongue, or oxtail (when available and inspected).
             </div>
           </details>
 
           <details>
-            <summary>Is this USDA inspected? Can I resell the meat?</summary>
+            <summary><span class="step-badge">13</span>Is this meat resellable?</summary>
             <div class="answer">
-              Retail resale requires USDA-inspected product with appropriate labeling. Custom-exempt meat is for the owner’s household/guests only and not for resale. We’ll advise based on your goal.
+              Custom-exempt meat is for the owner’s household/guests and not for resale. USDA-inspected retail requires different labeling—ask us if resale is your goal.
             </div>
           </details>
 
           <details>
-            <summary>Grass-fed vs. grain-finished—can I choose?</summary>
+            <summary><span class="step-badge">14</span>Can I choose grass-fed vs. grain-finished?</summary>
             <div class="answer">
-              Yes—availability varies. Grass-fed tends to be leaner with a distinct flavor; grain-finished is typically more marbled and buttery. Tell us your preference and we’ll match the right beef.
+              Yes (availability varies). Grass-fed is leaner and beefier; grain-finished is typically more marbled/buttery. Tell us your preference.
             </div>
           </details>
 
           <details>
-            <summary>What about pork and lamb—do you offer custom options?</summary>
+            <summary><span class="step-badge">15</span>Can you make patties or sausage from my trim?</summary>
             <div class="answer">
-              Yes. Whole/half hog and whole lamb are available seasonally. We’ll help with cut choices, sausage options, and smoking if desired.
+              We can do ground beef, patties, and (when available) sausages. Some options add per-lb processing—ask for the current list.
             </div>
           </details>
 
           <details>
-            <summary>Do you make sausage or burger patties from my trim?</summary>
+            <summary><span class="step-badge">16</span>What happens on pickup day?</summary>
             <div class="answer">
-              We can. Options include plain ground beef, patties, or seasoned sausages (when available). Some options add per-pound processing—ask for the current list.
+              Bring coolers for long drives. We review labels/counts, finalize the bill, and help you load. Everything is frozen and boxed.
             </div>
           </details>
 
           <details>
-            <summary>How should I plan pickup day?</summary>
+            <summary><span class="step-badge">17</span>How long does frozen meat stay good?</summary>
             <div class="answer">
-              Bring coolers if you have a long drive. We’ll review your labels and counts, settle the final balance, and help load. Everything is frozen solid and boxed for quick transfer.
+              Best quality: ground 3–4 months; steaks/roasts 6–12 months; cured items 1–2 months. At 0°F, foods remain safe—quality is what slowly changes.
             </div>
           </details>
 
           <details>
-            <summary>How long does frozen meat keep its best quality?</summary>
+            <summary><span class="step-badge">18</span>How do I thaw and cook safely?</summary>
             <div class="answer">
-              For best quality: ground 3–4 months; steaks/roasts 6–12 months; cured items 1–2 months. Kept at 0°F, foods remain safe indefinitely—quality is the factor that gradually changes.
+              Thaw in the fridge or sealed-bag cold water (change every 30 min). Cook to: ground 160°F; whole cuts beef/pork 145°F + 3-min rest; poultry 165°F; fish 145°F.
             </div>
           </details>
 
           <details>
-            <summary>What if I don’t have a big freezer?</summary>
+            <summary><span class="step-badge">19</span>How do I get on the schedule?</summary>
             <div class="answer">
-              Consider a quarter beef or split a half with a friend. Many families start smaller, learn their monthly usage, then size up next time.
-            </div>
-          </details>
-
-          <details>
-            <summary>Can you help me choose cuts for how I cook (grill, slow cooker, weeknights)?</summary>
-            <div class="answer">
-              Yes. Tell us your go-to meals and time constraints. We’ll bias toward quick-cook steaks, leaner grinds, or more roasts for set-and-forget dinners—whatever fits your kitchen.
-            </div>
-          </details>
-
-          <details>
-            <summary>Do I need to be present at harvest?</summary>
-            <div class="answer">
-              No. We handle scheduling and aging. You just complete the cut sheet and show up for pickup—we’ll keep you posted all along the way.
-            </div>
-          </details>
-
-          <details>
-            <summary>How do I thaw safely and cook to the right temperature?</summary>
-            <div class="answer">
-              Thaw in the fridge, or in sealed bags under cold water (change water every 30 minutes). Cook to: ground 160°F; whole cuts beef/pork 145°F + 3-minute rest; poultry 165°F; fish 145°F.
-            </div>
-          </details>
-
-          <details>
-            <summary>What’s the deposit and how do I reserve the next available date?</summary>
-            <div class="answer">
-              A small deposit secures your quarter/half/whole and harvest slot. Contact us for the next available date; we’ll place you on the schedule and follow up with your cut sheet.
+              Hit the big <a href="/contact-us/" style="color:var(--pm-red);font-weight:900;background:#fff;padding:2px 6px;border-radius:6px;border:1px solid #f3f4f6">Contact Us</a> button below—tell us quarter/half/whole and your timeframe. We’ll lock in your date and send the cut sheet.
             </div>
           </details>
         </div>
 
-        <!-- RIGHT: Retail Butcher Shop Q&A (questions only, no answers yet) -->
+        <!-- RIGHT: Retail Butcher Shop Q&A (clickable, opens to placeholder answer) -->
         <div class="qa-col" id="retail-col">
           <h2 class="qa-title">Retail Butcher Shop Q&amp;A</h2>
-          <p class="qa-note muted">Questions we hear often. We’ll fill in answers soon—send us more you’d like added.</p>
+          <p class="qa-note muted">Tap a question—answers are being drafted now.</p>
 
           <div class="q-list">
-            <details class="q-only"><summary>What are your store hours and busiest times?</summary></details>
-            <details class="q-only"><summary>Do you take custom steak thickness and pack sizes while I wait?</summary></details>
-            <details class="q-only"><summary>What grinds do you offer (fat percentages, bulk vs. patties)?</summary></details>
-            <details class="q-only"><summary>Do you smoke your own bacon and jerky? Are there seasonal flavors?</summary></details>
-            <details class="q-only"><summary>What sausages are in the case today, and what’s in the ingredient list?</summary></details>
-            <details class="q-only"><summary>Do you have nitrate-free or low-sodium options?</summary></details>
-            <details class="q-only"><summary>Can I order ahead for game day or holidays?</summary></details>
-            <details class="q-only"><summary>Do you sell locker packs or sampler bundles?</summary></details>
-            <details class="q-only"><summary>Do you accept EBT, contactless pay, or gift cards?</summary></details>
-            <details class="q-only"><summary>Do you offer curbside pickup?</summary></details>
-            <details class="q-only"><summary>How should I thaw and cook your cuts for best results?</summary></details>
-            <details class="q-only"><summary>Can you help me choose cuts for a specific recipe or budget?</summary></details>
-            <details class="q-only"><summary>Do you have bones, fat, or organs for broth and rendering?</summary></details>
-            <details class="q-only"><summary>Do you carry seafood or specialty items seasonally?</summary></details>
-            <details class="q-only"><summary>What is your return or quality guarantee policy?</summary></details>
-            <details class="q-only"><summary>Do you sharpen knives or sell basic kitchen tools?</summary></details>
-            <details class="q-only"><summary>Can you vacuum seal custom orders?</summary></details>
-            <details class="q-only"><summary>What’s the best way to store meat in the fridge/freezer?</summary></details>
+            <details class="q-only"><summary>What are your store hours and busiest times?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>Do you cut steaks to my thickness while I wait?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>Which ground beef fat percentages do you carry?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>Do you smoke your own bacon and jerky? Any seasonal flavors?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>Which sausages are in the case today? What are the ingredients?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>Do you have nitrate-free or low-sodium options?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>Can I order ahead for holidays or game day?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>Do you sell locker packs or sampler bundles?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>Do you accept EBT, contactless pay, or gift cards?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>Do you offer curbside pickup?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>What’s the best way to thaw and cook your cuts?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>Can you help me choose cuts for a specific recipe or budget?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>Do you have bones, fat, or organs for broth/rendering?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>Do you carry seafood or specialty items seasonally?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>What is your quality guarantee?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>Do you sharpen knives or sell kitchen basics?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>Can you vacuum-seal custom orders?</summary><div class="answer pending">To be answered soon.</div></details>
+            <details class="q-only"><summary>How do I store meat in the fridge/freezer?</summary><div class="answer pending">To be answered soon.</div></details>
           </div>
         </div>
 
@@ -349,14 +334,12 @@
     </div>
   </section>
 
-  <!-- RED CTA: Ready to order -->
-  <section class="section cta" role="region" aria-label="Ready to order">
+  <!-- SINGLE RED CTA: Contact only -->
+  <section class="section cta" role="region" aria-label="Contact">
     <div class="inner">
-      <h2>Ready to Order?</h2>
-      <p>We’ll help you pick cuts and portions that fit your household and your week.</p>
+      <h2>Have Questions or Ready to Reserve?</h2>
       <div class="actions">
-        <a class="btn-ghost" href="/contact-us/">Contact Us</a>
-        <a class="btn-ghost" href="/order-here/">Order Here</a>
+        <a href="/contact-us/">Contact Us</a>
       </div>
     </div>
   </section>
@@ -370,17 +353,17 @@
     "@context":"https://schema.org",
     "@type":"FAQPage",
     "mainEntity":[
-      {"@type":"Question","name":"Why would I buy a quarter, half, or whole beef instead of retail cuts?","acceptedAnswer":{"@type":"Answer","text":"Buying in bulk lowers the per-pound price across premium and everyday cuts, lets you choose thickness/pack sizes, and gives you consistent, labeled meat from a single animal."}},
-      {"@type":"Question","name":"How does the process work from start to finish?","acceptedAnswer":{"@type":"Answer","text":"Reserve with a deposit, we schedule harvest and aging, you complete a guided cut sheet, we cut/wrap/label/freeze, then call you for pickup and final payment."}},
-      {"@type":"Question","name":"What’s the difference between live weight, hanging weight, and take-home weight?","acceptedAnswer":{"@type":"Answer","text":"Live weight is the animal on the hoof; hanging weight is the carcass; take-home (boxed) weight is after cutting and trim. Yields vary with cut choices and trim levels."}},
-      {"@type":"Question","name":"How much freezer space do I need?","acceptedAnswer":{"@type":"Answer","text":"Plan ~35–40 lb per cubic foot. Quarter beef ~3–4 cu ft; half ~7–8 cu ft; whole ~14–16 cu ft."}},
-      {"@type":"Question","name":"How long does it take?","acceptedAnswer":{"@type":"Answer","text":"From harvest to pickup plan about 2–4 weeks depending on schedule and aging."}}
+      {"@type":"Question","name":"What am I actually buying and why does it save money?","acceptedAnswer":{"@type":"Answer","text":"You’re buying a share of one animal (quarter, half, whole). Buying everything together lowers the average price per pound and lets you choose packaging for your family."}},
+      {"@type":"Question","name":"How do I reserve my spot?","acceptedAnswer":{"@type":"Answer","text":"Contact us to pick quarter/half/whole and leave a small deposit to secure a harvest date."}},
+      {"@type":"Question","name":"How much freezer space do I need?","acceptedAnswer":{"@type":"Answer","text":"Plan ~35–40 lb per cubic foot. Quarter ~3–4 cu ft, half ~7–8 cu ft, whole ~14–16 cu ft."}},
+      {"@type":"Question","name":"How is weight measured and what will I take home?","acceptedAnswer":{"@type":"Answer","text":"Live → Hanging → Boxed (what you take). Typical yields: live→hanging ~60–65%; hanging→boxed ~60–70%, depending on cut and trim choices."}},
+      {"@type":"Question","name":"What’s the timeline?","acceptedAnswer":{"@type":"Answer","text":"Harvest to pickup is usually 2–4 weeks including aging and cutting."}}
     ]
   }
   </script>
 
   <script>
-    // Include loader: injects fragments; avoids whole-page injection.
+    // Include loader
     (function () {
       function isFullDocument(txt){
         return /<!doctype|<\s*html[\s>]|<\s*head[\s>]|<\s*body[\s>]/i.test(txt);
@@ -410,10 +393,6 @@
         }
       }
       document.addEventListener('DOMContentLoaded', () => inject('[data-include]'));
-      // Year in any footer include that uses #y
-      document.addEventListener('DOMContentLoaded', () => {
-        const y = document.getElementById('y'); if (y) y.textContent = new Date().getFullYear();
-      });
 
       // Simple search filter across summaries and answers (both columns)
       function normalize(s){ return (s||'').toLowerCase().trim(); }
