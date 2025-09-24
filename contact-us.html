@@ -53,13 +53,21 @@
     }
     .grid-2{display:grid;gap:16px;grid-template-columns:1fr}
     @media(min-width:960px){.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    .span-2{grid-column:1/-1}
-    .card{border:2px solid #f3f4f6;border-radius:14px;background:#fff;padding:16px}
-    .card h3{margin:0 6px 6px 0;font-size:18px;font-weight:900;color:var(--pm-red)}
+    .place-right{grid-column:1/-1}
+    @media(min-width:960px){.place-right{grid-column:2/3}}
+    .card{
+      border:2px solid #f3f4f6;border-radius:14px;background:#fff;padding:16px;
+      display:flex;flex-direction:column;min-height:100%
+    }
+    .card h3{margin:0 6px 6px 0;font-size:18px;font-weight:900;color:var(--pm-red);text-align:center}
     .muted{color:#6b7280}
     .row{display:grid;gap:6px}
     .row strong{display:block}
-    .row.flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .btn-col{margin-top:auto;display:grid;gap:10px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;min-height:48px;border-radius:12px;font-weight:1000;text-decoration:none}
+    .btn-ghost{background:#fff; color:var(--pm-red); border:2px solid var(--pm-red)}
+    .btn-ghost:hover{background:var(--pm-red); color:#fff}
+    .btn-block{width:100%}
 
     /* RED #2: Message us (form on red, no white box) */
     .message{background:var(--pm-red);color:#fff}
@@ -67,48 +75,30 @@
       margin:0 0 10px; font-size:clamp(22px,4vw,36px);
       font-weight:1000; color:#fff; text-align:center
     }
-    .form{
-      background:transparent; /* no white box */
-      border:0; padding:0; max-width:900px; margin:0 auto
-    }
+    .form{background:transparent;border:0;padding:0;max-width:900px;margin:0 auto}
     .form-grid{display:grid;gap:12px;grid-template-columns:1fr}
     @media(min-width:720px){.form-grid{grid-template-columns:1fr 1fr}}
-    label{font-weight:800;color:#fff}
+    label{font-weight:800;color:#fff;display:flex;align-items:center;gap:6px}
+    .req{font-weight:1000;color:#fff;background:#ffffff26;border-radius:6px;padding:0 6px;line-height:1.6}
     input,select,textarea{
       width:100%; border:2px solid #ffffff33; border-radius:10px; padding:10px; font:inherit;
-      background:#fff; color:#0f172a;
-      box-shadow:0 1px 0 rgba(0,0,0,.03);
+      background:#fff; color:#0f172a; box-shadow:0 1px 0 rgba(0,0,0,.03);
     }
     input:focus,select:focus,textarea:focus{outline:none;border-color:#fff;box-shadow:0 0 0 3px #ffffff55}
-    textarea{min-height:140px;resize:vertical}
-    .form-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+    textarea{min-height:220px;resize:vertical}
+    .form-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;justify-content:center}
     .btn-red{background:#fff; color:var(--pm-red); border:2px solid #fff;font-weight:1000}
     .btn-red:hover{background:transparent; color:#fff}
-    .btn-ghost{background:#fff; color:var(--pm-red); border:2px solid var(--pm-red)}
-    .btn-ghost:hover{background:var(--pm-red); color:#fff}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;min-height:48px;border-radius:12px;font-weight:1000;text-decoration:none}
+    .link-white{color:#fff;text-decoration:underline}
 
-    /* RED #3: Ready to order (white buttons) */
-    .cta{background:var(--pm-red);color:#fff;text-align:center}
-    .cta .inner{display:block}
-    .cta h2{
-      margin:0 0 10px; font-size:clamp(22px,4vw,36px);
-      font-weight:1000; color:#fff; text-align:center
-    }
-    .cta p{margin:6px auto 0;max-width:900px;text-align:center;opacity:.98}
-    .actions{
-      display:grid; gap:14px;
-      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      justify-items:center; max-width:900px; margin:14px auto 0;
-    }
-    .actions a{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:12px 18px; min-height:48px; border-radius:12px; font-weight:1000;
-      text-decoration:none; width:100%;
-      font-size:clamp(15px,1.9vw,18px);
-    }
-    .btn-white{background:#fff; color:var(--pm-red); border:2px solid var(--pm-red)}
-    .btn-white:hover{background:transparent; color:#fff; border-color:#fff}
+    /* CTA — now white */
+    .cta{background:#fff;color:var(--ink);text-align:center;border-top:2px solid #f3f4f6}
+    .cta h2{margin:0 0 10px;font-size:clamp(22px,4vw,36px);font-weight:1000;color:var(--pm-red);text-align:center}
+    .cta p{margin:6px auto 0;max-width:900px;text-align:center;opacity:.98;color:var(--ink)}
+    .cta .actions{display:flex;justify-content:center;margin-top:14px}
+    .cta .actions a{min-width:220px}
+    .btn-solid-red{background:var(--pm-red); color:#fff; border:2px solid var(--pm-red)}
+    .btn-solid-red:hover{background:var(--pm-red-dark);border-color:var(--pm-red-dark)}
 
     /* Footer include wrapper */
     .footer-slot{background:#111827}
@@ -128,7 +118,6 @@
         <span class="rule"></span>
       </div>
     </div>
-    <!-- Shared navbar include -->
     <div data-include="/navigation.html">[loading navigation…]</div>
   </header>
 
@@ -153,34 +142,36 @@
             <strong>Address</strong>
             <p>635 S. 240th Street<br/>Waterloo, NE 68069</p>
           </div>
-          <div class="row" style="margin-top:8px">
-            <a class="btn btn-ghost" href="https://maps.google.com/?q=635 S. 240th Street, Waterloo, NE 68069" target="_blank" rel="noopener">Open in Maps</a>
+          <div class="btn-col">
+            <a class="btn btn-ghost btn-block" href="https://maps.google.com/?q=635 S. 240th Street, Waterloo, NE 68069" target="_blank" rel="noopener">Open in Maps</a>
           </div>
         </article>
 
         <!-- Processing Facility -->
         <article class="card" aria-label="Processing facility">
           <h3>Processing Facility — Snyder, NE</h3>
+          <div class="row">
+            <strong>Address</strong>
+            <p>102 3rd St<br/>Snyder, NE 68664</p>
+          </div>
           <p class="muted">By appointment for harvest scheduling and custom cut lists.</p>
-          <div class="row flex" style="margin-top:8px">
-            <a class="btn btn-ghost" href="/faq/">How Custom Processing Works</a>
-            <a class="btn btn-ghost" href="https://maps.google.com/?q=102 3rd St, Snyder, NE 68664" target="_blank" rel="noopener">Open in Maps</a>
+          <div class="btn-col">
+            <a class="btn btn-ghost btn-block" href="/faq/">How Custom Processing Works</a>
+            <a class="btn btn-ghost btn-block" href="https://maps.google.com/?q=102 3rd St, Snyder, NE 68664" target="_blank" rel="noopener">Open in Maps</a>
           </div>
         </article>
       </div>
 
-      <!-- Talk With Us: expanded to span both columns -->
+      <!-- Give Us a Ring aligned to the right column on desktop -->
       <div class="grid-2" style="margin-top:16px">
-        <article class="card span-2" aria-label="General contact">
+        <article class="card place-right" aria-label="General contact">
           <h3>Give Us a Ring</h3>
-          <p class="muted">We’d love to help—cuts, portions, timing, or anything else.</p>
-          <div class="row flex" style="margin-top:8px">
-            <a class="btn btn-ghost" href="tel:402-960-337">Call 402-960-337</a>
+          <p class="muted" style="text-align:center">We’d love to help—cuts, portions, timing, or anything else.</p>
+          <div class="btn-col">
+            <a class="btn btn-ghost btn-block" href="tel:4029603367">402-960-3367</a>
           </div>
         </article>
       </div>
-
-      <!-- Ordering Help section was removed per request -->
     </div>
   </section>
 
@@ -188,52 +179,58 @@
   <section class="section message" role="region" aria-label="Send a message">
     <div class="inner">
       <h2>Send Us a Message</h2>
-      <form class="form" method="post" action="#">
+      <form class="form" method="post" action="https://formsubmit.co/mrbriangrimes@icloud.com" accept-charset="UTF-8">
+        <!-- FormSubmit helpers (no captcha, nicer subject) -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="Prenzlow Meats — Contact Form">
         <div class="form-grid">
           <div>
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" required />
+            <label for="name">Name <span class="req" aria-hidden="true">*</span></label>
+            <input id="name" name="name" type="text" required aria-required="true" />
           </div>
           <div>
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required />
+            <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
+            <input id="email" name="email" type="email" required aria-required="true" />
           </div>
         </div>
         <div class="form-grid" style="margin-top:8px">
           <div>
-            <label for="phone">Phone</label>
-            <input id="phone" name="phone" type="tel" required />
+            <label for="phone">Phone <span class="req" aria-hidden="true">*</span></label>
+            <input id="phone" name="phone" type="tel" required aria-required="true" />
           </div>
           <div>
-            <label for="topic">Topic</label>
-            <select id="topic" name="topic" required>
+            <label for="topic">Topic <span class="req" aria-hidden="true">*</span></label>
+            <select id="topic" name="topic" required aria-required="true">
               <option value="">Please choose…</option>
               <option>General Question</option>
               <option>Retail Order Question</option>
               <option>Custom Processing / Harvest Scheduling</option>
+              <option>Complaint</option>
+              <option>Compliment</option>
+              <option>Other</option>
             </select>
           </div>
         </div>
         <div style="margin-top:8px">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" required placeholder="Tell us what you’re planning or ask anything…"></textarea>
+          <label for="message">Message <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="message" name="message" required aria-required="true" placeholder="Tell us what you’re planning or ask anything…"></textarea>
         </div>
         <div class="form-actions">
           <button type="submit" class="btn btn-red">Send Message</button>
           <a class="btn btn-ghost" href="/faq/">Read the FAQ</a>
         </div>
+        <p style="margin-top:8px;text-align:center"><span class="req" aria-hidden="true">*</span> All fields are required.</p>
       </form>
     </div>
   </section>
 
-  <!-- RED #3: Ready to order -->
+  <!-- CTA: now white with single centered button -->
   <section class="section cta" role="region" aria-label="Ready to order">
     <div class="inner">
       <h2>Ready to Order?</h2>
       <p>We’ll help you pick cuts and portions that fit your household and your week.</p>
       <div class="actions">
-        <a class="btn-white" href="/order-here/">Order Here</a>
-        <a class="btn-white" href="/faq/">How Ordering Works</a>
+        <a class="btn btn-solid-red" href="/faq/">How Ordering Works</a>
       </div>
     </div>
   </section>
