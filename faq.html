@@ -49,8 +49,8 @@
     /* WHITE: Two “invisible” boxes (columns) */
     .faq{background:#fff}
     .faq .controls{max-width:var(--max);margin:0 auto;padding:0 18px 0}
-    /* Extra spacing so the search bar doesn’t feel attached to the red hero */
-    .search-wrap{margin-top:clamp(36px,6vw,72px); margin-bottom:12px}
+    /* LOWER the search bar: larger top margin */
+    .search-wrap{margin-top:clamp(80px, 14vw, 180px); margin-bottom:16px}
     .search{
       width:100%; display:flex; align-items:center; gap:10px;
       position:relative;
@@ -147,7 +147,7 @@
   <!-- WHITE: Two-column Q&A with search -->
   <section class="section faq" role="region" aria-label="FAQ">
 
-    <!-- NOTICEABLE SEARCH WITH EXTRA TOP SPACE -->
+    <!-- LOWERED SEARCH -->
     <div class="controls search-wrap">
       <div class="search" role="search" aria-label="Search all questions">
         <!-- simple magnifying glass icon (inline SVG) -->
