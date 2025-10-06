@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>About Us — Prenzlow Meats</title>
+  <title>USDA Certified — Prenzlow Meats</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="index,follow" />
 
@@ -25,13 +25,13 @@
     .brand{display:flex;justify-content:center}
     .brand img{width:clamp(180px, 28vw, 420px)}
 
-    /* Slogan ribbon */
-    .slogan-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 18px 0}
-    .slogan-wrap .rule{height:2px;background:var(--pm-red);flex:1;max-width:260px}
+    /* Slogan — remove side lines & pill; add quotes same color */
+    .slogan-wrap{display:flex;align-items:center;justify-content:center;margin:8px 18px 0}
+    .slogan-wrap .rule{display:none}
     .slogan{
       font-weight:1000; letter-spacing:.08em; text-transform:uppercase;
       font-size:clamp(14px,3.2vw,24px); color:var(--pm-red);
-      padding:8px 14px; border:2px solid var(--pm-red); border-radius:999px; white-space:nowrap;
+      padding:0; border:0; border-radius:0; white-space:nowrap;
     }
 
     /* Sections scaffold */
@@ -155,9 +155,7 @@
         <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920">
       </div>
       <div class="slogan-wrap">
-        <span class="rule"></span>
-        <span class="slogan">We Bring The Country To Your Table</span>
-        <span class="rule"></span>
+        <span class="slogan">“We Bring The Country To Your Table”</span>
       </div>
     </div>
     <!-- External navigation include -->
@@ -229,7 +227,7 @@
       <h2>Ready to Start an Order?</h2>
       <div class="actions">
         <a class="btn-ghost" href="/faq.html">Read the FAQ</a>
-        <a class="btn-red" href="/contact-us.html">Contact Us</a>
+        <a class="btn-red" href="/">Place an Order</a>
       </div>
     </div>
   </section>
