@@ -23,12 +23,13 @@
     .header-inner{max-width:var(--max);margin:0 auto;padding:18px 18px 10px}
     .brand{display:flex;justify-content:center}
     .brand img{width:clamp(180px, 28vw, 420px)}
-    .slogan-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 18px 0}
-    .slogan-wrap .rule{height:2px;background:var(--pm-red);flex:1;max-width:260px}
+
+    /* Slogan — no side lines, no pill border; with quotes in same color */
+    .slogan-wrap{display:flex;align-items:center;justify-content:center;margin:8px 18px 0}
     .slogan{
       font-weight:1000; letter-spacing:.08em; text-transform:uppercase;
       font-size:clamp(14px,3.2vw,24px); color:var(--pm-red);
-      padding:8px 14px; border:2px solid var(--pm-red); border-radius:999px; white-space:nowrap;
+      padding:0; border:0; border-radius:0; white-space:nowrap;
     }
 
     /* Sections */
@@ -94,9 +95,7 @@
         <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920">
       </div>
       <div class="slogan-wrap">
-        <span class="rule"></span>
-        <span class="slogan">We Bring The Country To Your Table</span>
-        <span class="rule"></span>
+        <span class="slogan">“We Bring The Country To Your Table”</span>
       </div>
     </div>
     <!-- Shared navbar include -->
@@ -173,7 +172,7 @@
       <h2>Ready to Plan a Healthier Week?</h2>
       <p>We’ll help you choose cuts and portions that fit your routine and your goals.</p>
       <div class="actions">
-        <a class="btn-red" href="/contact-us/">Contact Us</a>
+        <a class="btn-red" href="/">Order Here</a>
         <a class="btn-red" href="/faq/">How Ordering Works</a>
       </div>
     </div>
