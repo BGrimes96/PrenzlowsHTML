@@ -23,12 +23,13 @@
     .header-inner{max-width:var(--max);margin:0 auto;padding:18px 18px 10px}
     .brand{display:flex;justify-content:center}
     .brand img{width:clamp(180px, 28vw, 420px)}
-    .slogan-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 18px 0}
-    .slogan-wrap .rule{height:2px;background:var(--pm-red);flex:1;max-width:260px}
+
+    /* Slogan — no side lines, no pill border, with quotes in same color */
+    .slogan-wrap{display:flex;align-items:center;justify-content:center;margin:8px 18px 0}
     .slogan{
       font-weight:1000; letter-spacing:.08em; text-transform:uppercase;
       font-size:clamp(14px,3.2vw,24px); color:var(--pm-red);
-      padding:8px 14px; border:2px solid var(--pm-red); border-radius:999px; white-space:nowrap;
+      padding:0; border:0; border-radius:0; white-space:nowrap;
     }
 
     /* Sections */
@@ -49,8 +50,9 @@
     /* WHITE: Two “invisible” boxes (columns) */
     .faq{background:#fff}
     .faq .controls{max-width:var(--max);margin:0 auto;padding:0 18px 0}
-    /* LOWER the search bar: larger top margin */
-    .search-wrap{margin-top:clamp(80px, 14vw, 180px); margin-bottom:16px}
+
+    /* LOWER the search bar a bit more into the white section */
+    .search-wrap{margin-top:clamp(110px, 16vw, 220px); margin-bottom:16px}
     .search{
       width:100%; display:flex; align-items:center; gap:10px;
       position:relative;
@@ -91,7 +93,20 @@
       font-size:14px; font-weight:900; margin-right:8px;
     }
 
-    /* Right-column “question-only” items now clickable with placeholder answers */
+    /* RIGHT column: auto-number each question with badges */
+    .q-list.numbered{counter-reset: retailstep}
+    .q-list.numbered details > summary{
+      position:relative; padding-left:40px;
+    }
+    .q-list.numbered details > summary::before{
+      counter-increment: retailstep;
+      content: counter(retailstep);
+      position:absolute; left:6px; top:4px;
+      display:inline-block; min-width:28px; height:28px; line-height:28px;
+      text-align:center; border-radius:999px; background:var(--pm-red); color:#fff;
+      font-size:14px; font-weight:900;
+    }
+
     .q-only{border:2px dashed #f3f4f6;background:#fff}
     .pending{font-style:italic; color:#6b7280}
     .q-list{display:grid;gap:10px}
@@ -127,9 +142,7 @@
         <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920">
       </div>
       <div class="slogan-wrap">
-        <span class="rule"></span>
-        <span class="slogan">We Bring The Country To Your Table</span>
-        <span class="rule"></span>
+        <span class="slogan">“We Bring The Country To Your Table”</span>
       </div>
     </div>
     <!-- Shared navbar include -->
@@ -162,9 +175,9 @@
     <div class="inner">
       <div class="columns">
 
-        <!-- LEFT: Custom Slaughter Q&A (step-by-step for first-timers) -->
+        <!-- LEFT: Custom Orders (step-by-step) -->
         <div class="qa-col" id="custom-col">
-          <h2 class="qa-title">Custom Slaughter Q&amp;A</h2>
+          <h2 class="qa-title">Custom Orders</h2>
           <p class="qa-note">A plain-English, first-timer guide—start at Step 1 and go in order.</p>
 
           <details open>
@@ -303,12 +316,12 @@
           </details>
         </div>
 
-        <!-- RIGHT: Retail Butcher Shop Q&A (clickable, opens to placeholder answer) -->
+        <!-- RIGHT: Retail Order (now numbered automatically) -->
         <div class="qa-col" id="retail-col">
-          <h2 class="qa-title">Retail Butcher Shop Q&amp;A</h2>
+          <h2 class="qa-title">Retail Order</h2>
           <p class="qa-note muted">Tap a question—answers are being drafted now.</p>
 
-          <div class="q-list">
+          <div class="q-list numbered">
             <details class="q-only"><summary>What are your store hours and busiest times?</summary><div class="answer pending">To be answered soon.</div></details>
             <details class="q-only"><summary>Do you cut steaks to my thickness while I wait?</summary><div class="answer pending">To be answered soon.</div></details>
             <details class="q-only"><summary>Which ground beef fat percentages do you carry?</summary><div class="answer pending">To be answered soon.</div></details>
@@ -334,12 +347,12 @@
     </div>
   </section>
 
-  <!-- SINGLE RED CTA: Contact only -->
-  <section class="section cta" role="region" aria-label="Contact">
+  <!-- SINGLE RED CTA: now "Place An Order" -> index.html -->
+  <section class="section cta" role="region" aria-label="Place an order">
     <div class="inner">
       <h2>Have Questions or Ready to Reserve?</h2>
       <div class="actions">
-        <a href="/contact-us/">Contact Us</a>
+        <a href="index.html">Place An Order</a>
       </div>
     </div>
   </section>
@@ -363,7 +376,7 @@
   </script>
 
   <script>
-    // Include loader
+    // Include loader + search filtering
     (function () {
       function isFullDocument(txt){
         return /<!doctype|<\s*html[\s>]|<\s*head[\s>]|<\s*body[\s>]/i.test(txt);
