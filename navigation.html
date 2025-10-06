@@ -2,12 +2,12 @@
 <nav class="primary" aria-label="Primary site navigation">
   <!-- DESKTOP -->
   <div class="inner desktop-nav">
-    <a class="nav-btn" href="/">Home</a>
-    <a class="nav-btn" href="/our-products/">Our Products</a>
+    <a class="nav-btn nav-btn--order" href="/order/">Order Now</a>
     <a class="nav-btn" href="/our-mission/">Our Mission</a>
+    <a class="nav-btn" href="/traceability/">Traceability</a>
     <a class="nav-btn" href="/health-and-nutrition/">Health &amp; Nutrition</a>
+    <a class="nav-btn" href="/our-products/">Our Products</a>
     <a class="nav-btn" href="/faq/">FAQ</a>
-    <!-- Removed About Us -->
     <a class="nav-btn" href="/contact-us/">Contact Us</a>
   </div>
 
@@ -23,12 +23,12 @@
         <label for="navToggle" class="drawer-close" aria-label="Close navigation">×</label>
       </div>
       <nav class="drawer-inner">
-        <a class="drawer-link" href="/">Home</a>
-        <a class="drawer-link" href="/our-products/">Our Products</a>
+        <a class="drawer-link drawer-link--order" href="/order/">Order Now</a>
         <a class="drawer-link" href="/our-mission/">Our Mission</a>
+        <a class="drawer-link" href="/traceability/">Traceability</a>
         <a class="drawer-link" href="/health-and-nutrition/">Health &amp; Nutrition</a>
+        <a class="drawer-link" href="/our-products/">Our Products</a>
         <a class="drawer-link" href="/faq/">FAQ</a>
-        <!-- Removed About Us -->
         <a class="drawer-link" href="/contact-us/">Contact Us</a>
       </nav>
     </aside>
@@ -39,7 +39,7 @@
   :root{
     --pm-red:#c41a1a;
     --pm-red-dark:#9e1414;
-    --btn-radius:10px;
+    --btn-radius:8px;        /* smaller, more rectangular */
     --max:1200px;
   }
 
@@ -53,13 +53,13 @@
   .primary .inner{
     max-width:var(--max);
     margin:0 auto;
-    padding:10px 16px;
+    padding:8px 16px; /* slightly tighter */
     display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap:12px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* smaller min width */
+    gap:10px; /* tighter gap */
   }
 
-  /* Base button styles */
+  /* Base button styles (smaller rectangle, same font) */
   .nav-btn,
   .drawer-link,
   .site-nav-btn{
@@ -71,12 +71,51 @@
     border:2px solid var(--pm-red-dark);
     border-radius:var(--btn-radius);
     font-weight:900;
-    font-size:1.1rem;
-    padding:8px 12px;
-    min-height:46px;
+    font-size:1.1rem;      /* keep font size */
+    padding:6px 10px;      /* smaller */
+    min-height:40px;       /* smaller height */
     text-decoration:none;
     text-align:center;
-    transition: background-color .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .06s ease;
+  }
+
+  /* Special themed border for "Order Now" (stands out, matches brand) */
+  .nav-btn--order{
+    background:#fff;
+    color:var(--pm-red);
+    border-color:var(--pm-red);
+    /* Double-border effect: inner white ring + outer red edge */
+    box-shadow:
+      inset 0 0 0 2px #fff,         /* inner light ring */
+      0 0 0 2px var(--pm-red);      /* outer brand ring */
+  }
+  .nav-btn--order:hover,
+  .nav-btn--order:focus-visible{
+    background:#fff;
+    color:var(--pm-red-dark);
+    border-color:var(--pm-red-dark);
+    box-shadow:
+      inset 0 0 0 2px #fff,
+      0 0 0 2px var(--pm-red-dark);
+  }
+
+  /* Give the same look in the drawer */
+  .drawer-link--order{
+    background:#fff;
+    color:var(--pm-red);
+    border-color:var(--pm-red);
+    box-shadow:
+      inset 0 0 0 2px #fff,
+      0 0 0 2px var(--pm-red);
+  }
+  .drawer-link--order:hover,
+  .drawer-link--order:focus-visible{
+    background:#fff;
+    color:var(--pm-red-dark);
+    border-color:var(--pm-red-dark);
+    box-shadow:
+      inset 0 0 0 2px #fff,
+      0 0 0 2px var(--pm-red-dark);
   }
 
   /* HOVER / FOCUS: invert to white w/ red text */
@@ -97,6 +136,7 @@
   .nav-btn:active,
   .drawer-link:active,
   .site-nav-btn:active{
+    transform: translateY(1px);
     background:#fff;
     color:var(--pm-red-dark);
     border-color:var(--pm-red-dark);
@@ -113,7 +153,7 @@
   /* Mobile Menu trigger */
   .site-nav-btn{
     position:fixed; top:12px; left:12px; z-index:10000;
-    height:44px; padding:0 14px;
+    height:40px; padding:0 12px; /* smaller trigger to match new sizing */
     cursor:pointer;
   }
 
