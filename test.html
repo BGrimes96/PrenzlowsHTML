@@ -31,9 +31,7 @@
       font-size:clamp(14px,3.2vw,24px); color:var(--pm-red);
       padding:0; border:0; white-space:nowrap; position:relative;
     }
-    .slogan::before, .slogan::after{
-      color:var(--pm-red); font-weight:1000;
-    }
+    .slogan::before, .slogan::after{ color:var(--pm-red); font-weight:1000; }
     .slogan::before{content:"“"; margin-right:0}
     .slogan::after{content:"”"; margin-left:0}
 
@@ -204,7 +202,7 @@
 
     /* CART DRAWER */
     .cart-drawer{
-      position:fixed; top:0; right:0; height:100vh; width:min(480px, 25vw);
+      position:fixed; top:0; right:0; height:100vh; width:min(520px, 28vw);
       max-width:100%; background:#fff; color:#0f172a; box-shadow:-16px 0 40px rgba(0,0,0,.25);
       border-left:3px solid var(--pm-red-dark);
       transform:translateX(100%); transition:transform .28s ease;
@@ -218,20 +216,35 @@
     }
     .cart-body{ padding:12px 14px; overflow:auto; flex:1 }
 
+    /* Inline message & confirmation bars in cart */
+    .cart-msg, .confirm-bar{
+      margin:10px 0; padding:10px 12px; border-radius:10px; font-weight:800;
+    }
+    .cart-msg{ background:#fff7ed; border:2px solid #fed7aa; color:#7c2d12; display:none; }
+    .confirm-bar{ background:#eff6ff; border:2px solid #bfdbfe; color:#1e3a8a; display:none; }
+    .confirm-actions{ display:flex; gap:8px; margin-top:8px; }
+    .btn-small{
+      padding:8px 12px; border-radius:10px; border:2px solid var(--pm-red); cursor:pointer; font-weight:900;
+      background:#fff; color:var(--pm-red);
+    }
+    .btn-small.confirm{ background:var(--pm-red); color:#fff; border-color:var(--pm-red-dark); }
+
     .selector-label{
       font-weight:1000; color:var(--pm-red); margin:12px 0 6px; font-size:15px;
     }
 
-    /* Dropdown (auto width set by JS) */
-    .item-select{
+    /* Inputs: avoid iOS zoom (>=16px) */
+    input, select{ font-size:16px; }
+
+    /* Dropdowns (auto width set by JS) */
+    .item-select, .category-select{
       border:2px solid var(--pm-red); border-radius:10px; padding:10px 12px;
-      font-weight:800; color:#111827; width:auto; max-width:100%;
-      background:#fff;
+      font-weight:800; color:#111827; width:auto; max-width:100%; background:#fff; margin-right:8px;
     }
 
     .qty-row{ display:flex; align-items:center; gap:10px; margin-top:10px; flex-wrap:wrap; }
     .qty-row input{
-      width:110px; border:2px solid #e5e7eb; border-radius:10px; padding:8px; font-weight:800;
+      width:120px; border:2px solid #e5e7eb; border-radius:10px; padding:10px 12px; font-weight:800;
     }
     .qty-note{ font-size:12px; color:#6b7280; }
 
@@ -268,7 +281,7 @@
       font-weight:1000; flex:1; text-align:center; cursor:pointer;
     }
 
-    /* NEW: elegant close handle (replaces small arrow) */
+    /* Close handle (inside cart) */
     .close-handle{
       position:absolute; top:50%; left:-44px; transform:translateY(-50%);
       width:44px; height:88px; background:var(--pm-red); color:#fff; border:0;
@@ -277,15 +290,15 @@
     }
     .close-handle:hover{ filter:brightness(1.05); }
 
-    /* Floating Cart button shown when drawer is fully closed */
-    .cart-fab{
-      position:fixed; right:16px; bottom:16px; width:56px; height:56px;
-      border-radius:999px; background:var(--pm-red); color:#fff; display:none;
-      align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,.25);
-      cursor:pointer; z-index:999;
+    /* ALWAYS-VISIBLE right-side open handle */
+    .open-handle{
+      position:fixed; top:50%; right:0; transform:translateY(-50%);
+      height:96px; width:48px; border-radius:12px 0 0 12px;
+      background:var(--pm-red); color:#fff; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; box-shadow:0 8px 24px rgba(0,0,0,.25); z-index:999;
+      font-size:22px; font-weight:900;
     }
-    .cart-fab.show{ display:flex }
-    .cart-fab svg{ width:26px; height:26px; display:block }
+    .open-handle span{ transform:rotate(180deg); display:block; } /* arrow points left */
 
     @media(max-width:900px){
       .cart-drawer{ width:90vw }
@@ -415,9 +428,14 @@
     </div>
   </section>
 
+  <!-- ALWAYS-VISIBLE right-side open handle -->
+  <button class="open-handle" id="openHandle" aria-label="Open cart" title="Open cart">
+    <span>⟨</span>
+  </button>
+
   <!-- Cart Drawer -->
   <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Cart">
-    <button class="close-handle" id="closeHandle" type="button" title="Hide cart">⟨</button>
+    <button class="close-handle" id="closeHandle" type="button" title="Hide cart">⟩</button>
     <div class="cart-header">
       <div class="pickup-note">
         By placing an order, your order will be available for pickup at<br>
@@ -425,21 +443,29 @@
       </div>
     </div>
     <div class="cart-body">
+      <div id="cartMsg" class="cart-msg" role="alert"></div>
+
+      <div class="selector-label">Choose Category</div>
+      <select class="category-select" id="categorySelect" aria-label="Choose Category"></select>
+
       <div class="selector-label">Add Meat To Your Order</div>
       <select class="item-select" id="itemSelect" aria-label="Add Meat To Your Order">
-        <option value="" selected disabled hidden>Add Meat To Your Order</option>
-        <option value="hamburger" data-price="9.99">Ground Hamburger — $9.99/LB</option>
-        <option value="steak" data-price="11.99">Steak — $11.99/LB</option>
-        <option value="ham_deli" data-price="8.99">Deli Sliced Ham — $8.99/LB</option>
-        <option value="ham_whole" data-price="7.99">Whole Ham — $7.99/LB</option>
-        <option value="sausage" data-price="6.99">Sausage — $6.99/LB</option>
+        <option value="" selected disabled hidden>Select an item</option>
       </select>
 
       <div class="qty-row">
         <label for="qty" style="font-weight:900">Pounds:</label>
-        <input id="qty" type="number" min="1" max="100" value="1" />
+        <input id="qty" type="number" min="1" max="100" value="1" inputmode="numeric" />
         <button class="add-btn" id="addItemBtn" type="button">Add Item</button>
-        <div class="qty-note">Up to 10 lbs without confirmation (you can enter up to 100 lbs).</div>
+        <div class="qty-note">Up to 100 Pounds</div>
+      </div>
+
+      <div id="confirmBar" class="confirm-bar" role="alert">
+        <div id="confirmText">Did you mean to choose more than 10 pounds?</div>
+        <div class="confirm-actions">
+          <button class="btn-small" id="confirmNoBtn" type="button">No</button>
+          <button class="btn-small confirm" id="confirmYesBtn" type="button">Yes</button>
+        </div>
       </div>
 
       <div class="cart-items" id="cartItems" aria-live="polite"></div>
@@ -465,13 +491,6 @@
       </div>
     </div>
   </aside>
-
-  <!-- Floating Cart button (appears when cart is fully closed) -->
-  <button class="cart-fab" id="cartFab" title="Open cart" aria-label="Open cart">
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.1 14h9.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0 0 21 5H6.21l-.94-2H2v2h2l3.6 7.59-1.35 2.44A2 2 0 0 0 8 18h12v-2H8l1.1-2z"/>
-    </svg>
-  </button>
 
   <!-- Include the shared sitemap/footer -->
   <div id="footerMount" data-include="/sitemap-footer.html">[loading footer…]</div>
@@ -525,8 +544,12 @@
         document.body.classList.remove('cart-open-mobile','no-scroll');
       }
     }
+    // message helpers
+    const cartMsgEl = document.getElementById('cartMsg');
+    function showMsg(text){ cartMsgEl.textContent = text; cartMsgEl.style.display = 'block'; }
+    function clearMsg(){ cartMsgEl.textContent=''; cartMsgEl.style.display = 'none'; }
 
-    // Size the dropdown to the longest option text (+ padding)
+    // Size a dropdown to its longest option (+ padding)
     function sizeDropdownToContent(select){
       if (!select) return;
       const span = document.createElement('span');
@@ -542,33 +565,91 @@
         max = Math.max(max, span.offsetWidth);
       }
       document.body.removeChild(span);
-      // Add padding + border room
       select.style.width = Math.ceil(max + 40) + 'px';
     }
 
+    /* ===== Catalog (categories & items) ===== */
+    const CATALOG = {
+      "Beef & Steak":[
+        {key:"filet_mignon", label:"Filet Mignon", price:36.00},
+        {key:"minute_steak", label:"Minute Steak", price:9.65},
+        {key:"new_york_strip", label:"New York Strip", price:18.65},
+        {key:"ribeye_steak", label:"Ribeye Steak", price:19.00},
+        {key:"beef_stew_meat", label:"Beef Stew Meat", price:8.00},
+        {key:"t_bone_steak", label:"T-Bone Steak", price:14.95},
+        {key:"top_sirloin_steak", label:"Top Sirloin Steak", price:14.00},
+        {key:"arm_roast", label:"Arm Roast", price:7.25},
+        {key:"chuck_roast", label:"Chuck Roast", price:7.35},
+        {key:"dried_beef", label:"Dried Beef", price:12.00},
+        {key:"chunk_summer_sausage", label:"Chunk Summer Sausage", price:6.25},
+        {key:"sliced_summer_sausage", label:"Sliced Summer Sausage", price:6.75},
+        {key:"chunk_jalapeno_summer_sausage", label:"Chunk Jalapeño Summer Sausage", price:6.75},
+        {key:"beef_bacon", label:"Beef Bacon", price:8.00},
+        {key:"ground_beef", label:"Ground Beef", price:7.60},
+        {key:"beef_patties_13", label:"Beef Patties #13", price:9.60},
+        {key:"beef_prime_rib", label:"Beef Prime Rib", price:19.00},
+        {key:"beef_spare_ribs", label:"Beef Spare Ribs", price:5.65}
+      ],
+      "Pork & Bacon":[
+        {key:"fresh_pork_chops", label:"Fresh Pork Chops", price:7.20},
+        {key:"smoked_pork_chops", label:"Smoked Pork Chops", price:8.60},
+        {key:"pork_shoulder_roast", label:"Pork Shoulder Roast", price:6.15},
+        {key:"bratwurst_links", label:"Bratwurst Links", price:6.00},
+        {key:"fresh_fry_sausage_link", label:"Fresh Fry Sausage Link", price:6.00},
+        {key:"smoked_fry_sausage_link", label:"Smoked Fry Sausage Link", price:6.25},
+        {key:"mild_italian_sausage_links", label:"Mild Italian Sausage Links", price:6.00},
+        {key:"smoked_polish_sausage_links", label:"Smoked Polish Sausage Links", price:6.00},
+        {key:"ground_pork_breakfast_sausage", label:"Ground Pork Breakfast Sausage", price:4.00},
+        {key:"pork_breakfast_sausage_links", label:"Pork Breakfast Sausage Links", price:5.25},
+        {key:"smokies_pack", label:"Smokies (Pack)", price:6.00},
+        {key:"smoked_weiners_links", label:"Smoked Weiners Links", price:8.00},
+        {key:"smoked_pork_bacon", label:"Smoked Pork Bacon", price:7.85},
+        {key:"smoked_pork_bacon_ends", label:"Smoked Pork Bacon Ends", price:6.75},
+        {key:"ground_pork", label:"Ground Pork", price:3.15},
+        {key:"pork_sausage_patties", label:"Pork Sausage Patties", price:4.50},
+        {key:"pork_baby_back_ribs", label:"Pork Baby Back Ribs", price:7.40},
+        {key:"pork_ham_sandwich_slices", label:"Pork Ham Sandwich Slices", price:5.70},
+        {key:"pork_hocks_smoked", label:"Pork Hocks Smoked", price:4.50}
+      ],
+      "Jerky/Snack Sticks":[
+        {key:"teriyaki_jerky_1lb", label:"Teriyaki Jerky (1 lb Pack)", price:26.00},
+        {key:"teriyaki_jerky_bits_1lb", label:"Teriyaki Jerky Bits (1 lb Pack)", price:26.00},
+        {key:"teriyaki_jerky_sticks", label:"Teriyaki Jerky Pack, Sticks", price:26.00},
+        {key:"smoked_beef_stick", label:"Smoked Beef Stick (1 Stick)", price:26.00}
+      ],
+      "Cheeses":[
+        {key:"white_american_cheese", label:"White American Cheese", price:7.80},
+        {key:"yellow_american_cheese", label:"Yellow American Cheese", price:7.80}
+      ],
+      "Spices":[
+        {key:"synders_prime_rib_roast_seasoning", label:"Synders Prime Rib and Roast Seasoning", price:null}
+      ]
+    };
+
     /* ===== Cart logic ===== */
     const drawer = document.getElementById('cartDrawer');
-    const cartFab = document.getElementById('cartFab');
+    const openHandle = document.getElementById('openHandle');
     const closeHandle = document.getElementById('closeHandle');
     const openCartBtn = document.getElementById('openCartBtn');
     const heroPickupBtn = document.getElementById('heroPickupBtn');
+
+    const categorySelect = document.getElementById('categorySelect');
     const itemSelect = document.getElementById('itemSelect');
     const qtyInput = document.getElementById('qty');
     const addItemBtn = document.getElementById('addItemBtn');
+
     const cartItemsEl = document.getElementById('cartItems');
     const cartTotalEl = document.getElementById('cartTotal');
     const checkoutBtn = document.getElementById('checkoutBtn');
     const custName = document.getElementById('custName');
     const custPhone = document.getElementById('custPhone');
 
-    const ITEM_LABELS = {
-      hamburger: 'Ground Hamburger',
-      steak: 'Steak',
-      ham_deli: 'Deli Sliced Ham',
-      ham_whole: 'Whole Ham',
-      sausage: 'Sausage'
-    };
+    const confirmBar = document.getElementById('confirmBar');
+    const confirmText = document.getElementById('confirmText');
+    const confirmYesBtn = document.getElementById('confirmYesBtn');
+    const confirmNoBtn = document.getElementById('confirmNoBtn');
 
+    let pendingAdd = null; // {key, label, price, lbs}
     let cart = [];
 
     function currency(n){ return '$' + n.toFixed(2); }
@@ -576,26 +657,42 @@
     function openCart(){
       drawer.classList.add('open');
       drawer.setAttribute('aria-hidden','false');
-      cartFab.classList.remove('show');
+      openHandle.style.display = 'none';
       setMobileNavDisabled(true);
     }
     function hideCart(){ // fully slide away
       drawer.classList.remove('open');
       drawer.setAttribute('aria-hidden','true');
-      cartFab.classList.add('show');
+      openHandle.style.display = 'flex';
       setMobileNavDisabled(false);
+      clearMsg();
+      hideConfirm();
     }
 
-    function addToCart(key, price, lbs){
+    function showConfirm(payload){
+      pendingAdd = payload;
+      confirmText.textContent = `Did you mean to choose ${payload.lbs} pounds?`;
+      confirmBar.style.display = 'block';
+    }
+    function hideConfirm(){
+      confirmBar.style.display = 'none';
+      pendingAdd = null;
+    }
+
+    function addOrUpdateCartItem(key, label, price, lbs){
       const existing = cart.find(it => it.key === key);
       if (existing){
         existing.lbs = Math.min(100, existing.lbs + lbs);
       } else {
-        cart.push({ key, price, lbs });
+        cart.push({ key, label, price, lbs });
       }
       renderCart();
     }
 
+    function removeFromCartByKey(key){
+      const idx = cart.findIndex(it => it.key === key);
+      if (idx >= 0){ cart.splice(idx,1); renderCart(); }
+    }
     function removeFromCart(idx){
       cart.splice(idx,1);
       renderCart();
@@ -611,7 +708,7 @@
         const row = document.createElement('div');
         row.className = 'cart-item';
         const name = document.createElement('div');
-        name.textContent = ITEM_LABELS[it.key];
+        name.textContent = it.label;
 
         const lbs = document.createElement('div');
         lbs.textContent = it.lbs + ' lb' + (it.lbs>1?'s':'');
@@ -636,55 +733,98 @@
       cartTotalEl.textContent = currency(computeTotal());
     }
 
+    function populateCategories(){
+      categorySelect.innerHTML = '';
+      Object.keys(CATALOG).forEach(cat=>{
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.textContent = cat;
+        categorySelect.appendChild(opt);
+      });
+    }
+    function populateItemsForCategory(cat){
+      itemSelect.innerHTML = '<option value="" selected disabled hidden>Select an item</option>';
+      const items = CATALOG[cat] || [];
+      items.forEach(item=>{
+        const opt = document.createElement('option');
+        opt.value = item.key;
+        opt.dataset.price = item.price != null ? String(item.price) : '';
+        const priceText = item.price != null ? ` — $${item.price.toFixed(2)}/LB` : ' — Price unavailable';
+        opt.textContent = `${item.label}${priceText}`;
+        itemSelect.appendChild(opt);
+      });
+      sizeDropdownToContent(itemSelect);
+    }
+    function findItemByKey(key){
+      for (const [cat, items] of Object.entries(CATALOG)){
+        const f = items.find(i=>i.key===key);
+        if (f) return f;
+      }
+      return null;
+    }
+
+    // open/close hooks
     openCartBtn?.addEventListener('click', openCart);
     heroPickupBtn?.addEventListener('click', openCart);
+    openHandle?.addEventListener('click', openCart);
     closeHandle?.addEventListener('click', hideCart);
-    cartFab?.addEventListener('click', openCart);
 
-    // Add item with confirmation above 10 lbs (allow up to 100)
+    // Add item with in-cart confirmation above 10 lbs (allow up to 100)
     addItemBtn?.addEventListener('click', ()=>{
-      const opt = itemSelect.options[itemSelect.selectedIndex];
-      if (!opt || !opt.value){ alert('Please select a product.'); return; }
-      const key = opt.value;
-      const price = parseFloat(opt.dataset.price || '0');
+      clearMsg();
+      const key = itemSelect.value;
+      if (!key){ showMsg('Please select a product.'); return; }
+      const item = findItemByKey(key);
+      if (!item){ showMsg('Selected item not found.'); return; }
+      if (item.price == null){ showMsg('This item does not have a price yet. Please call for pricing or choose another item.'); return; }
+
       let lbs = parseInt(qtyInput.value||'1', 10);
       if (isNaN(lbs) || lbs < 1) lbs = 1;
       if (lbs > 100) lbs = 100;
 
       if (lbs > 10){
-        const ok = confirm(`Did you mean to choose ${lbs} pounds?`);
-        if (!ok){
-          // Remove any existing matching item if user backs out
-          const idx = cart.findIndex(it => it.key === key);
-          if (idx >= 0){ cart.splice(idx,1); renderCart(); }
-          return;
-        }
+        showConfirm({key:item.key, label:item.label, price:item.price, lbs});
+        return;
       }
-      addToCart(key, price, lbs);
+      addOrUpdateCartItem(item.key, item.label, item.price, lbs);
     });
 
-    // Checkout validation for required Name & Phone
+    // Confirm bar actions
+    confirmYesBtn?.addEventListener('click', ()=>{
+      if (!pendingAdd) return;
+      addOrUpdateCartItem(pendingAdd.key, pendingAdd.label, pendingAdd.price, pendingAdd.lbs);
+      hideConfirm();
+    });
+    confirmNoBtn?.addEventListener('click', ()=>{
+      if (pendingAdd){
+        // remove any existing matching item if present
+        removeFromCartByKey(pendingAdd.key);
+      }
+      hideConfirm();
+    });
+
+    // Checkout validation (inline)
     function validPhone(p){
-      // basic lenient check: at least 7 digits allowed with spaces/dashes
       const digits = (p||'').replace(/\D/g,'');
       return digits.length >= 7;
     }
     checkoutBtn?.addEventListener('click', ()=>{
+      clearMsg();
       if (!custName.value.trim()){
-        alert('Please enter your name.');
+        showMsg('Please enter your name.');
         custName.focus();
         return;
       }
       if (!validPhone(custPhone.value)){
-        alert('Please enter a valid phone number.');
+        showMsg('Please enter a valid phone number.');
         custPhone.focus();
         return;
       }
       if (cart.length === 0){
-        alert('Your cart is empty.');
+        showMsg('Your cart is empty.');
         return;
       }
-      alert('Thanks! Your pickup will be ready tomorrow at 2 PM at 635 240th Street, Waterloo, NE 68069.');
+      showMsg('Thanks! Your pickup will be ready tomorrow at 2 PM at 635 240th Street, Waterloo, NE 68069.');
     });
 
     // Keyboard: Esc hides cart
@@ -694,13 +834,21 @@
       }
     });
 
-    // Size dropdown to longest option
+    // Initialize dropdowns and sizing
     window.addEventListener('DOMContentLoaded', ()=>{
+      populateCategories();
+      populateItemsForCategory(categorySelect.value || Object.keys(CATALOG)[0]);
+      categorySelect.addEventListener('change', (e)=>{
+        populateItemsForCategory(categorySelect.value);
+      });
+      sizeDropdownToContent(categorySelect);
       sizeDropdownToContent(itemSelect);
     });
     window.addEventListener('resize', ()=>{
+      sizeDropdownToContent(categorySelect);
       sizeDropdownToContent(itemSelect);
     });
   </script>
 </body>
 </html>
+
