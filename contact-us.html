@@ -23,12 +23,15 @@
     .header-inner{max-width:var(--max);margin:0 auto;padding:18px 18px 10px}
     .brand{display:flex;justify-content:center}
     .brand img{width:clamp(180px, 28vw, 420px)}
-    .slogan-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 18px 0}
-    .slogan-wrap .rule{height:2px;background:var(--pm-red);flex:1;max-width:260px}
+
+    /* Slogan — no side rules, no border, with quotes */
+    .slogan-wrap{
+      display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 18px 0
+    }
     .slogan{
       font-weight:1000; letter-spacing:.08em; text-transform:uppercase;
       font-size:clamp(14px,3.2vw,24px); color:var(--pm-red);
-      padding:8px 14px; border:2px solid var(--pm-red); border-radius:999px; white-space:nowrap;
+      padding:0; border:0; border-radius:0; white-space:nowrap;
     }
 
     /* Sections */
@@ -60,7 +63,8 @@
     /* Buttons */
     .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;min-height:48px;border-radius:12px;font-weight:1000;text-decoration:none}
     .btn-block{width:100%}
-    /* Solid red button (white area + anywhere needed) */
+
+    /* Solid red button (white sections) */
     .btn-solid-red{background:var(--pm-red); color:#fff; border:2px solid var(--pm-red)}
     .btn-solid-red:hover{background:var(--pm-red-dark); border-color:var(--pm-red-dark)}
 
@@ -79,9 +83,10 @@
     input:focus,select:focus,textarea:focus{outline:none;border-color:#fff;box-shadow:0 0 0 3px #ffffff55}
     textarea{min-height:220px;resize:vertical}
     .form-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;justify-content:center}
-    /* Red buttons on the red band need white border to pop */
-    .btn-red{background:var(--pm-red); color:#fff; border:2px solid #fff}
-    .btn-red:hover{background:var(--pm-red-dark); border-color:#fff}
+
+    /* On red sections: WHITE button with RED text */
+    .btn-red{background:#fff; color:var(--pm-red); border:2px solid #fff}
+    .btn-red:hover{background:#f8fafc; border-color:#fff; color:var(--pm-red-dark)}
 
     /* CTA — white */
     .cta{background:#fff;color:var(--ink);text-align:center;border-top:2px solid #f3f4f6}
@@ -102,9 +107,7 @@
         <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920">
       </div>
       <div class="slogan-wrap">
-        <span class="rule"></span>
-        <span class="slogan">We Bring The Country To Your Table</span>
-        <span class="rule"></span>
+        <span class="slogan">“We Bring The Country To Your Table”</span>
       </div>
     </div>
     <div data-include="/navigation.html">[loading navigation…]</div>
@@ -129,10 +132,10 @@
           <h3>Retail Location — Waterloo, NE</h3>
           <div class="row">
             <strong>Address</strong>
-            <p>635 S. 240th Street<br/>Waterloo, NE 68069</p>
+            <p>635 240th Street<br/>Waterloo, NE 68069</p>
           </div>
           <div class="btn-col">
-            <a class="btn btn-solid-red btn-block" href="https://maps.google.com/?q=635 S. 240th Street, Waterloo, NE 68069" target="_blank" rel="noopener">Open in Maps</a>
+            <a class="btn btn-solid-red btn-block" href="https://maps.google.com/?q=635+240th+Street,+Waterloo,+NE+68069" target="_blank" rel="noopener">Open in Maps</a>
           </div>
         </article>
 
@@ -145,8 +148,7 @@
           </div>
           <p class="muted">By appointment for harvest scheduling and custom cut lists.</p>
           <div class="btn-col">
-          
-            <a class="btn btn-solid-red btn-block" href="https://maps.google.com/?q=102 3rd St, Snyder, NE 68664" target="_blank" rel="noopener">Open in Maps</a>
+            <a class="btn btn-solid-red btn-block" href="https://maps.google.com/?q=102+3rd+St,+Snyder,+NE+68664" target="_blank" rel="noopener">Open in Maps</a>
           </div>
         </article>
       </div>
@@ -275,7 +277,7 @@
           e.target.setCustomValidity('');
         });
       });
-      // Let browser show native popups, but ensure validation runs
+      // Ensure validation runs
       document.querySelector('form').addEventListener('submit', (e)=>{
         if(!e.target.reportValidity()){
           e.preventDefault();
