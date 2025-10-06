@@ -1,1 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Prenzlow Meats — Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root{
+      --pm-red:#c41a1a; --pm-red-dark:#9e1414;
+      --ink:#0f172a; --ink-on-red:#ffffff; --muted:#6b7280; --surface:#ffffff;
+      --max:1200px;
+    }
+    *{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%}
+    html,body{margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#fff;color:var(--ink);line-height:1.65}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
+
+    /* Header / brand */
+    header.site-header{background:#fff}
+    .header-inner{max-width:var(--max);margin:0 auto;padding:18px 18px 10px}
+    .brand{display:flex;justify-content:center}
+    .brand img{width:clamp(180px, 28vw, 420px)}
+
+    /* Slogan (no side lines; add quotes in same color) */
+    .slogan-wrap{display:flex;align-items:center;justify-content:center;margin:8px 18px 0}
+    .slogan{
+      font-weight:1000; letter-spacing:.08em; text-transform:uppercase;
+      font-size:clamp(14px,3.2vw,24px); color:var(--pm-red);
+      padding:0; border:0; white-space:nowrap; position:relative;
+    }
+    .slogan::before, .slogan::after{
+      color:var(--pm-red); font-weight:1000;
+    }
+    .slogan::before{content:"“"; margin-right:6px}
+    .slogan::after{content:"”"; margin-left:6px}
+
+    /* Sections scaffold */
+    .section .inner{max-width:var(--max);margin:0 auto;padding:clamp(20px,4vw,56px) 18px}
+
+    /* Lede (red hero) */
+    .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
+    .lede p{
+      margin:0 auto;
+      max-width:1000px;
+      font-weight:800;
+      font-size:clamp(18px,2.6vw,28px);
+      letter-spacing:.15px;
+      line-height:1.45;
+      padding:16px 0 10px;
+    }
+    .lede .actions{margin-top:10px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+    .btn-white{
+      background:#fff; color:var(--pm-red); border:2px solid #fff;
+      font-weight:1000; padding:12px 18px; border-radius:12px; min-height:48px;
+      display:inline-flex; align-items:center; justify-content:center; font-size:clamp(15px,1.9vw,18px);
+    }
+
+    /* Card / What We Do */
+    .card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:clamp(22px,3.5vw,40px)}
+    .card h2{
+      margin:0 0 10px;
+      color:var(--pm-red);
+      font-size:clamp(26px,4.4vw,38px);
+      font-weight:1000;
+      text-align:center
+    }
+    .card .subhead{
+      margin:0 auto 18px;
+      max-width:820px;
+      text-align:center;
+      color:#374151;
+      font-size:clamp(16px,2.1vw,19px);
+      line-height:1.6;
+    }
+
+    /* Grid for left/right boxes */
+    .what-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+      margin:20px auto;
+      max-width:1000px;
+      align-items:stretch;  /* equal height boxes */
+    }
+    .what-box{
+      background:#fff;
+      border:1px solid #f3f4f6;
+      border-radius:12px;
+      padding:22px 20px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      min-height:100%;
+    }
+    .box-title{
+      margin:0 0 10px 0;
+      font-weight:900;
+      color:var(--pm-red);
+      font-size:clamp(18px,2.2vw,22px);
+      letter-spacing:.2px;
+      text-align:left;
+    }
+    .box-title.center{ text-align:center }
+    .box-title.long{ max-width:28ch; margin-left:auto; margin-right:auto; line-height:1.35; }
+
+    .what-list{
+      list-style:disc;
+      margin:0;
+      padding-left:1.25rem;
+      font-size:clamp(16px,2.1vw,19px);
+      line-height:1.7;
+      color:#111827;
+      font-weight:700;
+    }
+    .what-list li{margin:6px 0}
+    .what-list li.spaced{margin-top:14px}
+
+    .what-sub{
+      list-style:circle;
+      margin:6px 0 0;
+      padding-left:1.25rem;
+      font-weight:600;
+      color:#111827;
+      font-size:clamp(15px,2vw,18px);
+    }
+
+    .what-box p{
+      margin:10px 0;
+      font-size:clamp(16px,2.1vw,19px);
+      line-height:1.7;
+      color:#111827;
+      text-align:left;
+    }
+
+    /* Buttons centered INSIDE each box, aligned on same level */
+    .box-actions{
+      margin-top:auto;
+      display:flex;
+      justify-content:center;
+      padding-top:10px;
+    }
+
+    @media(max-width:768px){
+      .what-grid{grid-template-columns:1fr}
+      .box-title{text-align:left}
+      .box-title.center{ text-align:center }
+    }
+
+    /* Generic button styles */
+    .btn-red, .btn-ghost{
+      font-weight:1000; padding:14px 20px; border-radius:14px; min-height:52px;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-size:clamp(15px,1.9vw,18px);
+      border:2px solid var(--pm-red);
+      text-decoration:none;
+      transition:background .15s ease, color .15s ease, border-color .15s ease;
+    }
+    .btn-red{background:var(--pm-red);color:#fff;border-color:var(--pm-red-dark)}
+    .btn-ghost{background:#fff;color:var(--pm-red);border-color:var(--pm-red)}
+
+    .btn-red:hover{
+      background:#fff;
+      color:var(--pm-red);
+      border-color:var(--pm-red);
+    }
+    .btn-ghost:hover{
+      background:var(--pm-red);
+      color:#fff;
+      border-color:var(--pm-red-dark);
+    }
+
+    /* ORDER ONLINE (red section replacing the old CTA) */
+    .order-online{ background:var(--pm-red); color:var(--ink-on-red); }
+    .order-online .inner{ padding:clamp(28px,6vw,80px) 18px; }
+    .order-online h2{
+      margin:0 0 14px; text-align:center; font-size:clamp(26px,5vw,42px); font-weight:1000;
+    }
+    .product-grid{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:16px; max-width:var(--max); margin:0 auto 16px;
+    }
+    .product-card{
+      background:#fff; color:#111; border-radius:12px; overflow:hidden; border:2px solid #f3f4f6;
+    }
+    .product-card img{ width:100%; aspect-ratio: 4 / 3; object-fit:cover }
+    .product-card .pcap{ padding:10px; font-weight:800; text-align:center; color:#0f172a; }
+
+    @media(max-width:900px){
+      .product-grid{ grid-template-columns:repeat(2,1fr); }
+    }
+    @media(max-width:520px){
+      .product-grid{ grid-template-columns:1fr; }
+    }
+
+    /* CART DRAWER */
+    .cart-drawer{
+      position:fixed; top:0; right:0; height:100vh; width:min(480px, 25vw);
+      max-width:100%; background:#fff; color:#0f172a; box-shadow:-16px 0 40px rgba(0,0,0,.25);
+      border-left:3px solid var(--pm-red-dark);
+      transform:translateX(100%); transition:transform .25s ease;
+      z-index:1000; display:flex; flex-direction:column;
+    }
+    .cart-drawer.open{ transform:translateX(0) }
+    .cart-drawer.collapsed{ width:40px; overflow:hidden }
+    .cart-header{
+      padding:14px 14px 10px; background:#fff; border-bottom:1px solid #e5e7eb;
+    }
+    .pickup-note{
+      background:#fff5f5; border:1px solid #fecaca; color:#7f1d1d;
+      padding:10px 12px; border-radius:10px; font-weight:700; font-size:14px;
+    }
+    .cart-body{ padding:12px 14px; overflow:auto; flex:1 }
+    .selector-label{
+      font-weight:1000; color:var(--pm-red); margin:12px 0 6px; font-size:15px;
+    }
+    .item-select{
+      width:100%; border:2px solid var(--pm-red); border-radius:10px; padding:8px; height:180px;
+      font-weight:800; color:#111827;
+    }
+    .qty-row{ display:flex; align-items:center; gap:10px; margin-top:10px; }
+    .qty-row input{
+      width:90px; border:2px solid #e5e7eb; border-radius:10px; padding:8px; font-weight:800;
+    }
+    .add-btn{
+      background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark);
+      padding:10px 14px; border-radius:12px; font-weight:1000; cursor:pointer;
+    }
+    .add-btn:hover{ background:#a91515 }
+    .cart-items{ margin-top:12px; display:grid; gap:8px }
+    .cart-item{
+      display:grid; grid-template-columns:1fr auto auto auto; gap:8px; align-items:center;
+      border:1px solid #e5e7eb; border-radius:10px; padding:8px 10px; background:#fafafa;
+      font-weight:700;
+    }
+    .cart-item .remove{
+      background:transparent; border:0; color:#991b1b; font-size:18px; cursor:pointer; font-weight:900;
+    }
+    .cart-total{
+      margin-top:12px; border-top:2px dashed #e5e7eb; padding-top:10px; font-weight:1000; font-size:18px;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .checkout-row{ margin-top:8px; display:flex; gap:10px; }
+    .checkout-btn{
+      background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark); padding:12px 16px; border-radius:12px;
+      font-weight:1000; flex:1; text-align:center; cursor:pointer;
+    }
+    .minimize{
+      position:absolute; bottom:8px; left:8px; background:#fff; border:2px solid var(--pm-red);
+      color:var(--pm-red); border-radius:999px; width:36px; height:36px; display:flex; align-items:center; justify-content:center;
+      font-weight:1000; cursor:pointer;
+    }
+    .mini-tab{
+      position:fixed; top:50%; right:0; transform:translateY(-50%);
+      width:36px; height:80px; background:var(--pm-red); color:#fff; border-radius:10px 0 0 10px;
+      display:none; align-items:center; justify-content:center; cursor:pointer; z-index:999;
+      writing-mode:vertical-rl; text-orientation:mixed; font-weight:1000; letter-spacing:.3px;
+    }
+    .mini-tab.show{ display:flex }
+
+    @media(max-width:900px){
+      .cart-drawer{ width:90vw }
+    }
+
+    /* CTA WHITE (moved “Ready to Start an Order?”) */
+    .cta-white{ background:#fff; color:var(--ink); border-top:2px solid #f3f4f6; }
+    .cta-white .block{max-width:900px; margin:0 auto; text-align:center;}
+    .cta-white h2{ margin:0; font-size:clamp(24px,4.8vw,40px); font-weight:1000; }
+    .cta-actions{ display:flex; justify-content:center; gap:16px; margin-top:18px; flex-wrap:wrap; }
+
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand">
+        <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920">
+      </div>
+      <div class="slogan-wrap">
+        <span class="slogan">We Bring The Country To Your Table</span>
+      </div>
+    </div>
+    <div id="navMount" data-include="/navigation.html">[loading navigation…]</div>
+  </header>
+
+  <!-- Hero -->
+  <section class="section lede">
+    <div class="inner">
+      <p>We’ve been proudly serving customers for over 100 years with hand-crafted meats and Old World tradition.</p>
+      <div class="actions">
+        <button class="btn-white" id="heroPickupBtn" type="button">Place An Order for Pickup</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- What We Do -->
+  <section class="section" aria-label="What We Do">
+    <div class="inner">
+      <article class="card">
+        <h2>What We Do</h2>
+        <p class="subhead">Old-World craftsmanship, modern food-safety, and service you can trust.</p>
+
+        <div class="what-grid">
+          <!-- FIRST (moved) — Retail message (renamed & centered, 2–3 lines) -->
+          <div class="what-box">
+            <h3 class="box-title center long">
+              We Also Offer Retail Product that includes
+              Specialty Smoked Meats and Premium Cuts
+            </h3>
+            <p>Our hams, lunch meats and sausage are hand crafted without using any manmade chemicals.</p>
+            <p>The traditional recipes and processing methods we use have not changed for three generations.</p>
+            <p>When you try our meats, you can be confident that the healthy Old-World traditions will be evident with every bite.</p>
+            <p>Thank you for your patronage and we welcome all comments and feedback.</p>
+            <div class="box-actions">
+              <a class="btn-red" href="/products.html">View Our Products</a>
+            </div>
+          </div>
+
+          <!-- SECOND (was left) — Butchery (renamed) -->
+          <div class="what-box">
+            <h3 class="box-title">Premium Cuts and Specialty Smoked Meats</h3>
+            <ul class="what-list">
+              <li>Professional Customized Meat Processing</li>
+              <li class="spaced">
+                We Also Offer Retail Product that includes Specialty Smoked Meats and Premium Cuts
+                <ul class="what-sub">
+                  <li>Specialty Cut Hams</li>
+                  <li>Specialty Cut Lunch Meats</li>
+                  <li>Specialty Cut Sausage</li>
+                  <li>Specialty Cut Steaks</li>
+                  <li>Specialty Ground Hamburger By The Pound</li>
+                </ul>
+              </li>
+            </ul>
+            <div class="box-actions">
+              <a class="btn-ghost" href="/contact-us/">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ORDER ONLINE (red section replacing old CTA) -->
+  <section class="section order-online" aria-label="Order Online">
+    <div class="inner">
+      <h2>Order Online</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <img src="/product1.png" alt="Featured product 1">
+          <div class="pcap">Featured Product</div>
+        </div>
+        <div class="product-card">
+          <img src="/product2.png" alt="Featured product 2">
+          <div class="pcap">Featured Product</div>
+        </div>
+        <div class="product-card">
+          <img src="/product3.png" alt="Featured product 3">
+          <div class="pcap">Featured Product</div>
+        </div>
+        <div class="product-card">
+          <img src="/product4.png" alt="Featured product 4">
+          <div class="pcap">Featured Product</div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <button class="btn-ghost" id="openCartBtn" type="button" style="background:#fff;color:var(--pm-red);border-color:#fff;min-height:56px;padding:16px 22px;font-size:clamp(16px,2vw,20px)">Place Order</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA (moved below, white) -->
+  <section class="section cta-white" aria-label="Helpful Links">
+    <div class="inner">
+      <div class="block">
+        <h2>Ready to Start an Order?</h2>
+        <div class="cta-actions">
+          <a class="btn-red" href="/faq/">Read the FAQ</a>
+          <a class="btn-ghost" href="/contact-us/">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart Drawer -->
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Cart">
+    <div class="cart-header">
+      <div class="pickup-note">
+        By placing an order, your order will be available for pickup at<br>
+        <strong>635 240th Street, Waterloo, NE 68069</strong> at <strong>2 PM the Next Day</strong>.
+      </div>
+    </div>
+    <div class="cart-body">
+      <div class="selector-label">Add Your Meat To Your Order</div>
+      <select class="item-select" id="itemSelect" size="6" aria-label="Add Your Meat To Your Order">
+        <option value="hamburger" data-price="9.99">Ground Hamburger — $9.99/LB</option>
+        <option value="steak" data-price="11.99">Steak — $11.99/LB</option>
+        <option value="ham_deli" data-price="8.99">Deli Sliced Ham — $8.99/LB</option>
+        <option value="ham_whole" data-price="7.99">Whole Ham — $7.99/LB</option>
+        <option value="sausage" data-price="6.99">Sausage — $6.99/LB</option>
+      </select>
+
+      <div class="qty-row">
+        <label for="qty" style="font-weight:900">Pounds:</label>
+        <input id="qty" type="number" min="1" max="10" value="1" />
+        <button class="add-btn" id="addItemBtn" type="button">Add Item</button>
+      </div>
+
+      <div class="cart-items" id="cartItems" aria-live="polite"></div>
+
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+
+      <div class="checkout-row">
+        <button class="checkout-btn" type="button" id="checkoutBtn" title="Proceed to pickup instructions">Checkout</button>
+      </div>
+    </div>
+
+    <button class="minimize" id="cartMinBtn" type="button" title="Minimize cart">←</button>
+  </aside>
+
+  <!-- Mini-tab when minimized -->
+  <div class="mini-tab" id="miniTab" title="Open cart">Cart</div>
+
+  <!-- Include the shared sitemap/footer -->
+  <div id="footerMount" data-include="/sitemap-footer.html">[loading footer…]</div>
+
+  <script>
+    // Generic include helper (nav + footer)
+    (function () {
+      async function tryFetch(url) {
+        const bust = (url.includes('?') ? '&' : '?') + 'v=' + Date.now();
+        const res = await fetch(url + bust, { cache: 'no-store' });
+        if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+        return await res.text();
+      }
+      async function inject(selector) {
+        const nodes = document.querySelectorAll(selector);
+        for (const mount of nodes) {
+          const requested = mount.getAttribute('data-include');
+          const candidates = [ requested, './' + (requested||'').replace(/^\//,''), (requested||'') ].filter(Boolean);
+          let loaded = false;
+          for (const href of candidates) {
+            try {
+              const html = await tryFetch(href);
+              mount.outerHTML = html;
+              loaded = true;
+              break;
+            } catch (e) {
+              console.warn('[include] failed', href, e.message);
+              continue;
+            }
+          }
+          if (!loaded) {
+            mount.textContent = 'Section failed to load.';
+            mount.style.color = '#b91c1c';
+            mount.style.padding = '8px 12px';
+            mount.style.fontWeight = '700';
+            mount.style.border = '2px solid #fecaca';
+            mount.style.borderRadius = '10px';
+            mount.style.background = '#fff1f2';
+          }
+        }
+      }
+      document.addEventListener('DOMContentLoaded', () => inject('[data-include]'));
+    })();
+
+    /* ===== Cart logic ===== */
+    const drawer = document.getElementById('cartDrawer');
+    const miniTab = document.getElementById('miniTab');
+    const openCartBtn = document.getElementById('openCartBtn');
+    const heroPickupBtn = document.getElementById('heroPickupBtn');
+    const cartMinBtn = document.getElementById('cartMinBtn');
+    const itemSelect = document.getElementById('itemSelect');
+    const qtyInput = document.getElementById('qty');
+    const addItemBtn = document.getElementById('addItemBtn');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    const ITEM_LABELS = {
+      hamburger: 'Ground Hamburger',
+      steak: 'Steak',
+      ham_deli: 'Deli Sliced Ham',
+      ham_whole: 'Whole Ham',
+      sausage: 'Sausage'
+    };
+
+    let cart = [];
+
+    function currency(n){ return '$' + n.toFixed(2); }
+
+    function openCart(){
+      drawer.classList.add('open');
+      drawer.classList.remove('collapsed');
+      drawer.setAttribute('aria-hidden','false');
+      miniTab.classList.remove('show');
+    }
+    function closeCart(){
+      drawer.classList.remove('open');
+      drawer.setAttribute('aria-hidden','true');
+      miniTab.classList.remove('show');
+    }
+    function collapseCart(){
+      if (!drawer.classList.contains('open')) openCart();
+      drawer.classList.toggle('collapsed');
+      // Show mini-tab if collapsed
+      if (drawer.classList.contains('collapsed')) {
+        miniTab.classList.add('show');
+      } else {
+        miniTab.classList.remove('show');
+      }
+    }
+
+    function addToCart(key, price, lbs){
+      const existing = cart.find(it => it.key === key);
+      if (existing){
+        existing.lbs = Math.min(10, existing.lbs + lbs);
+      } else {
+        cart.push({ key, price, lbs });
+      }
+      renderCart();
+    }
+
+    function removeFromCart(idx){
+      cart.splice(idx,1);
+      renderCart();
+    }
+
+    function computeTotal(){
+      return cart.reduce((sum,it)=> sum + (it.price * it.lbs), 0);
+    }
+
+    function renderCart(){
+      cartItemsEl.innerHTML = '';
+      cart.forEach((it, idx)=>{
+        const row = document.createElement('div');
+        row.className = 'cart-item';
+        const name = document.createElement('div');
+        name.textContent = ITEM_LABELS[it.key];
+
+        const lbs = document.createElement('div');
+        lbs.textContent = it.lbs + ' lb' + (it.lbs>1?'s':'');
+        lbs.setAttribute('aria-label','Quantity in pounds');
+
+        const price = document.createElement('div');
+        price.textContent = currency(it.price * it.lbs);
+
+        const remove = document.createElement('button');
+        remove.className = 'remove';
+        remove.type = 'button';
+        remove.title = 'Remove item';
+        remove.textContent = '×';
+        remove.addEventListener('click', ()=> removeFromCart(idx));
+
+        row.appendChild(name);
+        row.appendChild(lbs);
+        row.appendChild(price);
+        row.appendChild(remove);
+        cartItemsEl.appendChild(row);
+      });
+      cartTotalEl.textContent = currency(computeTotal());
+    }
+
+    openCartBtn?.addEventListener('click', openCart);
+    heroPickupBtn?.addEventListener('click', openCart);
+    cartMinBtn?.addEventListener('click', collapseCart);
+    miniTab?.addEventListener('click', collapseCart);
+
+    addItemBtn?.addEventListener('click', ()=>{
+      const opt = itemSelect.options[itemSelect.selectedIndex];
+      if (!opt) return;
+      const key = opt.value;
+      const price = parseFloat(opt.dataset.price || '0');
+      const lbs = Math.max(1, Math.min(10, parseInt(qtyInput.value||'1', 10)));
+      addToCart(key, price, lbs);
+    });
+
+    checkoutBtn?.addEventListener('click', ()=>{
+      alert('Thanks! Your pickup will be ready tomorrow at 2 PM at 635 240th Street, Waterloo, NE 68069.');
+    });
+
+    // Optional: open mini-tab after close on Escape
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'Escape'){
+        if (drawer.classList.contains('open') && !drawer.classList.contains('collapsed')){
+          collapseCart();
+        } else {
+          closeCart();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
 
