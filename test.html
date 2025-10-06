@@ -52,7 +52,7 @@
       font-size:clamp(15px,1.9vw,18px);
       transition:background .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
     }
-    /* Hover: turn red */
+    /* White buttons -> RED on hover */
     .btn-white:hover{ background:var(--pm-red); color:#fff; border-color:var(--pm-red); }
 
     /* Card / What We Do */
@@ -73,7 +73,7 @@
     .box-title.center{text-align:center}
     .box-title.long{ max-width:28ch; margin-left:auto; margin-right:auto; line-height:1.35; }
     .what-box p{ margin:10px 0; font-size:clamp(16px,2.1vw,19px); line-height:1.7; color:#111827; text-align:left; }
-    .what-box.bold p{ font-weight:800; } /* make this section read bold like the right */
+    .what-box.bold p{ font-weight:800; } /* bolded copy */
 
     .what-list{ list-style:disc; margin:0; padding-left:1.25rem; font-size:clamp(16px,2.1vw,19px); line-height:1.7; color:#111827; font-weight:700; }
     .what-list li{margin:6px 0}
@@ -98,7 +98,9 @@
     }
     .btn-red{background:var(--pm-red);color:#fff;border-color:var(--pm-red-dark)}
     .btn-ghost{background:#fff;color:var(--pm-red);border-color:var(--pm-red)}
+    /* RED buttons -> WHITE on hover */
     .btn-red:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
+    /* WHITE buttons -> RED on hover */
     .btn-ghost:hover{ background:var(--pm-red); color:#fff; border-color:var(--pm-red-dark); }
 
     /* ORDER ONLINE (red section) */
@@ -114,8 +116,12 @@
     @media(max-width:900px){ .product-grid{ grid-template-columns:repeat(2,1fr); } }
     @media(max-width:520px){ .product-grid{ grid-template-columns:1fr; } }
 
-    /* "Place Order" opens cart: highlight red on hover */
-    #openCartBtn{ background:#fff; color:var(--pm-red); border:2px solid var(--pm-red); min-height:56px; padding:16px 22px; font-size:clamp(16px,2vw,20px); border-radius:14px; font-weight:1000; }
+    /* "Place Order" (white) -> RED on hover */
+    #openCartBtn{
+      background:#fff; color:var(--pm-red); border:2px solid var(--pm-red);
+      min-height:56px; padding:16px 22px; font-size:clamp(16px,2vw,20px); border-radius:14px; font-weight:1000;
+      transition:background .15s ease, color .15s ease, border-color .15s ease;
+    }
     #openCartBtn:hover{ background:var(--pm-red); color:#fff; border-color:var(--pm-red-dark); }
 
     /* CART DRAWER */
@@ -133,8 +139,11 @@
     .cart-msg{ background:#fff7ed; border:2px solid #fed7aa; color:#7c2d12; display:none; }
     .confirm-bar{ background:#eff6ff; border:2px solid #bfdbfe; color:#1e3a8a; display:none; }
     .confirm-actions{ display:flex; gap:8px; margin-top:8px; }
-    .btn-small{ padding:8px 12px; border-radius:10px; border:2px solid var(--pm-red); cursor:pointer; font-weight:900; background:#fff; color:var(--pm-red); }
+    .btn-small{ padding:8px 12px; border-radius:10px; border:2px solid var(--pm-red); cursor:pointer; font-weight:900; background:#fff; color:var(--pm-red); transition:background .15s ease, color .15s ease, border-color .15s ease; }
     .btn-small.confirm{ background:var(--pm-red); color:#fff; border-color:var(--pm-red-dark); }
+    /* invert on hover for small buttons */
+    .btn-small:hover{ background:var(--pm-red); color:#fff; border-color:var(--pm-red-dark); }
+    .btn-small.confirm:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
 
     .selector-label{ font-weight:1000; color:var(--pm-red); margin:12px 0 6px; font-size:15px; }
 
@@ -146,8 +155,9 @@
     .qty-row{ display:flex; align-items:center; gap:10px; margin-top:12px; flex-wrap:wrap; }
     .qty-row input{ width:120px; border:2px solid #e5e7eb; border-radius:10px; padding:10px 12px; font-weight:800; }
     .qty-note{ font-size:12px; color:#6b7280; }
-    .add-btn{ background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark); padding:10px 14px; border-radius:12px; font-weight:1000; cursor:pointer; }
-    .add-btn:hover{ background:#a91515 }
+    .add-btn{ background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark); padding:10px 14px; border-radius:12px; font-weight:1000; cursor:pointer; transition:background .15s ease, color .15s ease, border-color .15s ease; }
+    /* RED -> WHITE on hover */
+    .add-btn:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
 
     .cart-items{ margin-top:12px; display:grid; gap:8px }
     .cart-item{ display:grid; grid-template-columns:1fr auto auto auto; gap:8px; align-items:center; border:1px solid #e5e7eb; border-radius:10px; padding:8px 10px; background:#fafafa; font-weight:700; }
@@ -160,7 +170,9 @@
 
     .cart-total{ margin-top:12px; border-top:2px dashed #e5e7eb; padding-top:10px; font-weight:1000; font-size:18px; display:flex; justify-content:space-between; align-items:center; }
     .checkout-row{ margin-top:8px; display:flex; gap:10px; }
-    .checkout-btn{ background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark); padding:12px 16px; border-radius:12px; font-weight:1000; flex:1; text-align:center; cursor:pointer; }
+    .checkout-btn{ background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark); padding:12px 16px; border-radius:12px; font-weight:1000; flex:1; text-align:center; cursor:pointer; transition:background .15s ease, color .15s ease, border-color .15s ease; }
+    /* RED -> WHITE on hover */
+    .checkout-btn:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
 
     /* Close handle (inside cart) = minimize (arrow) */
     .close-handle{
@@ -168,17 +180,22 @@
       width:44px; height:88px; background:var(--pm-red); color:#fff; border:0;
       border-radius:12px 0 0 12px; box-shadow:-4px 0 12px rgba(0,0,0,.25);
       display:flex; align-items:center; justify-content:center; cursor:pointer;
-      font-size:24px; font-weight:900;
+      font-size:24px; font-weight:900; transition:background .15s ease, color .15s ease;
     }
-    .close-handle:hover{ filter:brightness(1.05); }
+    /* RED -> WHITE on hover */
+    .close-handle:hover{ background:#fff; color:var(--pm-red); }
 
-    /* ALWAYS-VISIBLE right-side open handle = plus sign */
+    /* ALWAYS-VISIBLE right-side open handle = CART icon */
     .open-handle{
       position:fixed; top:50%; right:0; transform:translateY(-50%);
-      height:96px; width:48px; border-radius:12px 0 0 12px; background:var(--pm-red); color:#fff;
+      height:96px; width:56px; border-radius:12px 0 0 12px; background:var(--pm-red); color:#fff;
       display:flex; align-items:center; justify-content:center; cursor:pointer;
-      box-shadow:0 8px 24px rgba(0,0,0,.25); z-index:999; font-size:28px; font-weight:900;
+      box-shadow:0 8px 24px rgba(0,0,0,.25); z-index:999; border:0;
+      transition:background .15s ease, color .15s ease;
     }
+    .open-handle svg{ width:28px; height:28px; display:block; }
+    /* RED -> WHITE on hover */
+    .open-handle:hover{ background:#fff; color:var(--pm-red); }
 
     @media(max-width:900px){ .cart-drawer{ width:90vw } }
 
@@ -298,8 +315,15 @@
     </div>
   </section>
 
-  <!-- ALWAYS-VISIBLE right-side open handle (PLUS to open) -->
-  <button class="open-handle" id="openHandle" aria-label="Open cart" title="Open cart">+</button>
+  <!-- ALWAYS-VISIBLE right-side open handle (CART ICON to open) -->
+  <button class="open-handle" id="openHandle" aria-label="Open cart" title="Open cart">
+    <!-- Simple cart icon (stroke follows currentColor) -->
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 4h2l2 10h11l3-8H6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+      <circle cx="9" cy="20" r="2" fill="currentColor"></circle>
+      <circle cx="18" cy="20" r="2" fill="currentColor"></circle>
+    </svg>
+  </button>
 
   <!-- Cart Drawer -->
   <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Cart">
@@ -595,37 +619,24 @@
     /* Open/close triggers */
     openCartBtn?.addEventListener('click', openCart);
     heroPickupBtn?.addEventListener('click', openCart);
-    openHandle?.addEventListener('click', openCart);        // PLUS opens cart
+    openHandle?.addEventListener('click', openCart);        // CART ICON opens cart
     closeHandle?.addEventListener('click', hideCart);       // ARROW minimizes cart
 
     /* Add item handler (works with any of the five selects) */
     addItemBtn?.addEventListener('click', ()=>{
       clearMsg();
-      // If no "lastSelectedKey", try to find any select with a chosen value
       if (!lastSelectedKey){
         const chosen = Array.from(document.querySelectorAll('#categoryMenus select')).find(s => s.value);
         if (chosen) lastSelectedKey = chosen.value;
       }
-      if (!lastSelectedKey){
-        showMsg('Please select a product from any category.');
-        return;
-      }
+      if (!lastSelectedKey){ showMsg('Please select a product from any category.'); return; }
       const item = findItemByKey(lastSelectedKey);
-      if (!item){
-        showMsg('Selected item not found.');
-        return;
-      }
-      if (item.price == null){
-        showMsg('This item does not have a price yet. Please call for pricing or choose another item.');
-        return;
-      }
+      if (!item){ showMsg('Selected item not found.'); return; }
+      if (item.price == null){ showMsg('This item does not have a price yet. Please call for pricing or choose another item.'); return; }
       let lbs = parseInt(qtyInput.value||'1', 10);
       if (isNaN(lbs) || lbs < 1) lbs = 1;
       if (lbs > 100) lbs = 100;
-      if (lbs > 10){
-        showConfirm({key:item.key, label:item.label, price:item.price, lbs});
-        return;
-      }
+      if (lbs > 10){ showConfirm({key:item.key, label:item.label, price:item.price, lbs}); return; }
       addOrUpdateCartItem(item.key, item.label, item.price, lbs);
     });
 
@@ -651,11 +662,8 @@
     document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape' && drawer.classList.contains('open')) hideCart(); });
 
     /* Init */
-    window.addEventListener('DOMContentLoaded', ()=>{
-      buildCategoryMenus();
-    });
-
-    /* Body scroll lock toggle handled in open/hideCart + media query */
+    window.addEventListener('DOMContentLoaded', ()=>{ buildCategoryMenus(); });
   </script>
 </body>
 </html>
+
