@@ -19,12 +19,12 @@
     img{max-width:100%;height:auto;display:block}
 
     /* Header / brand */
-    header.site-header{background:#fff}
+    header.site-header{background:#fff; position:relative; z-index:2;}
     .header-inner{max-width:var(--max);margin:0 auto;padding:18px 18px 10px}
     .brand{display:flex;justify-content:center}
     .brand img{width:clamp(180px, 28vw, 420px)}
 
-    /* Slogan (no side lines; add quotes in same color) */
+    /* Slogan (no side lines; quotes same color, no extra outer spacing) */
     .slogan-wrap{display:flex;align-items:center;justify-content:center;margin:8px 18px 0}
     .slogan{
       font-weight:1000; letter-spacing:.08em; text-transform:uppercase;
@@ -34,8 +34,8 @@
     .slogan::before, .slogan::after{
       color:var(--pm-red); font-weight:1000;
     }
-    .slogan::before{content:"“"; margin-right:6px}
-    .slogan::after{content:"”"; margin-left:6px}
+    .slogan::before{content:"“"; margin-right:0}
+    .slogan::after{content:"”"; margin-left:0}
 
     /* Sections scaffold */
     .section .inner{max-width:var(--max);margin:0 auto;padding:clamp(20px,4vw,56px) 18px}
@@ -56,6 +56,14 @@
       background:#fff; color:var(--pm-red); border:2px solid #fff;
       font-weight:1000; padding:12px 18px; border-radius:12px; min-height:48px;
       display:inline-flex; align-items:center; justify-content:center; font-size:clamp(15px,1.9vw,18px);
+      transition:box-shadow .15s ease, transform .15s ease;
+    }
+    /* Desktop hover highlight for hero CTA */
+    @media (hover:hover) and (min-width:901px){
+      #heroPickupBtn:hover{
+        box-shadow:0 0 0 4px rgba(196,26,26,.35), 0 6px 16px rgba(0,0,0,.18);
+        transform:translateY(-1px);
+      }
     }
 
     /* Card / What We Do */
@@ -83,7 +91,7 @@
       gap:24px;
       margin:20px auto;
       max-width:1000px;
-      align-items:stretch;  /* equal height boxes */
+      align-items:stretch;
     }
     .what-box{
       background:#fff;
@@ -135,7 +143,7 @@
       text-align:left;
     }
 
-    /* Buttons centered INSIDE each box, aligned on same level */
+    /* Buttons centered INSIDE each box */
     .box-actions{
       margin-top:auto;
       display:flex;
@@ -172,7 +180,7 @@
       border-color:var(--pm-red-dark);
     }
 
-    /* ORDER ONLINE (red section replacing the old CTA) */
+    /* ORDER ONLINE (red section) */
     .order-online{ background:var(--pm-red); color:var(--ink-on-red); }
     .order-online .inner{ padding:clamp(28px,6vw,80px) 18px; }
     .order-online h2{
@@ -199,35 +207,40 @@
       position:fixed; top:0; right:0; height:100vh; width:min(480px, 25vw);
       max-width:100%; background:#fff; color:#0f172a; box-shadow:-16px 0 40px rgba(0,0,0,.25);
       border-left:3px solid var(--pm-red-dark);
-      transform:translateX(100%); transition:transform .25s ease;
+      transform:translateX(100%); transition:transform .28s ease;
       z-index:1000; display:flex; flex-direction:column;
     }
     .cart-drawer.open{ transform:translateX(0) }
-    .cart-drawer.collapsed{ width:40px; overflow:hidden }
-    .cart-header{
-      padding:14px 14px 10px; background:#fff; border-bottom:1px solid #e5e7eb;
-    }
+    .cart-header{ padding:14px 14px 10px; background:#fff; border-bottom:1px solid #e5e7eb; }
     .pickup-note{
       background:#fff5f5; border:1px solid #fecaca; color:#7f1d1d;
       padding:10px 12px; border-radius:10px; font-weight:700; font-size:14px;
     }
     .cart-body{ padding:12px 14px; overflow:auto; flex:1 }
+
     .selector-label{
       font-weight:1000; color:var(--pm-red); margin:12px 0 6px; font-size:15px;
     }
+
+    /* Dropdown (auto width set by JS) */
     .item-select{
-      width:100%; border:2px solid var(--pm-red); border-radius:10px; padding:8px; height:180px;
-      font-weight:800; color:#111827;
+      border:2px solid var(--pm-red); border-radius:10px; padding:10px 12px;
+      font-weight:800; color:#111827; width:auto; max-width:100%;
+      background:#fff;
     }
-    .qty-row{ display:flex; align-items:center; gap:10px; margin-top:10px; }
+
+    .qty-row{ display:flex; align-items:center; gap:10px; margin-top:10px; flex-wrap:wrap; }
     .qty-row input{
-      width:90px; border:2px solid #e5e7eb; border-radius:10px; padding:8px; font-weight:800;
+      width:110px; border:2px solid #e5e7eb; border-radius:10px; padding:8px; font-weight:800;
     }
+    .qty-note{ font-size:12px; color:#6b7280; }
+
     .add-btn{
       background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark);
       padding:10px 14px; border-radius:12px; font-weight:1000; cursor:pointer;
     }
     .add-btn:hover{ background:#a91515 }
+
     .cart-items{ margin-top:12px; display:grid; gap:8px }
     .cart-item{
       display:grid; grid-template-columns:1fr auto auto auto; gap:8px; align-items:center;
@@ -237,6 +250,14 @@
     .cart-item .remove{
       background:transparent; border:0; color:#991b1b; font-size:18px; cursor:pointer; font-weight:900;
     }
+
+    .customer-fields{ margin-top:14px; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .field label{ display:block; font-weight:900; margin-bottom:6px; color:#0f172a; }
+    .field input{
+      width:100%; border:2px solid #e5e7eb; border-radius:10px; padding:10px 12px; font-weight:700;
+    }
+    @media(max-width:560px){ .customer-fields{ grid-template-columns:1fr; } }
+
     .cart-total{
       margin-top:12px; border-top:2px dashed #e5e7eb; padding-top:10px; font-weight:1000; font-size:18px;
       display:flex; justify-content:space-between; align-items:center;
@@ -246,29 +267,39 @@
       background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark); padding:12px 16px; border-radius:12px;
       font-weight:1000; flex:1; text-align:center; cursor:pointer;
     }
-    .minimize{
-      position:absolute; bottom:8px; left:8px; background:#fff; border:2px solid var(--pm-red);
-      color:var(--pm-red); border-radius:999px; width:36px; height:36px; display:flex; align-items:center; justify-content:center;
-      font-weight:1000; cursor:pointer;
+
+    /* NEW: elegant close handle (replaces small arrow) */
+    .close-handle{
+      position:absolute; top:50%; left:-44px; transform:translateY(-50%);
+      width:44px; height:88px; background:var(--pm-red); color:#fff; border:0;
+      border-radius:12px 0 0 12px; box-shadow:-4px 0 12px rgba(0,0,0,.25);
+      display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:24px; font-weight:900;
     }
-    .mini-tab{
-      position:fixed; top:50%; right:0; transform:translateY(-50%);
-      width:36px; height:80px; background:var(--pm-red); color:#fff; border-radius:10px 0 0 10px;
-      display:none; align-items:center; justify-content:center; cursor:pointer; z-index:999;
-      writing-mode:vertical-rl; text-orientation:mixed; font-weight:1000; letter-spacing:.3px;
+    .close-handle:hover{ filter:brightness(1.05); }
+
+    /* Floating Cart button shown when drawer is fully closed */
+    .cart-fab{
+      position:fixed; right:16px; bottom:16px; width:56px; height:56px;
+      border-radius:999px; background:var(--pm-red); color:#fff; display:none;
+      align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,.25);
+      cursor:pointer; z-index:999;
     }
-    .mini-tab.show{ display:flex }
+    .cart-fab.show{ display:flex }
+    .cart-fab svg{ width:26px; height:26px; display:block }
 
     @media(max-width:900px){
       .cart-drawer{ width:90vw }
     }
 
-    /* CTA WHITE (moved “Ready to Start an Order?”) */
+    /* CTA WHITE (Ready to Start an Order? moved below) */
     .cta-white{ background:#fff; color:var(--ink); border-top:2px solid #f3f4f6; }
     .cta-white .block{max-width:900px; margin:0 auto; text-align:center;}
     .cta-white h2{ margin:0; font-size:clamp(24px,4.8vw,40px); font-weight:1000; }
     .cta-actions{ display:flex; justify-content:center; gap:16px; margin-top:18px; flex-wrap:wrap; }
 
+    /* When cart is open on mobile, disable navbar and body scroll */
+    body.cart-open-mobile .site-header{ pointer-events:none; filter:grayscale(100%) opacity(.45); }
+    body.no-scroll{ overflow:hidden; }
   </style>
 </head>
 <body>
@@ -303,7 +334,7 @@
         <p class="subhead">Old-World craftsmanship, modern food-safety, and service you can trust.</p>
 
         <div class="what-grid">
-          <!-- FIRST (moved) — Retail message (renamed & centered, 2–3 lines) -->
+          <!-- FIRST (Retail message, centered 2–3 lines) -->
           <div class="what-box">
             <h3 class="box-title center long">
               We Also Offer Retail Product that includes
@@ -318,7 +349,7 @@
             </div>
           </div>
 
-          <!-- SECOND (was left) — Butchery (renamed) -->
+          <!-- SECOND (Butchery renamed) -->
           <div class="what-box">
             <h3 class="box-title">Premium Cuts and Specialty Smoked Meats</h3>
             <ul class="what-list">
@@ -343,7 +374,7 @@
     </div>
   </section>
 
-  <!-- ORDER ONLINE (red section replacing old CTA) -->
+  <!-- ORDER ONLINE -->
   <section class="section order-online" aria-label="Order Online">
     <div class="inner">
       <h2>Order Online</h2>
@@ -371,7 +402,7 @@
     </div>
   </section>
 
-  <!-- CTA (moved below, white) -->
+  <!-- CTA (white) -->
   <section class="section cta-white" aria-label="Helpful Links">
     <div class="inner">
       <div class="block">
@@ -386,6 +417,7 @@
 
   <!-- Cart Drawer -->
   <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Cart">
+    <button class="close-handle" id="closeHandle" type="button" title="Hide cart">⟨</button>
     <div class="cart-header">
       <div class="pickup-note">
         By placing an order, your order will be available for pickup at<br>
@@ -393,8 +425,9 @@
       </div>
     </div>
     <div class="cart-body">
-      <div class="selector-label">Add Your Meat To Your Order</div>
-      <select class="item-select" id="itemSelect" size="6" aria-label="Add Your Meat To Your Order">
+      <div class="selector-label">Add Meat To Your Order</div>
+      <select class="item-select" id="itemSelect" aria-label="Add Meat To Your Order">
+        <option value="" selected disabled hidden>Add Meat To Your Order</option>
         <option value="hamburger" data-price="9.99">Ground Hamburger — $9.99/LB</option>
         <option value="steak" data-price="11.99">Steak — $11.99/LB</option>
         <option value="ham_deli" data-price="8.99">Deli Sliced Ham — $8.99/LB</option>
@@ -404,11 +437,23 @@
 
       <div class="qty-row">
         <label for="qty" style="font-weight:900">Pounds:</label>
-        <input id="qty" type="number" min="1" max="10" value="1" />
+        <input id="qty" type="number" min="1" max="100" value="1" />
         <button class="add-btn" id="addItemBtn" type="button">Add Item</button>
+        <div class="qty-note">Up to 10 lbs without confirmation (you can enter up to 100 lbs).</div>
       </div>
 
       <div class="cart-items" id="cartItems" aria-live="polite"></div>
+
+      <div class="customer-fields">
+        <div class="field">
+          <label for="custName">Name <span aria-hidden="true" style="color:#c41a1a">*</span></label>
+          <input id="custName" type="text" placeholder="Your full name" required />
+        </div>
+        <div class="field">
+          <label for="custPhone">Phone <span aria-hidden="true" style="color:#c41a1a">*</span></label>
+          <input id="custPhone" type="tel" placeholder="e.g., 402-555-1234" required />
+        </div>
+      </div>
 
       <div class="cart-total">
         <span>Total</span>
@@ -419,12 +464,14 @@
         <button class="checkout-btn" type="button" id="checkoutBtn" title="Proceed to pickup instructions">Checkout</button>
       </div>
     </div>
-
-    <button class="minimize" id="cartMinBtn" type="button" title="Minimize cart">←</button>
   </aside>
 
-  <!-- Mini-tab when minimized -->
-  <div class="mini-tab" id="miniTab" title="Open cart">Cart</div>
+  <!-- Floating Cart button (appears when cart is fully closed) -->
+  <button class="cart-fab" id="cartFab" title="Open cart" aria-label="Open cart">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.1 14h9.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0 0 21 5H6.21l-.94-2H2v2h2l3.6 7.59-1.35 2.44A2 2 0 0 0 8 18h12v-2H8l1.1-2z"/>
+    </svg>
+  </button>
 
   <!-- Include the shared sitemap/footer -->
   <div id="footerMount" data-include="/sitemap-footer.html">[loading footer…]</div>
@@ -469,18 +516,50 @@
       document.addEventListener('DOMContentLoaded', () => inject('[data-include]'));
     })();
 
+    /* ===== Helpers ===== */
+    const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+    function setMobileNavDisabled(disabled){
+      if (disabled && isMobile()){
+        document.body.classList.add('cart-open-mobile','no-scroll');
+      } else {
+        document.body.classList.remove('cart-open-mobile','no-scroll');
+      }
+    }
+
+    // Size the dropdown to the longest option text (+ padding)
+    function sizeDropdownToContent(select){
+      if (!select) return;
+      const span = document.createElement('span');
+      span.style.visibility = 'hidden';
+      span.style.position = 'absolute';
+      span.style.whiteSpace = 'nowrap';
+      const cs = getComputedStyle(select);
+      span.style.font = cs.font;
+      document.body.appendChild(span);
+      let max = 0;
+      for (const opt of select.options){
+        span.textContent = opt.text;
+        max = Math.max(max, span.offsetWidth);
+      }
+      document.body.removeChild(span);
+      // Add padding + border room
+      select.style.width = Math.ceil(max + 40) + 'px';
+    }
+
     /* ===== Cart logic ===== */
     const drawer = document.getElementById('cartDrawer');
-    const miniTab = document.getElementById('miniTab');
+    const cartFab = document.getElementById('cartFab');
+    const closeHandle = document.getElementById('closeHandle');
     const openCartBtn = document.getElementById('openCartBtn');
     const heroPickupBtn = document.getElementById('heroPickupBtn');
-    const cartMinBtn = document.getElementById('cartMinBtn');
     const itemSelect = document.getElementById('itemSelect');
     const qtyInput = document.getElementById('qty');
     const addItemBtn = document.getElementById('addItemBtn');
     const cartItemsEl = document.getElementById('cartItems');
     const cartTotalEl = document.getElementById('cartTotal');
     const checkoutBtn = document.getElementById('checkoutBtn');
+    const custName = document.getElementById('custName');
+    const custPhone = document.getElementById('custPhone');
 
     const ITEM_LABELS = {
       hamburger: 'Ground Hamburger',
@@ -496,30 +575,21 @@
 
     function openCart(){
       drawer.classList.add('open');
-      drawer.classList.remove('collapsed');
       drawer.setAttribute('aria-hidden','false');
-      miniTab.classList.remove('show');
+      cartFab.classList.remove('show');
+      setMobileNavDisabled(true);
     }
-    function closeCart(){
+    function hideCart(){ // fully slide away
       drawer.classList.remove('open');
       drawer.setAttribute('aria-hidden','true');
-      miniTab.classList.remove('show');
-    }
-    function collapseCart(){
-      if (!drawer.classList.contains('open')) openCart();
-      drawer.classList.toggle('collapsed');
-      // Show mini-tab if collapsed
-      if (drawer.classList.contains('collapsed')) {
-        miniTab.classList.add('show');
-      } else {
-        miniTab.classList.remove('show');
-      }
+      cartFab.classList.add('show');
+      setMobileNavDisabled(false);
     }
 
     function addToCart(key, price, lbs){
       const existing = cart.find(it => it.key === key);
       if (existing){
-        existing.lbs = Math.min(10, existing.lbs + lbs);
+        existing.lbs = Math.min(100, existing.lbs + lbs);
       } else {
         cart.push({ key, price, lbs });
       }
@@ -568,33 +638,69 @@
 
     openCartBtn?.addEventListener('click', openCart);
     heroPickupBtn?.addEventListener('click', openCart);
-    cartMinBtn?.addEventListener('click', collapseCart);
-    miniTab?.addEventListener('click', collapseCart);
+    closeHandle?.addEventListener('click', hideCart);
+    cartFab?.addEventListener('click', openCart);
 
+    // Add item with confirmation above 10 lbs (allow up to 100)
     addItemBtn?.addEventListener('click', ()=>{
       const opt = itemSelect.options[itemSelect.selectedIndex];
-      if (!opt) return;
+      if (!opt || !opt.value){ alert('Please select a product.'); return; }
       const key = opt.value;
       const price = parseFloat(opt.dataset.price || '0');
-      const lbs = Math.max(1, Math.min(10, parseInt(qtyInput.value||'1', 10)));
+      let lbs = parseInt(qtyInput.value||'1', 10);
+      if (isNaN(lbs) || lbs < 1) lbs = 1;
+      if (lbs > 100) lbs = 100;
+
+      if (lbs > 10){
+        const ok = confirm(`Did you mean to choose ${lbs} pounds?`);
+        if (!ok){
+          // Remove any existing matching item if user backs out
+          const idx = cart.findIndex(it => it.key === key);
+          if (idx >= 0){ cart.splice(idx,1); renderCart(); }
+          return;
+        }
+      }
       addToCart(key, price, lbs);
     });
 
+    // Checkout validation for required Name & Phone
+    function validPhone(p){
+      // basic lenient check: at least 7 digits allowed with spaces/dashes
+      const digits = (p||'').replace(/\D/g,'');
+      return digits.length >= 7;
+    }
     checkoutBtn?.addEventListener('click', ()=>{
+      if (!custName.value.trim()){
+        alert('Please enter your name.');
+        custName.focus();
+        return;
+      }
+      if (!validPhone(custPhone.value)){
+        alert('Please enter a valid phone number.');
+        custPhone.focus();
+        return;
+      }
+      if (cart.length === 0){
+        alert('Your cart is empty.');
+        return;
+      }
       alert('Thanks! Your pickup will be ready tomorrow at 2 PM at 635 240th Street, Waterloo, NE 68069.');
     });
 
-    // Optional: open mini-tab after close on Escape
+    // Keyboard: Esc hides cart
     document.addEventListener('keydown', (e)=>{
-      if (e.key === 'Escape'){
-        if (drawer.classList.contains('open') && !drawer.classList.contains('collapsed')){
-          collapseCart();
-        } else {
-          closeCart();
-        }
+      if (e.key === 'Escape' && drawer.classList.contains('open')){
+        hideCart();
       }
+    });
+
+    // Size dropdown to longest option
+    window.addEventListener('DOMContentLoaded', ()=>{
+      sizeDropdownToContent(itemSelect);
+    });
+    window.addEventListener('resize', ()=>{
+      sizeDropdownToContent(itemSelect);
     });
   </script>
 </body>
 </html>
-
