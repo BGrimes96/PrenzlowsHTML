@@ -49,10 +49,9 @@
 
     /* WHITE: Two “invisible” boxes (columns) */
     .faq{background:#fff}
-    .faq .controls{max-width:var(--max);margin:0 auto;padding:0 18px 0}
 
-    /* LOWER the search bar a bit more into the white section */
-    .search-wrap{margin-top:clamp(110px, 16vw, 220px); margin-bottom:16px}
+    /* Search bar now sits INSIDE .faq .inner and much lower from red band */
+    .search-wrap{margin-top:clamp(150px, 18vw, 280px); margin-bottom:16px}
     .search{
       width:100%; display:flex; align-items:center; gap:10px;
       position:relative;
@@ -159,20 +158,20 @@
 
   <!-- WHITE: Two-column Q&A with search -->
   <section class="section faq" role="region" aria-label="FAQ">
-
-    <!-- LOWERED SEARCH -->
-    <div class="controls search-wrap">
-      <div class="search" role="search" aria-label="Search all questions">
-        <!-- simple magnifying glass icon (inline SVG) -->
-        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"></circle>
-          <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="currentColor" stroke-width="2"></line>
-        </svg>
-        <input id="faqSearch" type="search" placeholder="Search Any Questions You Have Here" aria-label="Search questions">
-      </div>
-    </div>
-
     <div class="inner">
+
+      <!-- LOWERED SEARCH (now clearly below the red band and above the titles) -->
+      <div class="search-wrap">
+        <div class="search" role="search" aria-label="Search all questions">
+          <!-- simple magnifying glass icon (inline SVG) -->
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"></circle>
+            <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="currentColor" stroke-width="2"></line>
+          </svg>
+          <input id="faqSearch" type="search" placeholder="Search Any Questions You Have Here" aria-label="Search questions">
+        </div>
+      </div>
+
       <div class="columns">
 
         <!-- LEFT: Custom Orders (step-by-step) -->
@@ -180,7 +179,8 @@
           <h2 class="qa-title">Custom Orders</h2>
           <p class="qa-note">A plain-English, first-timer guide—start at Step 1 and go in order.</p>
 
-          <details open>
+          <!-- First item no longer auto-open -->
+          <details>
             <summary><span class="step-badge">1</span>What am I actually buying and why does it save money?</summary>
             <div class="answer">
               You’re buying a share of one animal (quarter, half, or whole). Because you’re buying everything together—not just steaks—you get a lower average price per pound and custom packaging for your family.
@@ -316,7 +316,7 @@
           </details>
         </div>
 
-        <!-- RIGHT: Retail Order (now numbered automatically) -->
+        <!-- RIGHT: Retail Order (numbered automatically) -->
         <div class="qa-col" id="retail-col">
           <h2 class="qa-title">Retail Order</h2>
           <p class="qa-note muted">Tap a question—answers are being drafted now.</p>
@@ -347,7 +347,7 @@
     </div>
   </section>
 
-  <!-- SINGLE RED CTA: now "Place An Order" -> index.html -->
+  <!-- SINGLE RED CTA: "Place An Order" -> index.html -->
   <section class="section cta" role="region" aria-label="Place an order">
     <div class="inner">
       <h2>Have Questions or Ready to Reserve?</h2>
