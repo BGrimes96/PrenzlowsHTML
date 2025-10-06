@@ -39,7 +39,7 @@
   :root{
     --pm-red:#c41a1a;
     --pm-red-dark:#9e1414;
-    --btn-radius:8px;        /* smaller, more rectangular */
+    --btn-radius:6px;     /* smaller + more rectangular */
     --max:1200px;
   }
 
@@ -49,17 +49,17 @@
     background:#fff;
   }
 
-  /* Desktop grid */
+  /* Desktop grid (tighter) */
   .primary .inner{
     max-width:var(--max);
     margin:0 auto;
-    padding:8px 16px; /* slightly tighter */
+    padding:6px 12px;
     display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* smaller min width */
-    gap:10px; /* tighter gap */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* smaller min width */
+    gap:8px;
   }
 
-  /* Base button styles (smaller rectangle, same font) */
+  /* Base button styles — smaller size, same font */
   .nav-btn,
   .drawer-link,
   .site-nav-btn{
@@ -71,35 +71,32 @@
     border:2px solid var(--pm-red-dark);
     border-radius:var(--btn-radius);
     font-weight:900;
-    font-size:1.1rem;      /* keep font size */
-    padding:6px 10px;      /* smaller */
-    min-height:40px;       /* smaller height */
+    font-size:1.1rem;     /* unchanged font size */
+    padding:4px 10px;     /* smaller padding */
+    min-height:34px;      /* lower height */
     text-decoration:none;
     text-align:center;
     transition: background-color .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .06s ease;
   }
 
-  /* Special themed border for "Order Now" (stands out, matches brand) */
+  /* Special “Order Now” (white) — flips to red on hover */
   .nav-btn--order{
     background:#fff;
     color:var(--pm-red);
     border-color:var(--pm-red);
-    /* Double-border effect: inner white ring + outer red edge */
     box-shadow:
-      inset 0 0 0 2px #fff,         /* inner light ring */
-      0 0 0 2px var(--pm-red);      /* outer brand ring */
+      inset 0 0 0 2px #fff,
+      0 0 0 2px var(--pm-red);
   }
   .nav-btn--order:hover,
   .nav-btn--order:focus-visible{
-    background:#fff;
-    color:var(--pm-red-dark);
+    background:var(--pm-red);
+    color:#fff;
     border-color:var(--pm-red-dark);
-    box-shadow:
-      inset 0 0 0 2px #fff,
-      0 0 0 2px var(--pm-red-dark);
+    box-shadow:none;
   }
 
-  /* Give the same look in the drawer */
+  /* Drawer version mirrors desktop “Order Now” */
   .drawer-link--order{
     background:#fff;
     color:var(--pm-red);
@@ -110,15 +107,13 @@
   }
   .drawer-link--order:hover,
   .drawer-link--order:focus-visible{
-    background:#fff;
-    color:var(--pm-red-dark);
+    background:var(--pm-red);
+    color:#fff;
     border-color:var(--pm-red-dark);
-    box-shadow:
-      inset 0 0 0 2px #fff,
-      0 0 0 2px var(--pm-red-dark);
+    box-shadow:none;
   }
 
-  /* HOVER / FOCUS: invert to white w/ red text */
+  /* Hover / Focus for all other buttons — invert to white */
   .nav-btn:hover,
   .drawer-link:hover,
   .site-nav-btn:hover,
@@ -128,11 +123,11 @@
     background:#fff;
     color:var(--pm-red);
     border-color:var(--pm-red);
-    box-shadow:0 0 0 3px rgba(196,26,26,0.15); /* subtle focus ring */
+    box-shadow:0 0 0 3px rgba(196,26,26,0.15);
     outline:none;
   }
 
-  /* Optional active press */
+  /* Pressed */
   .nav-btn:active,
   .drawer-link:active,
   .site-nav-btn:active{
@@ -150,10 +145,11 @@
     .mobile-nav{display:block}
   }
 
-  /* Mobile Menu trigger */
+  /* Mobile Menu trigger — smaller rectangle */
   .site-nav-btn{
     position:fixed; top:12px; left:12px; z-index:10000;
-    height:40px; padding:0 12px; /* smaller trigger to match new sizing */
+    height:36px;             /* down from 40px */
+    padding:0 10px;          /* tighter */
     cursor:pointer;
   }
 
@@ -178,7 +174,6 @@
   .drawer-close{background:none; border:0; font-size:24px; cursor:pointer;}
 
   .drawer-inner{
-    display:grid; gap:10px; padding:14px;
+    display:grid; gap:8px; padding:12px;  /* tighter spacing */
   }
 </style>
-
