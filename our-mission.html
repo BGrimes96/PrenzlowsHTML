@@ -24,13 +24,12 @@
     .brand{display:flex;justify-content:center}
     .brand img{width:clamp(180px, 28vw, 420px)}
 
-    /* Slogan ribbon */
-    .slogan-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 18px 0}
-    .slogan-wrap .rule{height:2px;background:var(--pm-red);flex:1;max-width:260px}
+    /* Slogan — simplified (no lines, no pill border) */
+    .slogan-wrap{display:flex;align-items:center;justify-content:center;margin:8px 18px 0}
     .slogan{
       font-weight:1000; letter-spacing:.08em; text-transform:uppercase;
       font-size:clamp(14px,3.2vw,24px); color:var(--pm-red);
-      padding:8px 14px; border:2px solid var(--pm-red); border-radius:999px; white-space:nowrap;
+      padding:0; border:0; border-radius:0; white-space:nowrap;
     }
 
     /* Sections scaffold */
@@ -60,8 +59,8 @@
       margin:0 0 10px; color:var(--pm-red);
       font-size:clamp(22px,4vw,36px); font-weight:1000; text-align:center
     }
-    .grid-3{display:grid;gap:16px;grid-template-columns:1fr}
-    @media(min-width:960px){.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    .grid-vals{display:grid;gap:16px;grid-template-columns:1fr}
+    @media(min-width:960px){.grid-vals{grid-template-columns:repeat(4,minmax(0,1fr))}}
     .card{border:2px solid #f3f4f6;border-radius:14px;background:#fff;padding:16px}
     .card h3{margin:0 0 6px;font-size:18px;font-weight:900;color:var(--pm-red);text-align:center}
     .card p{margin:0;color:#111827;text-align:center}
@@ -134,9 +133,7 @@
         <img src="/prenzlowmeats.png" alt="PRENZLOW MEATS — Since 1920">
       </div>
       <div class="slogan-wrap">
-        <span class="rule"></span>
-        <span class="slogan">We Bring The Country To Your Table</span>
-        <span class="rule"></span>
+        <span class="slogan">“We Bring The Country To Your Table”</span>
       </div>
     </div>
     <!-- Shared navbar include -->
@@ -163,15 +160,27 @@
   <section class="section values" role="region" aria-label="Values">
     <div class="inner">
       <h2>Values That Guide Every Cut</h2>
-      <div class="grid-3">
+
+      <div class="grid-vals">
+        <!-- 1) Traceability (new first value) -->
+        <article class="card">
+          <h3>Traceability</h3>
+          <p>Every cut can be followed back to its exact farm and lot—so you always know what you’re serving.</p>
+        </article>
+
+        <!-- 2) Integrity (edited: removed “fair weights”) -->
         <article class="card">
           <h3>Integrity</h3>
-          <p>Straight talk, clear labels, fair weights. We prepare every order like it’s going on our own table.</p>
+          <p>Straight talk, clear labels. We prepare every order like it’s going on our own table.</p>
         </article>
+
+        <!-- 3) Food Safety -->
         <article class="card">
           <h3>Food Safety</h3>
-          <p>Clean-room handling, temperature logging, and traceability baked into our process.</p>
+          <p>Clean-room handling and temperature logging baked into our process from intake to pickup.</p>
         </article>
+
+        <!-- 4) Craft -->
         <article class="card">
           <h3>Craft</h3>
           <p>Knife work, smoke, and seasoning developed over generations—never rushed, never gimmicked.</p>
@@ -266,4 +275,3 @@
   </script>
 </body>
 </html>
-
