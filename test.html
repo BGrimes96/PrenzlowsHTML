@@ -52,8 +52,8 @@
       font-size:clamp(15px,1.9vw,18px);
       transition:background .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
     }
-    /* White buttons -> RED on hover */
-    .btn-white:hover{ background:var(--pm-red); color:#fff; border-color:var(--pm-red); }
+    /* Keep the HERO button white on hover */
+    #heroPickupBtn:hover{ background:#fff; color:var(--pm-red); border-color:#fff; }
 
     /* Card / What We Do */
     .card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:clamp(22px,3.5vw,40px)}
@@ -98,9 +98,9 @@
     }
     .btn-red{background:var(--pm-red);color:#fff;border-color:var(--pm-red-dark)}
     .btn-ghost{background:#fff;color:var(--pm-red);border-color:var(--pm-red)}
-    /* RED buttons -> WHITE on hover */
+    /* RED -> WHITE on hover */
     .btn-red:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
-    /* WHITE buttons -> RED on hover */
+    /* WHITE -> RED on hover */
     .btn-ghost:hover{ background:var(--pm-red); color:#fff; border-color:var(--pm-red-dark); }
 
     /* ORDER ONLINE (red section) */
@@ -116,62 +116,55 @@
     @media(max-width:900px){ .product-grid{ grid-template-columns:repeat(2,1fr); } }
     @media(max-width:520px){ .product-grid{ grid-template-columns:1fr; } }
 
-    /* "Place Order" (white) -> RED on hover */
+    /* "Place Order" (SECOND button) — bigger, RED default → WHITE on hover */
     #openCartBtn{
-      background:#fff; color:var(--pm-red); border:2px solid var(--pm-red);
-      min-height:56px; padding:16px 22px; font-size:clamp(16px,2vw,20px); border-radius:14px; font-weight:1000;
+      background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark);
+      min-height:64px; padding:18px 26px; font-size:clamp(18px,2.2vw,22px); border-radius:16px; font-weight:1000;
       transition:background .15s ease, color .15s ease, border-color .15s ease;
     }
-    #openCartBtn:hover{ background:var(--pm-red); color:#fff; border-color:var(--pm-red-dark); }
+    #openCartBtn:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
 
-    /* CART DRAWER */
+    /* CART DRAWER (denser) */
     .cart-drawer{
       position:fixed; top:0; right:0; height:100vh; width:min(520px, 28vw); max-width:100%;
       background:#fff; color:#0f172a; box-shadow:-16px 0 40px rgba(0,0,0,.25); border-left:3px solid var(--pm-red-dark);
       transform:translateX(100%); transition:transform .28s ease; z-index:1000; display:flex; flex-direction:column;
+      font-size:14px;
     }
     .cart-drawer.open{ transform:translateX(0) }
-    .cart-header{ padding:14px 14px 10px; background:#fff; border-bottom:1px solid #e5e7eb; }
-    .pickup-note{ background:#fff5f5; border:1px solid #fecaca; color:#7f1d1d; padding:10px 12px; border-radius:10px; font-weight:700; font-size:14px; }
-    .cart-body{ padding:12px 14px; overflow:auto; flex:1 }
+    .cart-header{ padding:8px 10px; background:#fff; border-bottom:1px solid #e5e7eb; }
+    .pickup-note{ background:#fff5f5; border:1px solid #fecaca; color:#7f1d1d; padding:8px 10px; border-radius:8px; font-weight:700; font-size:12px; line-height:1.4; }
+    .cart-body{ padding:8px 10px; overflow:auto; flex:1 }
 
-    .cart-msg, .confirm-bar{ margin:10px 0; padding:10px 12px; border-radius:10px; font-weight:800; }
-    .cart-msg{ background:#fff7ed; border:2px solid #fed7aa; color:#7c2d12; display:none; }
-    .confirm-bar{ background:#eff6ff; border:2px solid #bfdbfe; color:#1e3a8a; display:none; }
-    .confirm-actions{ display:flex; gap:8px; margin-top:8px; }
-    .btn-small{ padding:8px 12px; border-radius:10px; border:2px solid var(--pm-red); cursor:pointer; font-weight:900; background:#fff; color:var(--pm-red); transition:background .15s ease, color .15s ease, border-color .15s ease; }
-    .btn-small.confirm{ background:var(--pm-red); color:#fff; border-color:var(--pm-red-dark); }
-    /* invert on hover for small buttons */
-    .btn-small:hover{ background:var(--pm-red); color:#fff; border-color:var(--pm-red-dark); }
-    .btn-small.confirm:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
+    /* hide the minimize arrow until cart is open (only the cart icon shows initially) */
+    .cart-drawer:not(.open) .close-handle{ display:none; }
 
-    .selector-label{ font-weight:1000; color:var(--pm-red); margin:12px 0 6px; font-size:15px; }
+    .cart-msg, .confirm-bar{ display:none; } /* replaced by modal */
+    .selector-label{ font-weight:1000; color:var(--pm-red); margin:10px 0 6px; font-size:14px; }
 
-    /* Category groups (five separate selects) */
-    .category-group{ border:1px solid #f3f4f6; border-radius:10px; padding:10px; margin-top:10px; }
+    /* Category groups (five separate selects) — compact */
+    .category-group{ border:1px solid #f3f4f6; border-radius:8px; padding:8px; margin-top:8px; }
     .category-group .group-title{ font-weight:900; color:#0f172a; margin:0 0 6px; }
-    .item-select{ border:2px solid var(--pm-red); border-radius:10px; padding:10px 12px; font-weight:800; color:#111827; width:auto; max-width:100%; background:#fff; }
+    .item-select{ border:2px solid var(--pm-red); border-radius:8px; padding:8px 10px; font-weight:800; color:#111827; width:auto; max-width:100%; background:#fff; }
 
-    .qty-row{ display:flex; align-items:center; gap:10px; margin-top:12px; flex-wrap:wrap; }
-    .qty-row input{ width:120px; border:2px solid #e5e7eb; border-radius:10px; padding:10px 12px; font-weight:800; }
-    .qty-note{ font-size:12px; color:#6b7280; }
-    .add-btn{ background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark); padding:10px 14px; border-radius:12px; font-weight:1000; cursor:pointer; transition:background .15s ease, color .15s ease, border-color .15s ease; }
-    /* RED -> WHITE on hover */
+    .qty-row{ display:flex; align-items:center; gap:8px; margin-top:10px; flex-wrap:wrap; }
+    .qty-row input{ width:110px; border:2px solid #e5e7eb; border-radius:8px; padding:8px 10px; font-weight:800; }
+    .qty-note{ font-size:11px; color:#6b7280; }
+    .add-btn{ background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark); padding:8px 12px; border-radius:10px; font-weight:1000; cursor:pointer; transition:background .15s ease, color .15s ease, border-color .15s ease; }
     .add-btn:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
 
-    .cart-items{ margin-top:12px; display:grid; gap:8px }
-    .cart-item{ display:grid; grid-template-columns:1fr auto auto auto; gap:8px; align-items:center; border:1px solid #e5e7eb; border-radius:10px; padding:8px 10px; background:#fafafa; font-weight:700; }
+    .cart-items{ margin-top:10px; display:grid; gap:6px }
+    .cart-item{ display:grid; grid-template-columns:1fr auto auto auto; gap:6px; align-items:center; border:1px solid #e5e7eb; border-radius:8px; padding:6px 8px; background:#fafafa; font-weight:700; }
     .cart-item .remove{ background:transparent; border:0; color:#991b1b; font-size:18px; cursor:pointer; font-weight:900; }
 
-    .customer-fields{ margin-top:14px; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-    .field label{ display:block; font-weight:900; margin-bottom:6px; color:#0f172a; }
-    .field input{ width:100%; border:2px solid #e5e7eb; border-radius:10px; padding:10px 12px; font-weight:700; }
+    .customer-fields{ margin-top:12px; display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .field label{ display:block; font-weight:900; margin-bottom:4px; color:#0f172a; font-size:13px; }
+    .field input{ width:100%; border:2px solid #e5e7eb; border-radius:8px; padding:8px 10px; font-weight:700; font-size:14px; }
     @media(max-width:560px){ .customer-fields{ grid-template-columns:1fr; } }
 
-    .cart-total{ margin-top:12px; border-top:2px dashed #e5e7eb; padding-top:10px; font-weight:1000; font-size:18px; display:flex; justify-content:space-between; align-items:center; }
-    .checkout-row{ margin-top:8px; display:flex; gap:10px; }
-    .checkout-btn{ background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark); padding:12px 16px; border-radius:12px; font-weight:1000; flex:1; text-align:center; cursor:pointer; transition:background .15s ease, color .15s ease, border-color .15s ease; }
-    /* RED -> WHITE on hover */
+    .cart-total{ margin-top:10px; border-top:2px dashed #e5e7eb; padding-top:8px; font-weight:1000; font-size:16px; display:flex; justify-content:space-between; align-items:center; }
+    .checkout-row{ margin-top:6px; display:flex; gap:8px; }
+    .checkout-btn{ background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark); padding:10px 14px; border-radius:10px; font-weight:1000; flex:1; text-align:center; cursor:pointer; transition:background .15s ease, color .15s ease, border-color .15s ease; }
     .checkout-btn:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
 
     /* Close handle (inside cart) = minimize (arrow) */
@@ -182,7 +175,6 @@
       display:flex; align-items:center; justify-content:center; cursor:pointer;
       font-size:24px; font-weight:900; transition:background .15s ease, color .15s ease;
     }
-    /* RED -> WHITE on hover */
     .close-handle:hover{ background:#fff; color:var(--pm-red); }
 
     /* ALWAYS-VISIBLE right-side open handle = CART icon */
@@ -193,8 +185,7 @@
       box-shadow:0 8px 24px rgba(0,0,0,.25); z-index:999; border:0;
       transition:background .15s ease, color .15s ease;
     }
-    .open-handle svg{ width:28px; height:28px; display:block; }
-    /* RED -> WHITE on hover */
+    .open-handle svg{ width:28px; height:28px; display:block; pointer-events:none; }
     .open-handle:hover{ background:#fff; color:var(--pm-red); }
 
     @media(max-width:900px){ .cart-drawer{ width:90vw } }
@@ -204,12 +195,36 @@
     .cta-white .block{max-width:900px; margin:0 auto; text-align:center;}
     .cta-white h2{ margin:0; font-size:clamp(24px,4.8vw,40px); font-weight:1000; }
     .cta-actions{ display:flex; justify-content:center; gap:16px; margin-top:18px; flex-wrap:wrap; max-width:720px; margin-left:auto; margin-right:auto; }
-    /* Make both bottom buttons same size */
     .cta-actions a{ flex:1 1 260px; }
     
     /* Disable body scroll when cart open on mobile */
     body.cart-open-mobile .site-header{ pointer-events:none; filter:grayscale(100%) opacity(.45); }
     body.no-scroll{ overflow:hidden; }
+
+    /* Centered MODAL */
+    .modal-backdrop{
+      position:fixed; inset:0; background:rgba(0,0,0,.45); display:none;
+      align-items:center; justify-content:center; z-index:2000;
+    }
+    .modal{
+      background:#fff; border:2px solid var(--pm-red); border-radius:12px;
+      width:min(520px, 92vw); padding:16px; text-align:center;
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+    .modal h3{ margin:0 0 8px; font-size:18px; color:var(--pm-red); }
+    .modal p{ margin:0 0 14px; color:#111827; }
+    .modal-actions{ display:flex; gap:10px; justify-content:center; }
+    .modal-btn{
+      font-weight:1000; padding:10px 14px; border-radius:10px; border:2px solid var(--pm-red);
+      background:#fff; color:var(--pm-red); cursor:pointer;
+      transition:background .15s ease, color .15s ease, border-color .15s ease;
+    }
+    .modal-btn.primary{ background:var(--pm-red); color:#fff; border-color:var(--pm-red-dark); }
+    .modal-btn:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
+    .modal-btn.primary:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
+    .modal-close-x{
+      position:absolute; top:10px; right:14px; font-weight:900; background:none; border:0; font-size:22px; cursor:pointer; color:#991b1b;
+    }
   </style>
 </head>
 <body>
@@ -316,7 +331,7 @@
   </section>
 
   <!-- ALWAYS-VISIBLE right-side open handle (CART ICON to open) -->
-  <button class="open-handle" id="openHandle" aria-label="Open cart" title="Open cart">
+  <button class="open-handle" id="openHandle" type="button" aria-label="Open cart" title="Open cart">
     <!-- Simple cart icon (stroke follows currentColor) -->
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M3 4h2l2 10h11l3-8H6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -327,7 +342,7 @@
 
   <!-- Cart Drawer -->
   <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Cart">
-    <!-- Arrow to MINIMIZE -->
+    <!-- Arrow to MINIMIZE (only shows when open) -->
     <button class="close-handle" id="closeHandle" type="button" title="Hide cart">⟩</button>
 
     <div class="cart-header">
@@ -338,9 +353,7 @@
     </div>
 
     <div class="cart-body">
-      <div id="cartMsg" class="cart-msg" role="alert"></div>
-
-      <div class="selector-label">Add Meat To Your Order</div>
+      <!-- replaced inline alerts with modal -->
       <div id="categoryMenus"></div>
 
       <div class="qty-row">
@@ -348,14 +361,6 @@
         <input id="qty" type="number" min="1" max="100" value="1" inputmode="numeric" />
         <button class="add-btn" id="addItemBtn" type="button">Add Item</button>
         <div class="qty-note">Up to 100 Pounds</div>
-      </div>
-
-      <div id="confirmBar" class="confirm-bar" role="alert">
-        <div id="confirmText">Did you mean to choose more than 10 pounds?</div>
-        <div class="confirm-actions">
-          <button class="btn-small" id="confirmNoBtn" type="button">No</button>
-          <button class="btn-small confirm" id="confirmYesBtn" type="button">Yes</button>
-        </div>
       </div>
 
       <div class="cart-items" id="cartItems" aria-live="polite"></div>
@@ -380,6 +385,19 @@
       </div>
     </div>
   </aside>
+
+  <!-- MODAL (alerts & confirms) -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-live="assertive">
+    <div class="modal" role="document">
+      <button class="modal-close-x" id="modalCloseX" aria-label="Close">×</button>
+      <h3 id="modalTitle">Attention</h3>
+      <p id="modalText">Message</p>
+      <div class="modal-actions">
+        <button class="modal-btn" id="modalCancel" type="button">No</button>
+        <button class="modal-btn primary" id="modalOk" type="button">OK</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Shared footer include -->
   <div id="footerMount" data-include="/sitemap-footer.html">[loading footer…]</div>
@@ -429,25 +447,37 @@
         document.body.classList.remove('cart-open-mobile','no-scroll');
       }
     }
-    const cartMsgEl = document.getElementById('cartMsg');
-    function showMsg(text){ cartMsgEl.textContent = text; cartMsgEl.style.display = 'block'; }
-    function clearMsg(){ cartMsgEl.textContent=''; cartMsgEl.style.display = 'none'; }
 
-    // Size a dropdown to its longest option (+ padding)
-    function sizeDropdownToContent(select){
-      if (!select) return;
-      const span = document.createElement('span');
-      span.style.visibility = 'hidden';
-      span.style.position = 'absolute';
-      span.style.whiteSpace = 'nowrap';
-      const cs = getComputedStyle(select);
-      span.style.font = cs.font;
-      document.body.appendChild(span);
-      let max = 0;
-      for (const opt of select.options){ span.textContent = opt.text; max = Math.max(max, span.offsetWidth); }
-      document.body.removeChild(span);
-      select.style.width = Math.ceil(max + 40) + 'px';
+    // Modal helpers
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+    const modalOk = document.getElementById('modalOk');
+    const modalCancel = document.getElementById('modalCancel');
+    const modalCloseX = document.getElementById('modalCloseX');
+    let modalOkHandler = null;
+
+    function closeModal(){ modalBackdrop.style.display='none'; modalOk.onclick = null; modalCancel.onclick = null; }
+    function openAlert(message, title='Attention'){
+      modalTitle.textContent = title;
+      modalText.textContent = message;
+      modalBackdrop.style.display='flex';
+      modalCancel.style.display='none';
+      modalOk.textContent = 'OK';
+      modalOk.onclick = closeModal;
     }
+    function openConfirm(message, onConfirm, title='Please Confirm'){
+      modalTitle.textContent = title;
+      modalText.textContent = message;
+      modalBackdrop.style.display='flex';
+      modalCancel.style.display='inline-flex';
+      modalOk.textContent = 'Yes';
+      modalCancel.textContent = 'No';
+      modalOk.onclick = ()=>{ closeModal(); onConfirm && onConfirm(); };
+      modalCancel.onclick = closeModal;
+    }
+    modalCloseX.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', (e)=>{ if (e.target === modalBackdrop) closeModal(); });
 
     /* ===== Catalog (5 categories) ===== */
     const CATALOG = {
@@ -503,7 +533,7 @@
         {key:"yellow_american_cheese", label:"Yellow American Cheese", price:7.80}
       ],
       "Spices":[
-        {key:"synders_prime_rib_roast_seasoning", label:"Synders Prime Rib and Roast Seasoning", price:null}
+        {key:"synders_prime_rib_roast_seasoning", label:"Synders Prime Rib and Roast Seasoning", price:5.50}
       ]
     };
 
@@ -520,13 +550,9 @@
     const checkoutBtn = document.getElementById('checkoutBtn');
     const custName = document.getElementById('custName');
     const custPhone = document.getElementById('custPhone');
-    const confirmBar = document.getElementById('confirmBar');
-    const confirmText = document.getElementById('confirmText');
-    const confirmYesBtn = document.getElementById('confirmYesBtn');
-    const confirmNoBtn = document.getElementById('confirmNoBtn');
     const menusMount = document.getElementById('categoryMenus');
+
     let lastSelectedKey = null;
-    let pendingAdd = null; // {key, label, price, lbs}
     let cart = [];
 
     function currency(n){ return '$' + n.toFixed(2); }
@@ -542,39 +568,6 @@
       drawer.setAttribute('aria-hidden','true');
       openHandle.style.display = 'flex';
       setMobileNavDisabled(false);
-      clearMsg(); hideConfirm();
-    }
-
-    function showConfirm(payload){
-      pendingAdd = payload;
-      confirmText.textContent = `Did you mean to choose ${payload.lbs} pounds?`;
-      confirmBar.style.display = 'block';
-    }
-    function hideConfirm(){ confirmBar.style.display = 'none'; pendingAdd = null; }
-
-    function addOrUpdateCartItem(key, label, price, lbs){
-      const existing = cart.find(it => it.key === key);
-      if (existing){ existing.lbs = Math.min(100, existing.lbs + lbs); }
-      else { cart.push({ key, label, price, lbs }); }
-      renderCart();
-    }
-    function removeFromCart(idx){ cart.splice(idx,1); renderCart(); }
-    function computeTotal(){ return cart.reduce((sum,it)=> sum + (it.price * it.lbs), 0); }
-
-    function renderCart(){
-      cartItemsEl.innerHTML = '';
-      cart.forEach((it, idx)=>{
-        const row = document.createElement('div');
-        row.className = 'cart-item';
-        const name = document.createElement('div'); name.textContent = it.label;
-        const lbs = document.createElement('div'); lbs.textContent = it.lbs + ' lb' + (it.lbs>1?'s':'');
-        lbs.setAttribute('aria-label','Quantity in pounds');
-        const price = document.createElement('div'); price.textContent = currency(it.price * it.lbs);
-        const remove = document.createElement('button'); remove.className = 'remove'; remove.type = 'button'; remove.title = 'Remove item'; remove.textContent = '×'; remove.addEventListener('click', ()=> removeFromCart(idx));
-        row.appendChild(name); row.appendChild(lbs); row.appendChild(price); row.appendChild(remove);
-        cartItemsEl.appendChild(row);
-      });
-      cartTotalEl.textContent = currency(computeTotal());
     }
 
     /* Build five separate category dropdowns */
@@ -586,13 +579,17 @@
         const title = document.createElement('div');
         title.className = 'group-title';
         title.textContent = cat;
+
         const select = document.createElement('select');
         select.className = 'item-select';
+
+        // First option shows the MENU TITLE (no "Select an item from...")
         const first = document.createElement('option');
         first.value = '';
-        first.disabled = true; first.selected = true; first.hidden = true;
-        first.textContent = `Select an item from ${cat}`;
+        first.disabled = true; first.selected = true; /* visible title */
+        first.textContent = cat;
         select.appendChild(first);
+
         items.forEach(item=>{
           const opt = document.createElement('option');
           opt.value = item.key;
@@ -601,6 +598,7 @@
           opt.textContent = `${item.label}${priceText}`;
           select.appendChild(opt);
         });
+
         select.addEventListener('change', ()=>{ lastSelectedKey = select.value || null; });
         wrap.appendChild(title); wrap.appendChild(select);
         menusMount.appendChild(wrap);
@@ -616,6 +614,22 @@
       return null;
     }
 
+    // Size a dropdown to its longest option (+ padding)
+    function sizeDropdownToContent(select){
+      if (!select) return;
+      const span = document.createElement('span');
+      span.style.visibility = 'hidden';
+      span.style.position = 'absolute';
+      span.style.whiteSpace = 'nowrap';
+      const cs = getComputedStyle(select);
+      span.style.font = cs.font;
+      document.body.appendChild(span);
+      let max = 0;
+      for (const opt of select.options){ span.textContent = opt.text; max = Math.max(max, span.offsetWidth); }
+      document.body.removeChild(span);
+      select.style.width = Math.ceil(max + 40) + 'px';
+    }
+
     /* Open/close triggers */
     openCartBtn?.addEventListener('click', openCart);
     heroPickupBtn?.addEventListener('click', openCart);
@@ -624,46 +638,80 @@
 
     /* Add item handler (works with any of the five selects) */
     addItemBtn?.addEventListener('click', ()=>{
-      clearMsg();
+      // If no "lastSelectedKey", try to find any select with a chosen value
       if (!lastSelectedKey){
         const chosen = Array.from(document.querySelectorAll('#categoryMenus select')).find(s => s.value);
         if (chosen) lastSelectedKey = chosen.value;
       }
-      if (!lastSelectedKey){ showMsg('Please select a product from any category.'); return; }
+      if (!lastSelectedKey){ openAlert('Please select a product from any category.'); return; }
       const item = findItemByKey(lastSelectedKey);
-      if (!item){ showMsg('Selected item not found.'); return; }
-      if (item.price == null){ showMsg('This item does not have a price yet. Please call for pricing or choose another item.'); return; }
+      if (!item){ openAlert('Selected item not found.'); return; }
+      if (item.price == null){ openAlert('This item does not have a price yet. Please call for pricing or choose another item.'); return; }
+
       let lbs = parseInt(qtyInput.value||'1', 10);
       if (isNaN(lbs) || lbs < 1) lbs = 1;
       if (lbs > 100) lbs = 100;
-      if (lbs > 10){ showConfirm({key:item.key, label:item.label, price:item.price, lbs}); return; }
+
+      if (lbs > 10){
+        openConfirm(`Did you mean to type in (${lbs}) amount of pounds? If yes, add it to cart, if not, do not add it to cart.`, ()=>{
+          addOrUpdateCartItem(item.key, item.label, item.price, lbs);
+        });
+        return;
+      }
       addOrUpdateCartItem(item.key, item.label, item.price, lbs);
     });
 
-    /* Confirm bar actions */
-    confirmYesBtn?.addEventListener('click', ()=>{
-      if (!pendingAdd) return;
-      addOrUpdateCartItem(pendingAdd.key, pendingAdd.label, pendingAdd.price, pendingAdd.lbs);
-      hideConfirm();
-    });
-    confirmNoBtn?.addEventListener('click', ()=>{ hideConfirm(); });
+    function addOrUpdateCartItem(key, label, price, lbs){
+      const existing = cart.find(it => it.key === key);
+      if (existing){ existing.lbs = Math.min(100, existing.lbs + lbs); }
+      else { cart.push({ key, label, price, lbs }); }
+      renderCart();
+    }
+    function removeFromCart(idx){
+      cart.splice(idx,1);
+      renderCart();
+    }
+    function computeTotal(){ return cart.reduce((sum,it)=> sum + (it.price * it.lbs), 0); }
 
-    /* Checkout validation */
+    function renderCart(){
+      const cartItemsEl = document.getElementById('cartItems');
+      const cartTotalEl = document.getElementById('cartTotal');
+      cartItemsEl.innerHTML = '';
+      cart.forEach((it, idx)=>{
+        const row = document.createElement('div');
+        row.className = 'cart-item';
+        const name = document.createElement('div'); name.textContent = it.label;
+        const lbs = document.createElement('div'); lbs.textContent = it.lbs + ' lb' + (it.lbs>1?'s':'');
+        lbs.setAttribute('aria-label','Quantity in pounds');
+        const price = document.createElement('div'); price.textContent = currency(it.price * it.lbs);
+        const remove = document.createElement('button'); remove.className = 'remove'; remove.type = 'button'; remove.title = 'Remove item'; remove.textContent = '×'; remove.addEventListener('click', ()=> removeFromCart(idx));
+        row.appendChild(name); row.appendChild(lbs); row.appendChild(price); row.appendChild(remove);
+        cartItemsEl.appendChild(row);
+      });
+      cartTotalEl.textContent = currency(computeTotal());
+    }
+
+    /* Checkout validation via modal */
     function validPhone(p){ const digits = (p||'').replace(/\D/g,''); return digits.length >= 7; }
     checkoutBtn?.addEventListener('click', ()=>{
-      clearMsg();
-      if (!custName.value.trim()){ showMsg('Please enter your name.'); custName.focus(); return; }
-      if (!validPhone(custPhone.value)){ showMsg('Please enter a valid phone number.'); custPhone.focus(); return; }
-      if (cart.length === 0){ showMsg('Your cart is empty.'); return; }
-      showMsg('Thanks! Your pickup will be ready tomorrow at 2 PM at 635 240th Street, Waterloo, NE 68069.');
+      if (!custName.value.trim()){ openAlert('Please enter your name.'); custName.focus(); return; }
+      if (!validPhone(custPhone.value)){ openAlert('Please enter a valid phone number.'); custPhone.focus(); return; }
+      if (cart.length === 0){ openAlert('Your cart is empty.'); return; }
+      openAlert('Thanks! Your pickup will be ready tomorrow at 2 PM at 635 240th Street, Waterloo, NE 68069.', 'Order Received');
     });
 
-    /* Keyboard: Esc hides cart */
-    document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape' && drawer.classList.contains('open')) hideCart(); });
+    /* Keyboard: Esc closes modal or hides cart */
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'Escape'){
+        if (modalBackdrop.style.display === 'flex') { closeModal(); return; }
+        if (drawer.classList.contains('open')) hideCart();
+      }
+    });
 
     /* Init */
-    window.addEventListener('DOMContentLoaded', ()=>{ buildCategoryMenus(); });
+    window.addEventListener('DOMContentLoaded', ()=>{
+      buildCategoryMenus();
+    });
   </script>
 </body>
 </html>
-
