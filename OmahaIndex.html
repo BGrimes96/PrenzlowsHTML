@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Omaha Jail Watch</title>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Omaha Jail Watch" />
+<meta property="og:description" content="Recent bookings, warrants, and statistics for the Omaha area." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.omahajailwatch.com/" />
+<meta property="og:image" content="/og-image.jpg" />
+
+<!-- Ezoic CMP (keep sitewide; header itself has no ad placeholders) -->
+<script src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
+<script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
+
+<!-- Ezoic Header Script -->
+<script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+<script>
+  window.ezstandalone = window.ezstandalone || {};
+  ezstandalone.cmd = ezstandalone.cmd || [];
+  ezstandalone.cmd.push(function(){
+    ezstandalone.config({
+      disableInterstitial: true,
+      vignetteDesktop: false,
+      vignetteMobile: false,
+      vignetteTablet: false,
+      anchorAdExpansion: false
+    });
+  });
+</script>
+
+<!-- Charts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+  --sponsor-h:36px;               /* set to 0 if you won’t use sponsor bar */
+  --sponsor-h-mobile:56px;
+
+  /* Buttons */
+  --btn-bg:#2f2f2f;
+  --btn-bg-hover:#444;
+  --btn-radius:28px;
+  --btn-py:20px;
+  --btn-px:28px;
+  --btn-font:1.1rem;
+  --btn-shadow:0 2px 10px rgba(35,35,83,0.28);
+
+  /* Header (color only — no ad slots here) */
+  --header-bg:#0e7490;            /* <<< HEADER COLOR: change here */
+  --header-pad-x:16px;
+  --header-minh-desktop:110px;
+  --header-minh-mobile:96px;
+
+  /* Footer */
+  --footer-bg:#000000;
+  --footer-ink:#ffffff;
+  --footer-muted:rgba(255,255,255,.85);
+  --footer-border:rgba(255,255,255,.25);
+}
+
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; height:auto; scroll-behavior:smooth; overflow-x:hidden; }
+body{
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  background:#ffffff; color:#000;
+  min-height:100vh; display:flex; flex-direction:column;
+}
+
+/* Optional Sponsor strip (not part of header) */
+.sponsor-bar{
+  position:fixed; inset:0 0 auto 0; height:var(--sponsor-h);
+  background:#0f172a; color:#fff; z-index:1102;
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  padding:0 12px; text-align:center; font-weight:800; letter-spacing:.2px;
+  box-shadow:0 1px 6px rgba(0,0,0,.25); width:100%;
+}
+.sponsor-bar a{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:8px 14px; border-radius:999px; border:1px solid #93C5FD;
+  color:#93C5FD; text-decoration:none; line-height:1; font-size:14px;
+}
+.sponsor-bar a:hover{ background:#111827; }
+
+/* Buttons */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  padding:var(--btn-py) var(--btn-px);
+  background:var(--btn-bg); color:#fff; border:0; border-radius:var(--btn-radius);
+  text-decoration:none; font-size:var(--btn-font); font-weight:700; line-height:1;
+  box-shadow:var(--btn-shadow); cursor:pointer; transition:background .16s ease;
+  white-space:nowrap; text-align:center; min-height:56px; margin:0;
+}
+.btn:hover{ background:var(--btn-bg-hover); }
+
+/* ===== Header (COLOR ONLY, no ad elements here) ===== */
+.header{
+  position:relative;
+  background:var(--header-bg); color:#fff;
+  padding: calc(var(--sponsor-h) + 8px) var(--header-pad-x) 10px var(--header-pad-x);
+  display:grid; grid-template-rows:auto auto; gap:10px;
+  min-height:var(--header-minh-desktop); width:100%; overflow:visible;
+}
+.header-title{
+  font-weight:900; margin:0; letter-spacing:.2px; font-size:1.6rem;
+}
+.header-sub{ margin:4px 0 0; opacity:.95; }
+
+/* Header buttons row */
+.header-actions-row{ display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; }
+.header-actions-row .btn{ flex:0 0 auto; }
+
+/* Search bar */
+.search-bar{ padding:10px 16px; text-align:center; background:#f5f5ff; }
+.search-bar input{
+  width:min(640px,92vw); padding:10px 12px; font-size:16px;
+  border:1px solid #d9d9f7; border-radius:10px;
+}
+
+/* Layout */
+.main-content{ display:flex; flex-direction:row; gap:0; width:100%; max-width:100vw; }
+
+/* LEFT: mugshots */
+.scrollable{
+  flex:1 1 0%; min-width:0; border-right:1.5px solid #e0e0e0; background:#f9faff;
+  padding:0 16px 16px; position:sticky; top: var(--sponsor-h);
+  max-height: calc(100vh - var(--sponsor-h)); overflow-y:auto; -webkit-overflow-scrolling:touch;
+  align-self:flex-start; display:flex; flex-direction:column; gap:12px;
+}
+
+/* RIGHT: charts */
+.right-rail{
+  flex:1 1 0%; min-width:0; padding:0 20px 24px; background:#fff;
+  display:flex; flex-direction:column; gap:12px;
+}
+.chart-scroll{
+  position:sticky; top: var(--sponsor-h);
+  max-height: calc(100vh - var(--sponsor-h)); overflow-y:auto; -webkit-overflow-scrolling:touch;
+  padding-right:2px;
+}
+.chart-scroll h3{ text-align:center; margin:0 0 12px; font-size:1.05em; }
+.chart-description{ font-size:14px; color:#333; margin:18px 0 0 0; text-align:center; }
+.chart-scroll canvas{ margin-top:15px; width:100% !important; height:285px !important; max-height:360px; display:block; }
+
+/* ad wrapper (non-header placements ok) */
+.rail-ad{ display:flex; align-items:center; justify-content:center; padding:0; background:transparent; border:0; }
+.rail-ad > div[id^="ezoic-pub-ad-placeholder"]{ display:block; min-height:120px; width:100%; margin:0; }
+
+/* Cards grid */
+.grid{
+  display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px;
+  align-items:start; justify-items:center; margin:0 auto; width:100%;
+}
+.grid .inline-ad { grid-column:1 / -1; width:100%; }
+.grid .inline-ad > div[id^="ezoic-pub-ad-placeholder"]{ display:block; min-height:250px; width:100%; }
+
+/* Inmate card */
+.inmate-card{
+  display:grid; grid-template-rows:auto auto auto auto;
+  border:1px solid #b8b8d6; border-radius:12px; padding:16px 14px; background:#f8f8ff;
+  font-size:16px; box-shadow:0 2px 4px rgba(0,0,0,0.06); min-height:280px; width:100%;
+  justify-items:center; row-gap:10px;
+}
+.inmate-card img{
+  height:180px; max-width:240px; width:auto; object-fit:cover; border-radius:10px; background:#ccc; display:block;
+}
+.inmate-name{ margin:6px 0 0; font-size:18px; font-weight:800; text-align:center; line-height:1.25; padding:0 6px; word-break:break-word; }
+.small-text{ font-size:14px; color:#555; text-align:center; }
+
+.card-actions{
+  width:100%; display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+  padding-top:8px; border-top:1px dashed #cfd2ff;
+}
+.btn-sm{ padding:10px 14px; border-radius:14px; font-size:1rem; box-shadow:0 1px 4px rgba(35,35,83,0.20); min-width:180px; }
+.btn-fb{ background:#1877F2; }
+.btn-fb:hover{ background:#166fe5; }
+.btn-charges{ background:#5856d6; }
+.btn-charges:hover{ background:#4b49c4; }
+
+/* Footer (footer file provides its own styles too; this is a fallback if needed) */
+footer.site-footer{
+  background:var(--footer-bg); color:var(--footer-ink); border-top:1px solid var(--footer-border);
+  margin-top:auto; padding:36px 20px 18px; width:100%;
+}
+.footer-grid{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:22px; }
+.footer-title{ font-weight:800; font-size:16px; margin:0 0 10px; letter-spacing:.2px; }
+.footer-links{ display:grid; gap:8px; }
+.footer-links a{ color:var(--footer-muted); text-decoration:none; font-size:14px; }
+.footer-links a:hover{ color:#ffffff; text-decoration:underline; }
+.footer-bottom{
+  margin:18px 0 0; padding:12px 0 0; border-top:1px solid var(--footer-border);
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; font-size:13px; color:#ffffff;
+}
+.back-to-top{ color:#ffffff; text-decoration:none; font-weight:700; font-size:13px; }
+.back-to-top:hover{ text-decoration:underline; }
+
+/* Nav/Footer mounts (replaced by fetched files) */
+#ojw-nav-mount{ position:fixed; z-index:1105; }
+#ojw-footer-mount{ display:block; }
+
+/* Tablet */
+@media (max-width: 900px){
+  .header{ min-height:var(--header-minh-mobile); }
+}
+
+/* ===== Mobile (<= 600px) ===== */
+@media (max-width: 600px){
+  .sponsor-bar{ height:var(--sponsor-h-mobile); font-size:16px; gap:14px; }
+  .sponsor-bar a{ padding:10px 16px; font-size:15px; }
+
+  /* compact header on mobile */
+  .header{ padding: calc(48px + var(--sponsor-h-mobile)) 10px 8px; }
+
+  /* keep mobile buttons tidy */
+  .header-actions-row{ gap:8px; }
+  .header-actions-row .btn{ flex:1 1 48%; min-height:48px; padding:14px 16px; font-size:1rem; }
+
+  .main-content{ display:block; }
+
+  .scrollable{ position:relative; top:auto; max-height:none; padding:0 8px 14px; border-right:0; }
+
+  .grid{ grid-template-columns:repeat(2, 1fr); gap:8px; justify-items:stretch; width:100%; margin:0 auto; }
+  .grid .inline-ad{ grid-column:1 / -1; }
+
+  .inmate-card{ width:100%; padding:8px 7px; min-height:auto; font-size:13.2px; }
+
+  .inmate-card img{
+    width:86%; max-width:150px; height:auto; aspect-ratio:auto; object-fit:cover; border-radius:10px; margin:0 auto;
+  }
+
+  .inmate-name{ font-size:14.4px; }
+
+  .card-actions{ display:flex; flex-direction:column; align-items:stretch; gap:8px; }
+  .btn-sm{ width:100%; min-width:0; font-size:.95rem; padding:10px 12px; }
+
+  .right-rail{ display:none !important; }
+  #ezoic-pub-ad-placeholder-121{ display:none !important; }
+
+  .footer-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+}
+
+/* Extra small phones */
+@media (max-width: 380px){
+  .grid{ gap:6px; }
+  .inmate-name{ font-size:13.8px; }
+  .btn-sm{ font-size:.9rem; }
+  .footer-grid{ grid-template-columns:1fr; }
+}
+
+/* Auto-tighten mode (optional) */
+body.mobile-tight .inmate-card{ font-size:13px; padding:7px 6px; }
+body.mobile-tight .inmate-name{ font-size:13.8px; }
+body.mobile-tight .btn-sm{ font-size:.85rem; padding:7px 9px; }
+</style>
+</head>
+
+<body>
+  <!-- Optional Sponsor bar (safe to delete if not used) -->
+  <div class="sponsor-bar" role="complementary" aria-label="Site sponsor">
+    <span>This Website Is Sponsored By</span>
+    <a href="https://TheSecondStory.org" target="_blank" rel="noopener">TheSecondStory.org</a>
+  </div>
+
+  <!-- NAV: load external OmahaJailwatchNav.html -->
+  <div id="ojw-nav-mount"></div>
+
+  <!-- ===== COLOR HEADER (no ad placeholders) ===== -->
+  <header class="header">
+    <h1 class="header-title">Omaha Jail Watch</h1>
+    <div class="header-sub">Recent bookings, warrants, and statistics for the Omaha area</div>
+
+    <div class="header-actions-row" id="headerActions">
+      <a href="https://www.broadcastify.com/webPlayer/39895" target="_blank" rel="noopener" class="btn">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#fff" d="M12 3C7.03 3 3 7.03 3 12h2c0-3.87 3.13-7 7-7s7 3.13 7 7h2c0-4.97-4.03-9-9-9zm-1 15h2v2h-2zm6.07-7.75L15.66 11.66c.63.84 1.02 1.87 1.02 3.01 0 2.21-1.79 4-4 4s-4-1.79-4-4c0-1.14.39-2.17 1.02-3.01L6.93 10.25A7.956 7.956 0 0 0 4 12c0 4.41 3.59 8 8 8s8-3.59 8-8c0-1.07-.21-2.09-.6-3.02z"/></svg>
+        <span>Live Police Scanner</span>
+      </a>
+      <button id="installBtn" class="btn" aria-expanded="false" aria-controls="modalInstall"><span>Install App Tutorial</span></button>
+      <button id="discBtn" class="btn" aria-expanded="false" aria-controls="modalDisclaimer"><span>Disclaimer</span></button>
+    </div>
+  </header>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search inmates by name..." oninput="filterInmates()">
+  </div>
+
+  <!-- Columns -->
+  <div class="main-content">
+    <!-- LEFT: mugshots -->
+    <div class="scrollable">
+      <!-- Top of mugshots ad slot (non-header) -->
+      <div class="rail-ad"><div id="ezoic-pub-ad-placeholder-120"></div></div>
+      <div class="grid" id="recent-bookings">Loading...</div>
+    </div>
+
+    <!-- RIGHT: ad + charts (hidden on mobile) -->
+    <div class="right-rail">
+      <div class="rail-ad"><div id="ezoic-pub-ad-placeholder-121"></div></div>
+      <div class="chart-scroll">
+        <h3>Statistics Of Last 75 Bookings (More In-Depth Stats In 6 Month Statistics Page)</h3>
+
+        <div class="chart-description">Gender Ratio of Last 75 Bookings</div>
+        <canvas id="genderChart"></canvas>
+
+        <div class="chart-description">Age Ranges of Last 75 Bookings</div>
+        <canvas id="ageChart"></canvas>
+
+        <div class="chart-description">Most Common Booking Hours (local time)</div>
+        <canvas id="bookingHourChart"></canvas>
+
+        <div class="chart-description">Bookings per day (last 14 days)</div>
+        <canvas id="bookingDateChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inline content ad above footer (non-header) -->
+  <div class="rail-ad" style="margin:16px 0;">
+    <div id="ezoic-pub-ad-placeholder-128"></div>
+  </div>
+
+  <!-- Bottom ad -->
+  <div id="ezoic-pub-ad-placeholder-122"></div>
+
+  <!-- FOOTER: load external OmahaJailWatchFooter.html -->
+  <div id="ojw-footer-mount"></div>
+
+  <!-- Modals (Install + Disclaimer only) -->
+  <div class="modal-backdrop" id="modalInstall" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="installTitle">
+      <div class="modal-header">
+        <h3 class="modal-title" id="installTitle">Add Omaha Jail Watch to your Home Screen</h3>
+        <button class="modal-close" data-close="modalInstall" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="muted">Create an app-like shortcut for quick access.</p>
+        <p><strong>iPhone / iPad (Safari)</strong><br>1) Tap the <em>Share</em> icon (square with an arrow).<br>2) Tap <em>Add to Home Screen</em>.<br>3) Tap <em>Add</em>.</p>
+        <p><strong>Android (Chrome)</strong><br>1) Tap the <em>menu</em> (three dots).<br>2) Tap <em>Add to Home screen</em> or <em>Install app</em>.<br>3) Confirm by tapping <em>Add</em>.</p>
+        <p class="muted">Tip: If you're prompted to Install app, accept it to get a full-screen experience.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modalDisclaimer" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="discTitle">
+      <div class="modal-header">
+        <h3 class="modal-title" id="discTitle">Disclaimer</h3>
+        <button class="modal-close" data-close="modalDisclaimer" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>All data is publicly available information provided by local law enforcement or jail rosters. This site is not affiliated with any government agency.</p>
+        <p>Information is updated periodically and may not reflect real-time custody status. All individuals listed are presumed innocent until proven guilty in a court of law.</p>
+        <p>This site is for informational and learning purposes only.</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* === Load external NAV and FOOTER === */
+(async function(){
+  try{
+    const navMount = document.getElementById('ojw-nav-mount');
+    const navRes = await fetch('/OmahaJailwatchNav.html', { cache:'no-cache' });
+    navMount.outerHTML = await navRes.text();
+  }catch(e){ console.warn('Navbar load failed', e); }
+
+  try{
+    const footerMount = document.getElementById('ojw-footer-mount');
+    const footRes = await fetch('/OmahaJailWatchFooter.html', { cache:'no-cache' });
+    footerMount.outerHTML = await footRes.text();
+  }catch(e){ console.warn('Footer load failed', e); }
+})();
+
+/* ===== Modals (Install + Disclaimer only) ===== */
+function openModal(id){ const el = document.getElementById(id); if(!el) return; el.classList.add('show'); el.setAttribute('aria-hidden','false'); }
+function closeModal(id){ const el = document.getElementById(id); if(!el) return; el.classList.remove('show'); el.setAttribute('aria-hidden','true'); }
+
+document.addEventListener('click', (e)=>{
+  const closeBtn = e.target.closest('[data-close]');
+  if (closeBtn){ closeModal(closeBtn.getAttribute('data-close')); }
+});
+
+document.querySelectorAll('.modal-backdrop').forEach(bg=>{
+  bg.addEventListener('click', (e)=>{ if(e.target === bg) closeModal(bg.id); });
+});
+document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape'){
+  document.querySelectorAll('.modal-backdrop.show').forEach(bg=> closeModal(bg.id));
+}});
+
+// Openers
+document.getElementById('installBtn')?.addEventListener('click', ()=> openModal('modalInstall'));
+document.getElementById('discBtn')?.addEventListener('click', ()=> openModal('modalDisclaimer'));
+
+/* ===== Facebook share ===== */
+function getHomeUrl(){ return location.origin + "/"; }
+async function shareFacebookHome(){
+  const url = getHomeUrl();
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (isMobile && navigator.share){
+    try { await navigator.share({ title:"Omaha Jail Watch", text:"Check out Omaha Jail Watch", url }); return; }
+    catch(e){}
+  }
+  if (isMobile){
+    const fbDeep = "fb://facewebmodal/f?href=" + encodeURIComponent("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url));
+    const fallback = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url);
+    setTimeout(()=>{ window.open(fallback, "_blank", "noopener,noreferrer"); }, 900);
+    try { window.location.href = fbDeep; } catch {}
+    return;
+  }
+  const webSharer = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url);
+  window.open(webSharer, "_blank", "noopener,noreferrer");
+}
+
+/* ===== Ad helper (non-header placements) ===== */
+function requestEzoic(id){
+  ezstandalone.cmd.push(function(){
+    try { ezstandalone.showAds(id); }
+    catch(e){ console.warn("showAds error", id, e); }
+  });
+}
+function attachAdObserver(placeholderId){
+  const el = document.getElementById(placeholderId);
+  if (!el) return;
+  let retried = false;
+  const seen = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if (entry.isIntersecting) {
+        const id = Number(placeholderId.replace("ezoic-pub-ad-placeholder-",""));
+        requestEzoic(id);
+        setTimeout(()=>{
+          const hasIframe = !!el.querySelector("iframe, ins, div[data-ez]");
+          if (!hasIframe && !retried) { retried = true; requestEzoic(id); }
+        }, 5000);
+        seen.disconnect();
+      }
+    });
+  }, { threshold: 0.01 });
+  seen.observe(el);
+}
+function getRotatedIds(baseIds){
+  const key = "ojwAdOffset";
+  const last = Number(localStorage.getItem(key) || 0);
+  const offset = (last % baseIds.length);
+  const rotated = baseIds.slice(offset).concat(baseIds.slice(0, offset));
+  localStorage.setItem(key, String(last + 1));
+  return rotated;
+}
+
+/* ===== Inmates + Charts Logic (OmahaScraper.py output) =====
+   EXPECTED JSON: [{ name, bookedAt, mugshot, profileUrl, gender?, age? }, ...]
+   Update path if you store elsewhere.
+*/
+const PLACEHOLDER_IMG = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent('<svg width="100" height="120" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="120" fill="#cccccc" /><text x="50" y="65" font-size="12" font-family="Arial" fill="#000" text-anchor="middle">No Photo Available</text></svg>');
+
+function createInmateCard(inmate) {
+  const card = document.createElement("div");
+  card.className = "inmate-card";
+  card.setAttribute("data-name", (inmate.name || "").toLowerCase());
+
+  const img = document.createElement("img");
+  img.src = inmate.mugshot && inmate.mugshot.trim() !== "" ? inmate.mugshot : PLACEHOLDER_IMG;
+  img.alt = (inmate.name || "Inmate") + " mugshot";
+  img.onerror = () => (img.src = PLACEHOLDER_IMG);
+
+  const nameEl = document.createElement("div");
+  nameEl.className = "inmate-name";
+  nameEl.textContent = inmate.name || "Unknown";
+
+  const booked = document.createElement("div");
+  booked.className = "small-text";
+  booked.textContent = "Booked: " + (inmate.bookedAt || "");
+
+  const actions = document.createElement("div");
+  actions.className = "card-actions";
+
+  const chargesBtn = document.createElement("a");
+  chargesBtn.href = inmate.profileUrl;
+  chargesBtn.target = "_blank";
+  chargesBtn.rel = "noopener";
+  chargesBtn.className = "btn btn-sm btn-charges";
+  chargesBtn.textContent = "Current Charges";
+
+  const shareBtn = document.createElement("button");
+  shareBtn.type = "button";
+  shareBtn.className = "btn btn-sm btn-fb";
+  shareBtn.setAttribute("aria-label", "Share Omaha Jail Watch on Facebook");
+  shareBtn.innerHTML = '<svg class="fb-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.06C22 6.48 17.52 2 11.94 2S2 6.48 2 12.06C2 17.08 5.66 21.2 10.44 22v-7.02H7.9v-2.92h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.62.77-1.62 1.56v1.88h2.76l-.44 2.92h-2.32V22C18.34 21.2 22 17.08 22 12.06z"/></svg><span>Share on Facebook</span>';
+  shareBtn.addEventListener("click", shareFacebookHome);
+
+  actions.appendChild(chargesBtn);
+  actions.appendChild(shareBtn);
+
+  card.appendChild(img);
+  card.appendChild(nameEl);
+  card.appendChild(booked);
+  card.appendChild(actions);
+
+  return card;
+}
+
+function filterInmates() {
+  const query = (document.getElementById("searchInput").value || "").toLowerCase();
+  document.querySelectorAll(".inmate-card").forEach((card) => {
+    const name = card.getAttribute("data-name") || "";
+    card.style.display = name.includes(query) ? "" : "none";
+  });
+}
+
+// Parse "MM/DD/YYYY HH:MM AM/PM"
+function parseTime(str) {
+  const match = (str || "").match(/(\d{1,2})\/(\d{1,2})\/(\d{4}) (\d{1,2}):(\d{2}) ?(AM|PM)?/i);
+  if (!match) return null;
+  let [_, m, d, y, h, min, ap] = match;
+  h = parseInt(h, 10);
+  if (ap && ap.toUpperCase() === "PM" && h < 12) h += 12;
+  const mm = String(m).padStart(2,'0');
+  const dd = String(d).padStart(2,'0');
+  const hh = String(h).padStart(2,'0');
+  const mmin = String(min).padStart(2,'0');
+  return new Date(`${y}-${mm}-${dd}T${hh}:${mmin}`);
+}
+
+function guessGender(inmate) {
+  if (inmate.gender) {
+    const g = String(inmate.gender).toLowerCase();
+    if (g.startsWith("m")) return "Male";
+    if (g.startsWith("f")) return "Female";
+  }
+  if (inmate.name) {
+    if (/^mrs?\.?/i.test(inmate.name) || /^ms\.?/i.test(inmate.name)) return "Female";
+    if (/^mr\.?/i.test(inmate.name)) return "Male";
+  }
+  return "Unknown";
+}
+
+function parseAge(inmate) {
+  if (typeof inmate.age === "number") return inmate.age;
+  if (typeof inmate.age === "string" && /^\d+$/.test(inmate.age)) return parseInt(inmate.age,10);
+  return null;
+}
+function toYMD(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+d.getDate().toString().padStart(2,"0"); }
+function toMD(d){ return (d.getMonth()+1)+"/"+d.getDate(); }
+
+/* ===== Fetch inmates & render (and build charts for desktop) ===== */
+/* OmahaScraper.py should write this JSON path (adjust if needed) */
+fetch("/data/omaha_recently_booked.json")
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("recent-bookings");
+    container.innerHTML = "";
+
+    const sorted = [...data].sort((a, b) => {
+      const ta = parseTime(a.bookedAt), tb = parseTime(b.bookedAt);
+      return (tb || 0) - (ta || 0);
+    });
+    const last75 = sorted.slice(0, 75);
+
+    if (!last75.length) {
+      container.innerHTML = "<p>No recent bookings found.</p>";
+      return;
+    }
+
+    /* Rotate which inline IDs go first; insert every 6 cards */
+    const inlineAdIds = getRotatedIds([125,126,127,129,130,133,134,135,136,137,138,139]);
+    let placedAds = 0;
+
+    last75.forEach((inmate, i) => {
+      container.appendChild(createInmateCard(inmate));
+
+      const idxAfter = i + 1;
+      if (idxAfter % 6 === 0 && placedAds < inlineAdIds.length) {
+        const adId = inlineAdIds[placedAds++];
+        const wrap = document.createElement('div');
+        wrap.className = 'inline-ad';
+        const slot = document.createElement('div');
+        slot.id = `ezoic-pub-ad-placeholder-${adId}`;
+        wrap.appendChild(slot);
+        container.appendChild(wrap);
+        attachAdObserver(slot.id);
+      }
+    });
+
+    const isMobile = window.matchMedia("(max-width: 600px)").matches;
+
+    if (!isMobile) {
+      // Gender
+      let male = 0, female = 0, unknown = 0;
+      last75.forEach(inmate => {
+        const g = guessGender(inmate);
+        if (g === "Male") male++;
+        else if (g === "Female") female++;
+        else unknown++;
+      });
+      new Chart(document.getElementById("genderChart"), {
+        type: "bar",
+        data: { labels: ["Male", "Female", "Unknown"],
+          datasets: [{ label: "Gender", data: [male, female, unknown],
+            backgroundColor: ["#3b82f6", "#ec4899", "#9ca3af"],
+            borderColor: ["#1d4ed8", "#be185d", "#6b7280"], borderWidth: 1 }]},
+        options: { responsive:true, plugins:{ legend:{ display:false } } }
+      });
+
+      // Age ranges
+      const ageRanges = [
+        { label: "18-25", min: 18, max: 25, count: 0 },
+        { label: "25-30", min: 25, max: 30, count: 0 },
+        { label: "30-35", min: 30, max: 35, count: 0 },
+        { label: "35-40", min: 35, max: 40, count: 0 },
+        { label: "40-45", min: 40, max: 45, count: 0 },
+        { label: "45-50", min: 45, max: 50, count: 0 },
+        { label: "50-55", min: 50, max: 55, count: 0 },
+        { label: "55+",   min: 55, max: 150, count: 0 },
+        { label: "Unknown", min: null, max: null, count: 0 }
+      ];
+      last75.forEach(inmate => {
+        const age = parseAge(inmate);
+        if (age === null || isNaN(age)) {
+          ageRanges[ageRanges.length - 1].count++;
+        } else {
+          let found = false;
+          for (let r = 0; r < ageRanges.length - 1; r++) {
+            if (age >= ageRanges[r].min && age < ageRanges[r].max) {
+              ageRanges[r].count++; found = true; break;
+            }
+          }
+          if (!found && age >= 55) ageRanges[ageRanges.length - 2].count++;
+        }
+      });
+      new Chart(document.getElementById("ageChart"), {
+        type: "bar",
+        data: { labels: ageRanges.map(r => r.label),
+          datasets: [{ label: "Age Range", data: ageRanges.map(r => r.count),
+            backgroundColor: ["#ddd6fe","#c4b5fd","#a78bfa","#8b5cf6","#7c3aed","#6d28d9","#5b21b6","#4c1d95","#9ca3af"],
+            borderColor: ["#a78bfa","#8b5cf6","#7c3aed","#6d28d9","#5b21b6","#4c1d95","#4338ca","#3730a3","#6b7280"],
+            borderWidth: 1 }]},
+        options: { responsive:true, plugins:{ legend:{ display:false } } }
+      });
+
+      // Booking hour
+      const hourCounts = Array(24).fill(0);
+      last75.forEach(inmate => {
+        const dt = parseTime(inmate.bookedAt);
+        if (dt) hourCounts[dt.getHours()]++;
+      });
+      const hourLabels = [...Array(24).keys()].map(h => {
+        const suffix = h >= 12 ? "PM" : "AM";
+        const hour = h % 12 === 0 ? 12 : h % 12;
+        return `${hour} ${suffix}`;
+      });
+      new Chart(document.getElementById("bookingHourChart"), {
+        type: "bar",
+        data: { labels: hourLabels,
+          datasets: [{ label: "Booking Time", data: hourCounts,
+            backgroundColor: "#86efac", borderColor: "#16a34a", borderWidth: 1 }]},
+        options: { responsive:true, plugins:{ legend:{ display:false } },
+          scales:{ x:{ ticks:{ autoSkip:true, maxTicksLimit:12 } }, y:{ beginAtZero:true, ticks:{ precision:0 } } } }
+      });
+
+      // Bookings per day (14d)
+      const dayObjs = [];
+      const dailyMap = {};
+      for (let i = 13; i >= 0; i--) {
+        const d = new Date();
+        d.setHours(12,0,0,0);
+        d.setDate(d.getDate() - i);
+        dayObjs.push(new Date(d));
+        dailyMap[toYMD(d)] = 0;
+      }
+      last75.forEach(inmate => {
+        const dt = parseTime(inmate.bookedAt);
+        if (dt) {
+          dt.setHours(12,0,0,0);
+          const key = toYMD(dt);
+          if (dailyMap[key] !== undefined) dailyMap[key]++;
+        }
+      });
+      const labels14 = dayObjs.map(d => toMD(d));
+      const values14 = dayObjs.map(d => dailyMap[toYMD(d)]);
+      new Chart(document.getElementById("bookingDateChart"), {
+        type: "bar",
+        data: { labels: labels14,
+          datasets: [{ label: "Daily Bookings (14d)", data: values14,
+            backgroundColor: "rgba(255,159,64,0.45)", borderColor: "#fb923c", borderWidth: 1 }]},
+        options: { responsive:true, plugins:{ legend:{ display:false } },
+          scales:{ x:{ type:"category", grid:{ display:false }, ticks:{ autoSkip:false, maxRotation:45, minRotation:45 } },
+                   y:{ beginAtZero:true, ticks:{ precision:0 } } } }
+      });
+    }
+
+    ensureMobileFit();
+  })
+  .catch(err => {
+    console.error(err);
+    const container = document.getElementById("recent-bookings");
+    if (container) container.innerHTML = "<p>Error loading data.</p>";
+  });
+
+/* Mobile fit tester */
+function ensureMobileFit(){
+  const isMobile = window.matchMedia('(max-width: 600px)').matches;
+  document.body.classList.remove('mobile-tight');
+  if (!isMobile) return;
+
+  const grid = document.getElementById('recent-bookings');
+  if (!grid) return;
+  const cards = grid.querySelectorAll('.inmate-card');
+  if (cards.length < 2) return;
+
+  const cs = window.getComputedStyle(grid);
+  const gap = parseFloat(cs.columnGap || cs.gap || 0);
+  const gridWidth = grid.clientWidth;
+  const cardW = cards[0].offsetWidth;
+  const needed = (cardW * 2) + gap;
+
+  if (needed > gridWidth) {
+    document.body.classList.add('mobile-tight');
+  }
+}
+window.addEventListener('resize', () => {
+  clearTimeout(window.__fitTimer);
+  window.__fitTimer = setTimeout(ensureMobileFit, 120);
+});
+
+/* ===== Kick off Ezoic placements (non-header only) ===== */
+attachAdObserver("ezoic-pub-ad-placeholder-120"); // Top of mugshots
+attachAdObserver("ezoic-pub-ad-placeholder-121"); // Top of charts
+attachAdObserver("ezoic-pub-ad-placeholder-128"); // Above footer
+attachAdObserver("ezoic-pub-ad-placeholder-122"); // Bottom ad
+</script>
+</body>
+</html>
