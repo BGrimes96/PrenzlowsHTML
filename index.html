@@ -136,8 +136,19 @@
       font-size:14px; overscroll-behavior:contain; touch-action:pan-y; overflow-x:hidden;
     }
     .cart-drawer.open{ transform:translateX(0) }
-    .cart-header{ padding:8px 10px; background:#fff; border-bottom:1px solid #e5e7eb; }
+    .cart-header{ position:relative; padding:8px 40px 8px 10px; background:#fff; border-bottom:1px solid #e5e7eb; }
     .pickup-note{ background:#fff5f5; border:1px solid #fecaca; color:#7f1d1d; padding:8px 10px; border-radius:8px; font-weight:700; font-size:12px; line-height:1.4; }
+
+    /* NEW: collapse (cart) button inside header */
+    .cart-collapse{
+      position:absolute; top:8px; right:8px;
+      height:36px; width:36px; border-radius:10px; border:2px solid var(--pm-red-dark);
+      background:#fff; color:var(--pm-red); display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:background .15s ease, color .15s ease, border-color .15s ease;
+    }
+    .cart-collapse:hover{ background:var(--pm-red); color:#fff; border-color:var(--pm-red); }
+    .cart-collapse svg{ width:20px; height:20px; }
+
     .cart-body{ padding:8px 10px; overflow-y:auto; overflow-x:hidden; flex:1 }
 
     .cart-drawer:not(.open) .close-handle{ display:none; }
@@ -147,7 +158,6 @@
       display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:6px;
     }
     .category-group{ border:1px solid #f3f4f6; border-radius:8px; padding:6px; margin:0; }
-    /* titles removed — keep class hidden for safety if any remain */
     .category-group .group-title{ display:none !important; }
 
     .item-select{
@@ -183,6 +193,15 @@
     .checkout-btn{ background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark); padding:10px 14px; border-radius:10px; font-weight:1000; flex:1; text-align:center; cursor:pointer; transition:background .15s ease, color .15s ease, border-color .15s ease; }
     .checkout-btn:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
 
+    /* NEW: small brand thank-you area under checkout */
+    .checkout-brand{
+      margin-top:10px; padding-top:10px; border-top:1px dashed #e5e7eb;
+      display:flex; align-items:center; gap:10px; justify-content:center; flex-wrap:wrap; text-align:center;
+      color:#374151; font-weight:800;
+    }
+    .checkout-brand img{ width:92px; height:auto; border-radius:8px; border:1px solid #f3f4f6; background:#fff; }
+    .checkout-brand .thanks{ font-size:14px; line-height:1.4; }
+
     /* Close handle (inside cart) = minimize (arrow) */
     .close-handle{
       position:absolute; top:50%; left:-44px; transform:translateY(-50%);
@@ -209,13 +228,13 @@
       .cart-drawer{ width:90vw; }
     }
     @media(max-width:560px){
-      /* keep two columns on mobile to reduce height (no scrolling) */
       #categoryMenus{ grid-template-columns:repeat(2, minmax(0,1fr)); }
       .item-select{ padding:6px 8px; font-size:12.5px; }
       .qty-row input{ width:84px; }
+      .checkout-brand img{ width:80px; }
+      .checkout-brand .thanks{ font-size:13px; }
     }
     @media(max-width:380px){
-      /* very narrow devices fall back to 1 column */
       #categoryMenus{ grid-template-columns:1fr; }
     }
 
@@ -352,6 +371,14 @@
         By placing an order, your order will be available for pickup at<br>
         <strong>635 240th Street, Waterloo, NE 68069</strong> at <strong>2 PM the Next Day</strong>.
       </div>
+      <!-- NEW: collapse cart button -->
+      <button class="cart-collapse" id="cartCollapseBtn" type="button" aria-label="Minimize cart" title="Minimize cart">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 4h2l2 10h11l3-8H6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+          <circle cx="9" cy="20" r="2" fill="currentColor"></circle>
+          <circle cx="18" cy="20" r="2" fill="currentColor"></circle>
+        </svg>
+      </button>
     </div>
 
     <div class="cart-body">
@@ -381,8 +408,15 @@
         <span>Total</span>
         <span id="cartTotal">$0.00</span>
       </div>
+
       <div class="checkout-row">
         <button class="checkout-btn" type="button" id="checkoutBtn" title="Proceed to pickup instructions">Checkout</button>
+      </div>
+
+      <!-- NEW: brand + thank you -->
+      <div class="checkout-brand" aria-hidden="false">
+        <img src="/prenzlowmeats.png" alt="Prenzlow's Meats logo">
+        <div class="thanks">Thank You For Choosing Prenzlow’s Meats</div>
       </div>
     </div>
   </aside>
@@ -548,6 +582,7 @@
     const custName = document.getElementById('custName');
     const custPhone = document.getElementById('custPhone');
     const menusMount = document.getElementById('categoryMenus');
+    const cartCollapseBtn = document.getElementById('cartCollapseBtn');
 
     let lastSelectedKey = null;
     let cart = [];
@@ -557,7 +592,7 @@
     function openCart(){
       drawer.classList.add('open');
       drawer.setAttribute('aria-hidden','false');
-      openHandle.style.display = 'none';
+      openHandle.style.display = 'none';        // keep icon hidden while open
       setMobileNavDisabled(true);
     }
     function hideCart(){
@@ -612,6 +647,7 @@
     heroPickupBtn?.addEventListener('click', openCart);
     openHandle?.addEventListener('click', openCart);
     closeHandle?.addEventListener('click', hideCart);
+    cartCollapseBtn?.addEventListener('click', hideCart); // NEW: header cart icon collapses
 
     /* Add item handler */
     addItemBtn?.addEventListener('click', ()=>{
