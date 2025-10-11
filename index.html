@@ -117,7 +117,7 @@
     @media(max-width:900px){ .product-grid{ grid-template-columns:repeat(2,1fr); } }
     @media(max-width:520px){ .product-grid{ grid-template-columns:1fr; } }
 
-    /* "Place Order" (now white by default) */
+    /* "Place Order" (white by default) */
     #openCartBtn{
       background:#fff; color:var(--pm-red);
       border:2px solid var(--pm-red);
@@ -146,43 +146,22 @@
       font-weight:700; font-size:12px; line-height:1.4;
     }
 
-    /* NEW: collapse (cart) button inside header */
-    .cart-collapse{
-      position:absolute; top:8px; right:8px; height:36px; width:36px; border-radius:10px;
-      border:2px solid var(--pm-red-dark); background:#fff; color:var(--pm-red);
-      display:flex; align-items:center; justify-content:center; cursor:pointer;
-      transition:background .15s ease, color .15s ease, border-color .15s ease;
-    }
-    .cart-collapse:hover{ background:var(--pm-red); color:#fff; border-color:var(--pm-red); }
-    .cart-collapse svg{ width:20px; height:20px; }
-
     .cart-body{ padding:8px 10px; overflow-y:auto; overflow-x:hidden; flex:1 }
 
-    /* LEFT retract handle now a CART ICON (matches right) */
-    .close-handle{
-      position:absolute; top:50%; left:-56px; transform:translateY(-50%);
-      width:56px; height:96px; background:var(--pm-red); color:#fff; border:0; border-radius:12px 0 0 12px;
-      box-shadow:-4px 0 12px rgba(0,0,0,.25); display:flex; align-items:center; justify-content:center;
-      cursor:pointer; font-size:0; font-weight:900; transition:background .15s ease, color .15s ease;
-    }
-    .close-handle svg{ width:28px; height:28px; display:block; pointer-events:none; }
-    .close-handle:hover{ background:#fff; color:var(--pm-red); }
-
-    /* ALWAYS-VISIBLE right-side open handle = CART icon */
-    .open-handle{
+    /* ONE mid-right edge handle that both opens & retracts */
+    .edge-handle{
       position:fixed; top:50%; right:0; transform:translateY(-50%);
-      height:96px; width:56px; border-radius:12px 0 0 12px; background:var(--pm-red); color:#fff;
-      display:flex; align-items:center; justify-content:center; cursor:pointer;
-      box-shadow:0 8px 24px rgba(0,0,0,.25); z-index:999; border:0;
+      height:96px; width:56px; border-radius:12px 0 0 12px;
+      background:var(--pm-red); color:#fff; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; box-shadow:0 8px 24px rgba(0,0,0,.25); z-index:1001; border:0;
       transition:background .15s ease, color .15s ease;
     }
-    .open-handle svg{ width:28px; height:28px; display:block; pointer-events:none; }
-    .open-handle:hover{ background:#fff; color:var(--pm-red); }
+    .edge-handle svg{ width:28px; height:28px; display:block; pointer-events:none; }
+    .edge-handle:hover{ background:#fff; color:var(--pm-red); }
 
     /* CATEGORY AREA — compact, no titles, consistent full-width bars */
     #categoryMenus{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:6px; }
     .category-group{ border:1px solid #f3f4f6; border-radius:8px; padding:6px; margin:0; }
-    .category-group .group-title{ display:none !important; }
     .item-select{
       width:100% !important; max-width:100% !important; border:2px solid var(--pm-red); border-radius:8px;
       padding:6px 8px; font-weight:800; color:#111827; background:#fff; font-size:13px; line-height:1.2;
@@ -222,7 +201,7 @@
     .checkout-row{ margin-top:6px; display:flex; gap:8px; }
     .checkout-btn{ flex:1; text-align:center; }
 
-    /* NEW: brand + thank you (logo bigger) */
+    /* Brand + thank you (bigger logo) */
     .checkout-brand{
       margin-top:10px; padding-top:10px; border-top:1px dashed #e5e7eb;
       display:flex; align-items:center; gap:12px; justify-content:center; flex-wrap:wrap; text-align:center; color:#374151; font-weight:800;
@@ -250,7 +229,7 @@
     .cta-actions{ display:flex; justify-content:center; gap:16px; margin-top:18px; flex-wrap:wrap; max-width:720px; margin-left:auto; margin-right:auto; }
     .cta-actions a{ flex:1 1 260px; }
 
-    /* When cart open on mobile: freeze background & prevent LR scroll */
+    /* When cart open on mobile: freeze background */
     body.cart-open-mobile .site-header{ pointer-events:none; filter:grayscale(100%) opacity(.45); }
     body.no-scroll{ overflow:hidden; }
   </style>
@@ -357,8 +336,8 @@
     </div>
   </section>
 
-  <!-- ALWAYS-VISIBLE right-side open handle (CART ICON to open) -->
-  <button class="open-handle" id="openHandle" type="button" aria-label="Open cart" title="Open cart">
+  <!-- ONE mid-right edge handle (same spot open/close) -->
+  <button class="edge-handle" id="edgeHandle" type="button" aria-label="Open cart" title="Open cart">
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M3 4h2l2 10h11l3-8H6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
       <circle cx="9" cy="20" r="2" fill="currentColor"></circle>
@@ -368,29 +347,11 @@
 
   <!-- Cart Drawer -->
   <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Cart">
-    <!-- NEW: Left retract handle uses same cart icon -->
-    <button class="close-handle" id="closeHandle" type="button" title="Hide cart" aria-label="Hide cart">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 4h2l2 10h11l3-8H6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
-        <circle cx="9" cy="20" r="2" fill="currentColor"></circle>
-        <circle cx="18" cy="20" r="2" fill="currentColor"></circle>
-      </svg>
-    </button>
-
     <div class="cart-header">
       <div class="pickup-note">
         By placing an order, your order will be available for pickup at<br>
         <strong>635 240th Street, Waterloo, NE 68069</strong> at <strong>2 PM the Next Day</strong>.
       </div>
-
-      <!-- collapse cart button -->
-      <button class="cart-collapse" id="cartCollapseBtn" type="button" aria-label="Minimize cart" title="Minimize cart">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M3 4h2l2 10h11l3-8H6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
-          <circle cx="9" cy="20" r="2" fill="currentColor"></circle>
-          <circle cx="18" cy="20" r="2" fill="currentColor"></circle>
-        </svg>
-      </button>
     </div>
 
     <div class="cart-body">
@@ -425,7 +386,6 @@
         <button class="checkout-btn" type="button" id="checkoutBtn" title="Proceed to pickup instructions">Checkout</button>
       </div>
 
-      <!-- brand + thank you -->
       <div class="checkout-brand" aria-hidden="false">
         <img src="/prenzlowmeats.png" alt="Prenzlow's Meats logo">
         <div class="thanks">Thank You For Choosing Prenzlow’s Meats</div>
@@ -542,8 +502,7 @@
 
     /* ===== Cart logic ===== */
     const drawer = document.getElementById('cartDrawer');
-    const openHandle = document.getElementById('openHandle');
-    const closeHandle = document.getElementById('closeHandle');
+    const edgeHandle = document.getElementById('edgeHandle');
     const openCartBtn = document.getElementById('openCartBtn');
     const heroPickupBtn = document.getElementById('heroPickupBtn');
     const qtyInput = document.getElementById('qty');
@@ -554,7 +513,6 @@
     const custName = document.getElementById('custName');
     const custPhone = document.getElementById('custPhone');
     const menusMount = document.getElementById('categoryMenus');
-    const cartCollapseBtn = document.getElementById('cartCollapseBtn');
 
     let lastSelectedKey = null;
     let cart = [];
@@ -563,17 +521,22 @@
     function openCart(){
       drawer.classList.add('open');
       drawer.setAttribute('aria-hidden','false');
-      openHandle.style.display = 'none';
+      edgeHandle.setAttribute('aria-label','Hide cart');
+      edgeHandle.title = 'Hide cart';
       setMobileNavDisabled(true);
     }
     function hideCart(){
       drawer.classList.remove('open');
       drawer.setAttribute('aria-hidden','true');
-      openHandle.style.display = 'flex';
+      edgeHandle.setAttribute('aria-label','Open cart');
+      edgeHandle.title = 'Open cart';
       setMobileNavDisabled(false);
     }
+    function toggleCart(){
+      if (drawer.classList.contains('open')) hideCart(); else openCart();
+    }
 
-    /* Build category dropdowns (no titles, uniform width) */
+    /* Build category dropdowns */
     function buildCategoryMenus(){
       menusMount.innerHTML = '';
       Object.entries(CATALOG).forEach(([cat, items])=>{
@@ -619,29 +582,19 @@
     /* Open/close triggers */
     openCartBtn?.addEventListener('click', openCart);
     heroPickupBtn?.addEventListener('click', openCart);
-    openHandle?.addEventListener('click', openCart);
-    closeHandle?.addEventListener('click', hideCart);
-    cartCollapseBtn?.addEventListener('click', hideCart);
+    edgeHandle?.addEventListener('click', toggleCart);
 
     /* Add item handler */
-    addItemBtn?.addEventListener('click', ()=>{
+    const addItem = ()=>{
       if (!lastSelectedKey){
         const chosen = Array.from(document.querySelectorAll('#categoryMenus select')).find(s => s.value);
         if (chosen) lastSelectedKey = chosen.value;
       }
-      if (!lastSelectedKey){
-        alert('Please select a product from any category.');
-        return;
-      }
+      if (!lastSelectedKey){ alert('Please select a product from any category.'); return; }
       const item = findItemByKey(lastSelectedKey);
-      if (!item){
-        alert('Selected item not found.');
-        return;
-      }
-      if (item.price == null){
-        alert('This item does not have a price yet. Please call for pricing or choose another item.');
-        return;
-      }
+      if (!item){ alert('Selected item not found.'); return; }
+      if (item.price == null){ alert('This item does not have a price yet. Please call for pricing or choose another item.'); return; }
+
       let lbs = parseInt(qtyInput.value||'1', 10);
       if (isNaN(lbs) || lbs < 1) lbs = 1;
       if (lbs > 100) lbs = 100;
@@ -651,7 +604,8 @@
         if (!ok) return;
       }
       addOrUpdateCartItem(item.key, item.label, item.price, lbs);
-    });
+    };
+    addItemBtn?.addEventListener('click', addItem);
 
     function addOrUpdateCartItem(key, label, price, lbs){
       const existing = cart.find(it => it.key === key);
@@ -716,28 +670,15 @@
     }
 
     checkoutBtn?.addEventListener('click', ()=>{
-      if (!custName.value.trim()){
-        alert('Please enter your name.');
-        custName.focus();
-        return;
-      }
-      if (!validPhone(custPhone.value)){
-        alert('Please enter a valid phone number.');
-        custPhone.focus();
-        return;
-      }
-      if (cart.length === 0){
-        alert('Your cart is empty.');
-        return;
-      }
+      if (!custName.value.trim()){ alert('Please enter your name.'); custName.focus(); return; }
+      if (!validPhone(custPhone.value)){ alert('Please enter a valid phone number.'); custPhone.focus(); return; }
+      if (cart.length === 0){ alert('Your cart is empty.'); return; }
       alert('Thanks! Your pickup will be ready tomorrow at 2 PM at 635 240th Street, Waterloo, NE 68069.');
     });
 
-    /* Keyboard: Esc hides cart */
+    /* Keyboard: Esc toggles close if open */
     document.addEventListener('keydown', (e)=>{
-      if (e.key === 'Escape'){
-        if (drawer.classList.contains('open')) hideCart();
-      }
+      if (e.key === 'Escape' && drawer.classList.contains('open')) hideCart();
     });
 
     /* Init */
@@ -747,4 +688,3 @@
   </script>
 </body>
 </html>
-
