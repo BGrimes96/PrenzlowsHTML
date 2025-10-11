@@ -31,8 +31,7 @@
       padding:0; border:0; white-space:nowrap; position:relative;
     }
     .slogan::before, .slogan::after{ color:var(--pm-red); font-weight:1000; }
-    .slogan::before{content:"“";}
-    .slogan::after{content:"”";}
+    .slogan::before{content:"“";} .slogan::after{content:"”";}
 
     /* Sections scaffold */
     .section .inner{max-width:var(--max);margin:0 auto;padding:clamp(20px,4vw,56px) 18px}
@@ -40,44 +39,50 @@
     /* Lede (red hero) */
     .lede{background:var(--pm-red);color:var(--ink-on-red);text-align:center}
     .lede p{
-      margin:0 auto; max-width:1000px;
-      font-weight:800; font-size:clamp(18px,2.6vw,28px);
-      letter-spacing:.15px; line-height:1.45; padding:16px 0 10px;
+      margin:0 auto; max-width:1000px; font-weight:800;
+      font-size:clamp(18px,2.6vw,28px); letter-spacing:.15px; line-height:1.45; padding:16px 0 10px;
     }
     .lede .actions{margin-top:10px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+
+    /* White button base */
     .btn-white{
-      background:#fff; color:var(--pm-red); border:2px solid #fff;
+      background:#fff; color:var(--pm-red); border:2px solid var(--pm-red);
       font-weight:1000; padding:12px 18px; border-radius:12px; min-height:48px;
       display:inline-flex; align-items:center; justify-content:center;
       font-size:clamp(15px,1.9vw,18px);
       transition:background .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
     }
-    #heroPickupBtn:hover{
-      background:#fff; color:var(--pm-red); border-color:#fff;
-      box-shadow:0 0 0 3px rgba(196,26,26,0.28), 0 6px 22px rgba(0,0,0,.18);
+    .btn-white:hover{
+      background:var(--pm-red); color:#fff; border-color:var(--pm-red-dark);
+      box-shadow:0 0 0 3px rgba(196,26,26,0.22), 0 6px 22px rgba(0,0,0,.18);
       transform:translateY(-1px);
     }
 
     /* Card / What We Do */
     .card{background:#fff;border-radius:14px;border:2px solid #f3f4f6;padding:clamp(22px,3.5vw,40px)}
     .card h2{
-      margin:0 0 10px; color:var(--pm-red);
-      font-size:clamp(26px,4.4vw,38px); font-weight:1000; text-align:center
+      margin:0 0 10px; color:var(--pm-red); font-size:clamp(26px,4.4vw,38px); font-weight:1000; text-align:center
     }
     .card .subhead{
-      margin:0 auto 18px; max-width:820px; text-align:center;
-      color:#374151; font-size:clamp(16px,2.1vw,19px); line-height:1.6;
+      margin:0 auto 18px; max-width:820px; text-align:center; color:#374151;
+      font-size:clamp(16px,2.1vw,19px); line-height:1.6;
     }
 
     /* Grid for left/right boxes */
-    .what-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:20px auto; max-width:1000px; align-items:stretch; }
+    .what-grid{
+      display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:20px auto; max-width:1000px; align-items:stretch;
+    }
     .what-box{ background:#fff; border:1px solid #f3f4f6; border-radius:12px; padding:22px 20px; display:flex; flex-direction:column; min-height:100%; }
-    .box-title{ margin:0 0 10px 0; font-weight:900; color:var(--pm-red); font-size:clamp(18px,2.2vw,22px); letter-spacing:.2px; text-align:left; }
+    .box-title{
+      margin:0 0 10px 0; font-weight:900; color:var(--pm-red);
+      font-size:clamp(18px,2.2vw,22px); letter-spacing:.2px; text-align:left;
+    }
     .box-title.center{text-align:center}
     .box-title.long{ max-width:28ch; margin-left:auto; margin-right:auto; line-height:1.35; }
-    .what-box p{ margin:10px 0; font-size:clamp(16px,2.1vw,19px); line-height:1.7; color:#111827; text-align:left; }
+    .what-box p{
+      margin:10px 0; font-size:clamp(16px,2.1vw,19px); line-height:1.7; color:#111827; text-align:left;
+    }
     .what-box.bold p{ font-weight:800; }
-
     .what-list{ list-style:disc; margin:0; padding-left:1.25rem; font-size:clamp(16px,2.1vw,19px); line-height:1.7; color:#111827; font-weight:700; }
     .what-list li{margin:6px 0}
     .what-list li.spaced{margin-top:14px}
@@ -85,17 +90,13 @@
 
     /* Buttons centered inside each box */
     .box-actions{ margin-top:auto; display:flex; justify-content:center; padding-top:10px; }
-
-    @media(max-width:768px){
-      .what-grid{grid-template-columns:1fr}
-      .box-title.center{ text-align:center }
-    }
+    @media(max-width:768px){ .what-grid{grid-template-columns:1fr} .box-title.center{ text-align:center } }
 
     /* Generic button styles */
     .btn-red, .btn-ghost{
       font-weight:1000; padding:14px 20px; border-radius:14px; min-height:52px;
-      display:inline-flex; align-items:center; justify-content:center; font-size:clamp(15px,1.9vw,18px);
-      border:2px solid var(--pm-red); text-decoration:none;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-size:clamp(15px,1.9vw,18px); border:2px solid var(--pm-red); text-decoration:none;
       transition:background .15s ease, color .15s ease, border-color .15s ease;
     }
     .btn-red{background:var(--pm-red);color:#fff;border-color:var(--pm-red-dark)}
@@ -106,24 +107,27 @@
     /* ORDER ONLINE (red section) */
     .order-online{ background:var(--pm-red); color:var(--ink-on-red); }
     .order-online .inner{ padding:clamp(28px,6vw,80px) 18px; }
-    .order-online h2{
-      margin:0 0 14px; text-align:center; font-size:clamp(26px,5vw,42px); font-weight:1000;
+    .order-online h2{ margin:0 0 14px; text-align:center; font-size:clamp(26px,5vw,42px); font-weight:1000; }
+    .product-grid{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:16px; max-width:var(--max); margin:0 auto 16px;
     }
-    .product-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; max-width:var(--max); margin:0 auto 16px; }
     .product-card{ background:#fff; color:#111; border-radius:12px; overflow:hidden; border:2px solid #f3f4f6; }
     .product-card img{ width:100%; aspect-ratio: 4 / 3; object-fit:cover }
     .product-card .pcap{ padding:10px; font-weight:800; text-align:center; color:#0f172a; }
     @media(max-width:900px){ .product-grid{ grid-template-columns:repeat(2,1fr); } }
     @media(max-width:520px){ .product-grid{ grid-template-columns:1fr; } }
 
-    /* "Place Order" button */
+    /* "Place Order" (now white by default) */
     #openCartBtn{
-      background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark);
-      min-height:64px; padding:18px 26px; font-size:clamp(18px,2.2vw,22px); border-radius:16px; font-weight:1000;
+      background:#fff; color:var(--pm-red);
+      border:2px solid var(--pm-red);
+      min-height:64px; padding:18px 26px;
+      font-size:clamp(18px,2.2vw,22px);
+      border-radius:16px; font-weight:1000;
       transition:background .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
     }
     #openCartBtn:hover{
-      background:#fff; color:var(--pm-red); border-color:var(--pm-red);
+      background:var(--pm-red); color:#fff; border-color:var(--pm-red-dark);
       box-shadow:0 0 0 3px rgba(196,26,26,0.18), 0 6px 18px rgba(0,0,0,.12);
       transform:translateY(-1px);
     }
@@ -137,40 +141,63 @@
     }
     .cart-drawer.open{ transform:translateX(0) }
     .cart-header{ position:relative; padding:8px 40px 8px 10px; background:#fff; border-bottom:1px solid #e5e7eb; }
-    .pickup-note{ background:#fff5f5; border:1px solid #fecaca; color:#7f1d1d; padding:8px 10px; border-radius:8px; font-weight:700; font-size:12px; line-height:1.4; }
+    .pickup-note{
+      background:#fff5f5; border:1px solid #fecaca; color:#7f1d1d; padding:8px 10px; border-radius:8px;
+      font-weight:700; font-size:12px; line-height:1.4;
+    }
 
     /* NEW: collapse (cart) button inside header */
     .cart-collapse{
-      position:absolute; top:8px; right:8px;
-      height:36px; width:36px; border-radius:10px; border:2px solid var(--pm-red-dark);
-      background:#fff; color:var(--pm-red); display:flex; align-items:center; justify-content:center;
-      cursor:pointer; transition:background .15s ease, color .15s ease, border-color .15s ease;
+      position:absolute; top:8px; right:8px; height:36px; width:36px; border-radius:10px;
+      border:2px solid var(--pm-red-dark); background:#fff; color:var(--pm-red);
+      display:flex; align-items:center; justify-content:center; cursor:pointer;
+      transition:background .15s ease, color .15s ease, border-color .15s ease;
     }
     .cart-collapse:hover{ background:var(--pm-red); color:#fff; border-color:var(--pm-red); }
     .cart-collapse svg{ width:20px; height:20px; }
 
     .cart-body{ padding:8px 10px; overflow-y:auto; overflow-x:hidden; flex:1 }
 
-    .cart-drawer:not(.open) .close-handle{ display:none; }
+    /* LEFT retract handle now a CART ICON (matches right) */
+    .close-handle{
+      position:absolute; top:50%; left:-56px; transform:translateY(-50%);
+      width:56px; height:96px; background:var(--pm-red); color:#fff; border:0; border-radius:12px 0 0 12px;
+      box-shadow:-4px 0 12px rgba(0,0,0,.25); display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:0; font-weight:900; transition:background .15s ease, color .15s ease;
+    }
+    .close-handle svg{ width:28px; height:28px; display:block; pointer-events:none; }
+    .close-handle:hover{ background:#fff; color:var(--pm-red); }
+
+    /* ALWAYS-VISIBLE right-side open handle = CART icon */
+    .open-handle{
+      position:fixed; top:50%; right:0; transform:translateY(-50%);
+      height:96px; width:56px; border-radius:12px 0 0 12px; background:var(--pm-red); color:#fff;
+      display:flex; align-items:center; justify-content:center; cursor:pointer;
+      box-shadow:0 8px 24px rgba(0,0,0,.25); z-index:999; border:0;
+      transition:background .15s ease, color .15s ease;
+    }
+    .open-handle svg{ width:28px; height:28px; display:block; pointer-events:none; }
+    .open-handle:hover{ background:#fff; color:var(--pm-red); }
 
     /* CATEGORY AREA — compact, no titles, consistent full-width bars */
-    #categoryMenus{
-      display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:6px;
-    }
+    #categoryMenus{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:6px; }
     .category-group{ border:1px solid #f3f4f6; border-radius:8px; padding:6px; margin:0; }
     .category-group .group-title{ display:none !important; }
-
     .item-select{
-      width:100% !important; max-width:100% !important;
-      border:2px solid var(--pm-red); border-radius:8px;
+      width:100% !important; max-width:100% !important; border:2px solid var(--pm-red); border-radius:8px;
       padding:6px 8px; font-weight:800; color:#111827; background:#fff; font-size:13px; line-height:1.2;
     }
-
     .qty-row{ display:flex; align-items:center; gap:8px; margin-top:8px; flex-wrap:wrap; }
     .qty-row input{ width:92px; border:2px solid #e5e7eb; border-radius:8px; padding:6px 8px; font-weight:800; }
     .qty-note{ font-size:11px; color:#6b7280; }
-    .add-btn{ background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark); padding:8px 12px; border-radius:10px; font-weight:1000; cursor:pointer; transition:background .15s ease, color .15s ease, border-color .15s ease; }
-    .add-btn:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
+
+    /* Red buttons invert on hover */
+    .add-btn, .checkout-btn{
+      background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark);
+      padding:8px 12px; border-radius:10px; font-weight:1000; cursor:pointer;
+      transition:background .15s ease, color .15s ease, border-color .15s ease;
+    }
+    .add-btn:hover, .checkout-btn:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
 
     .cart-items{ margin-top:10px; display:grid; gap:6px }
     .cart-item{
@@ -188,55 +215,33 @@
     .field input{ width:100%; border:2px solid #e5e7eb; border-radius:8px; padding:8px 10px; font-weight:700; font-size:14px; }
     @media(max-width:560px){ .customer-fields{ grid-template-columns:1fr; } }
 
-    .cart-total{ margin-top:10px; border-top:2px dashed #e5e7eb; padding-top:8px; font-weight:1000; font-size:16px; display:flex; justify-content:space-between; align-items:center; }
+    .cart-total{
+      margin-top:10px; border-top:2px dashed #e5e7eb; padding-top:8px;
+      font-weight:1000; font-size:16px; display:flex; justify-content:space-between; align-items:center;
+    }
     .checkout-row{ margin-top:6px; display:flex; gap:8px; }
-    .checkout-btn{ background:var(--pm-red); color:#fff; border:2px solid var(--pm-red-dark); padding:10px 14px; border-radius:10px; font-weight:1000; flex:1; text-align:center; cursor:pointer; transition:background .15s ease, color .15s ease, border-color .15s ease; }
-    .checkout-btn:hover{ background:#fff; color:var(--pm-red); border-color:var(--pm-red); }
+    .checkout-btn{ flex:1; text-align:center; }
 
-    /* NEW: small brand thank-you area under checkout */
+    /* NEW: brand + thank you (logo bigger) */
     .checkout-brand{
       margin-top:10px; padding-top:10px; border-top:1px dashed #e5e7eb;
-      display:flex; align-items:center; gap:10px; justify-content:center; flex-wrap:wrap; text-align:center;
-      color:#374151; font-weight:800;
+      display:flex; align-items:center; gap:12px; justify-content:center; flex-wrap:wrap; text-align:center; color:#374151; font-weight:800;
     }
-    .checkout-brand img{ width:92px; height:auto; border-radius:8px; border:1px solid #f3f4f6; background:#fff; }
+    .checkout-brand img{ width:128px; height:auto; border-radius:8px; border:1px solid #f3f4f6; background:#fff; }
     .checkout-brand .thanks{ font-size:14px; line-height:1.4; }
-
-    /* Close handle (inside cart) = minimize (arrow) */
-    .close-handle{
-      position:absolute; top:50%; left:-44px; transform:translateY(-50%);
-      width:44px; height:88px; background:var(--pm-red); color:#fff; border:0;
-      border-radius:12px 0 0 12px; box-shadow:-4px 0 12px rgba(0,0,0,.25);
-      display:flex; align-items:center; justify-content:center; cursor:pointer;
-      font-size:24px; font-weight:900; transition:background .15s ease, color .15s ease;
+    @media(max-width:560px){
+      .checkout-brand img{ width:110px; }
+      .checkout-brand .thanks{ font-size:13px; }
     }
-    .close-handle:hover{ background:#fff; color:var(--pm-red); }
-
-    /* ALWAYS-VISIBLE right-side open handle = CART icon */
-    .open-handle{
-      position:fixed; top:50%; right:0; transform:translateY(-50%);
-      height:96px; width:56px; border-radius:12px 0 0 12px; background:var(--pm-red); color:#fff;
-      display:flex; align-items:center; justify-content:center; cursor:pointer;
-      box-shadow:0 8px 24px rgba(0,0,0,.25); z-index:999; border:0;
-      transition:background .15s ease, color .15s ease;
-    }
-    .open-handle svg{ width:28px; height:28px; display:block; pointer-events:none; }
-    .open-handle:hover{ background:#fff; color:var(--pm-red); }
 
     /* Mobile cart sizing tweaks */
-    @media(max-width:900px){
-      .cart-drawer{ width:90vw; }
-    }
+    @media(max-width:900px){ .cart-drawer{ width:90vw; } }
     @media(max-width:560px){
       #categoryMenus{ grid-template-columns:repeat(2, minmax(0,1fr)); }
       .item-select{ padding:6px 8px; font-size:12.5px; }
       .qty-row input{ width:84px; }
-      .checkout-brand img{ width:80px; }
-      .checkout-brand .thanks{ font-size:13px; }
     }
-    @media(max-width:380px){
-      #categoryMenus{ grid-template-columns:1fr; }
-    }
+    @media(max-width:380px){ #categoryMenus{ grid-template-columns:1fr; } }
 
     /* CTA WHITE (bottom) */
     .cta-white{ background:#fff; color:#000; border-top:2px solid #f3f4f6; }
@@ -251,7 +256,6 @@
   </style>
 </head>
 <body>
-
   <!-- Header -->
   <header class="site-header" role="banner">
     <div class="header-inner">
@@ -364,14 +368,22 @@
 
   <!-- Cart Drawer -->
   <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Cart">
-    <button class="close-handle" id="closeHandle" type="button" title="Hide cart">⟩</button>
+    <!-- NEW: Left retract handle uses same cart icon -->
+    <button class="close-handle" id="closeHandle" type="button" title="Hide cart" aria-label="Hide cart">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 4h2l2 10h11l3-8H6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+        <circle cx="9" cy="20" r="2" fill="currentColor"></circle>
+        <circle cx="18" cy="20" r="2" fill="currentColor"></circle>
+      </svg>
+    </button>
 
     <div class="cart-header">
       <div class="pickup-note">
         By placing an order, your order will be available for pickup at<br>
         <strong>635 240th Street, Waterloo, NE 68069</strong> at <strong>2 PM the Next Day</strong>.
       </div>
-      <!-- NEW: collapse cart button -->
+
+      <!-- collapse cart button -->
       <button class="cart-collapse" id="cartCollapseBtn" type="button" aria-label="Minimize cart" title="Minimize cart">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M3 4h2l2 10h11l3-8H6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -413,26 +425,13 @@
         <button class="checkout-btn" type="button" id="checkoutBtn" title="Proceed to pickup instructions">Checkout</button>
       </div>
 
-      <!-- NEW: brand + thank you -->
+      <!-- brand + thank you -->
       <div class="checkout-brand" aria-hidden="false">
         <img src="/prenzlowmeats.png" alt="Prenzlow's Meats logo">
         <div class="thanks">Thank You For Choosing Prenzlow’s Meats</div>
       </div>
     </div>
   </aside>
-
-  <!-- MODAL (alerts & confirms) -->
-  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-live="assertive">
-    <div class="modal" role="document">
-      <button class="modal-close-x" id="modalCloseX" aria-label="Close">×</button>
-      <h3 id="modalTitle">Attention</h3>
-      <p id="modalText">Message</p>
-      <div class="modal-actions">
-        <button class="modal-btn" id="modalCancel" type="button">No</button>
-        <button class="modal-btn primary" id="modalOk" type="button">OK</button>
-      </div>
-    </div>
-  </div>
 
   <!-- Shared footer include -->
   <div id="footerMount" data-include="/sitemap-footer.html">[loading footer…]</div>
@@ -456,8 +455,11 @@
             try {
               const html = await tryFetch(href);
               mount.outerHTML = html;
-              loaded = true; break;
-            } catch (e) { console.warn('[include] failed', href, e.message); }
+              loaded = true;
+              break;
+            } catch (e) {
+              console.warn('[include] failed', href, e.message);
+            }
           }
           if (!loaded) {
             mount.textContent = 'Section failed to load.';
@@ -483,37 +485,7 @@
       }
     }
 
-    // Modal helpers
-    const modalBackdrop = document.getElementById('modalBackdrop');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalText = document.getElementById('modalText');
-    const modalOk = document.getElementById('modalOk');
-    const modalCancel = document.getElementById('modalCancel');
-    const modalCloseX = document.getElementById('modalCloseX');
-
-    function closeModal(){ modalBackdrop.style.display='none'; modalOk.onclick = null; modalCancel.onclick = null; }
-    function openAlert(message, title='Attention'){
-      modalTitle.textContent = title;
-      modalText.textContent = message;
-      modalBackdrop.style.display='flex';
-      modalCancel.style.display='none';
-      modalOk.textContent = 'OK';
-      modalOk.onclick = closeModal;
-    }
-    function openConfirm(message, onConfirm, title='Please Confirm'){
-      modalTitle.textContent = title;
-      modalText.textContent = message;
-      modalBackdrop.style.display='flex';
-      modalCancel.style.display='inline-flex';
-      modalOk.textContent = 'Yes';
-      modalCancel.textContent = 'No';
-      modalOk.onclick = ()=>{ closeModal(); onConfirm && onConfirm(); };
-      modalCancel.onclick = closeModal;
-    }
-    modalCloseX.addEventListener('click', closeModal);
-    modalBackdrop.addEventListener('click', (e)=>{ if (e.target === modalBackdrop) closeModal(); });
-
-    /* ===== Catalog (removed "Spices") ===== */
+    /* ===== Catalog ===== */
     const CATALOG = {
       "Beef & Steak":[
         {key:"filet_mignon", label:"Filet Mignon", price:36.00},
@@ -586,13 +558,12 @@
 
     let lastSelectedKey = null;
     let cart = [];
-
     const currency = (n)=> '$' + n.toFixed(2);
 
     function openCart(){
       drawer.classList.add('open');
       drawer.setAttribute('aria-hidden','false');
-      openHandle.style.display = 'none';        // keep icon hidden while open
+      openHandle.style.display = 'none';
       setMobileNavDisabled(true);
     }
     function hideCart(){
@@ -612,10 +583,10 @@
         const select = document.createElement('select');
         select.className = 'item-select';
 
-        // First option doubles as the visible "bar" label
         const first = document.createElement('option');
         first.value = '';
-        first.disabled = true; first.selected = true;
+        first.disabled = true;
+        first.selected = true;
         first.textContent = cat;
         select.appendChild(first);
 
@@ -628,7 +599,10 @@
           select.appendChild(opt);
         });
 
-        select.addEventListener('change', ()=>{ lastSelectedKey = select.value || null; });
+        select.addEventListener('change', ()=>{
+          lastSelectedKey = select.value || null;
+        });
+
         wrap.appendChild(select);
         menusMount.appendChild(wrap);
       });
@@ -647,7 +621,7 @@
     heroPickupBtn?.addEventListener('click', openCart);
     openHandle?.addEventListener('click', openCart);
     closeHandle?.addEventListener('click', hideCart);
-    cartCollapseBtn?.addEventListener('click', hideCart); // NEW: header cart icon collapses
+    cartCollapseBtn?.addEventListener('click', hideCart);
 
     /* Add item handler */
     addItemBtn?.addEventListener('click', ()=>{
@@ -655,34 +629,45 @@
         const chosen = Array.from(document.querySelectorAll('#categoryMenus select')).find(s => s.value);
         if (chosen) lastSelectedKey = chosen.value;
       }
-      if (!lastSelectedKey){ openAlert('Please select a product from any category.'); return; }
+      if (!lastSelectedKey){
+        alert('Please select a product from any category.');
+        return;
+      }
       const item = findItemByKey(lastSelectedKey);
-      if (!item){ openAlert('Selected item not found.'); return; }
-      if (item.price == null){ openAlert('This item does not have a price yet. Please call for pricing or choose another item.'); return; }
-
+      if (!item){
+        alert('Selected item not found.');
+        return;
+      }
+      if (item.price == null){
+        alert('This item does not have a price yet. Please call for pricing or choose another item.');
+        return;
+      }
       let lbs = parseInt(qtyInput.value||'1', 10);
       if (isNaN(lbs) || lbs < 1) lbs = 1;
       if (lbs > 100) lbs = 100;
 
       if (lbs > 10){
-        openConfirm(`Did you mean to type in (${lbs}) amount of pounds? If yes, add it to cart, if not, do not add it to cart.`, ()=>{
-          addOrUpdateCartItem(item.key, item.label, item.price, lbs);
-        });
-        return;
+        const ok = confirm(`Did you mean to type in ${lbs} pounds? Choose OK to add it to the cart, or Cancel to stop.`);
+        if (!ok) return;
       }
       addOrUpdateCartItem(item.key, item.label, item.price, lbs);
     });
 
     function addOrUpdateCartItem(key, label, price, lbs){
       const existing = cart.find(it => it.key === key);
-      if (existing){ existing.lbs = Math.min(100, existing.lbs + lbs); }
-      else { cart.push({ key, label, price, lbs }); }
+      if (existing){
+        existing.lbs = Math.min(100, existing.lbs + lbs);
+      } else {
+        cart.push({ key, label, price, lbs });
+      }
       renderCart();
     }
+
     function removeFromCart(idx){
       cart.splice(idx,1);
       renderCart();
     }
+
     const computeTotal = ()=> cart.reduce((sum,it)=> sum + (it.price * it.lbs), 0);
 
     function renderCart(){
@@ -708,8 +693,10 @@
         price.textContent = currency(it.price * it.lbs);
 
         const remove = document.createElement('button');
-        remove.className = 'remove'; remove.type = 'button';
-        remove.title = 'Remove item'; remove.textContent = '×';
+        remove.className = 'remove';
+        remove.type = 'button';
+        remove.title = 'Remove item';
+        remove.textContent = '×';
         remove.addEventListener('click', ()=> removeFromCart(idx));
 
         row.appendChild(name);
@@ -722,19 +709,33 @@
       cartTotalEl.textContent = currency(computeTotal());
     }
 
-    /* Checkout validation via modal */
-    function validPhone(p){ const digits = (p||'').replace(/\D/g,''); return digits.length >= 7; }
+    /* Checkout validation */
+    function validPhone(p){
+      const digits = (p||'').replace(/\D/g,'');
+      return digits.length >= 7;
+    }
+
     checkoutBtn?.addEventListener('click', ()=>{
-      if (!custName.value.trim()){ openAlert('Please enter your name.'); custName.focus(); return; }
-      if (!validPhone(custPhone.value)){ openAlert('Please enter a valid phone number.'); custPhone.focus(); return; }
-      if (cart.length === 0){ openAlert('Your cart is empty.'); return; }
-      openAlert('Thanks! Your pickup will be ready tomorrow at 2 PM at 635 240th Street, Waterloo, NE 68069.', 'Order Received');
+      if (!custName.value.trim()){
+        alert('Please enter your name.');
+        custName.focus();
+        return;
+      }
+      if (!validPhone(custPhone.value)){
+        alert('Please enter a valid phone number.');
+        custPhone.focus();
+        return;
+      }
+      if (cart.length === 0){
+        alert('Your cart is empty.');
+        return;
+      }
+      alert('Thanks! Your pickup will be ready tomorrow at 2 PM at 635 240th Street, Waterloo, NE 68069.');
     });
 
-    /* Keyboard: Esc closes modal or hides cart */
+    /* Keyboard: Esc hides cart */
     document.addEventListener('keydown', (e)=>{
       if (e.key === 'Escape'){
-        if (modalBackdrop.style.display === 'flex') { closeModal(); return; }
         if (drawer.classList.contains('open')) hideCart();
       }
     });
